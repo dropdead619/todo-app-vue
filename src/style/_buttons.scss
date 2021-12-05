@@ -1,0 +1,9 @@
+.btn-white {
+  background-color: #f6f6f6;
+}
+
+.btn--scale {
+  &:hover {
+    transform: scale(1.1);
+  }
+}
