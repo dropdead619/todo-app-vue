@@ -57,19 +57,20 @@ label {
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
-  min-height: 200px;
-  align-items: flex-start;
-  justify-content: space-between;
+  width: 500px;
+  border: 10px solid white;
+  border-radius: 15px;
   &-item {
-    max-width: 300px;
+    max-width: 500px;
     width: 100%;
     display: flex;
     justify-content: space-between;
+    padding: 1rem;
+    background-color: #fff;
   }
   &-label {
     font-size: 16px;
+    color: #000000;
   }
   &-input {
     outline: none;

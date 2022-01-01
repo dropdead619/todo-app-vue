@@ -4,21 +4,16 @@ import TheEmptyRouterView from '@/components/TheEmptyRouterView.vue';
 const routes = [
   {
     path: '/',
-    redirect: '/tasks',
+    redirect: '/tasks/main',
   },
   {
     path: '/tasks',
     component: TheEmptyRouterView,
     children: [
       {
-        path: 'list',
-        name: 'TaskList',
-        component: () => import(/* webpackChunkName: "tasks" */ '../views/TaskList.vue'),
-      },
-      {
-        path: 'add',
-        name: 'TaskAdd',
-        component: () => import(/* webpackChunkName: "tasks" */ '../views/TaskAdd.vue'),
+        path: 'main',
+        name: 'TasksMain',
+        component: () => import(/* webpackChunkName: "tasks" */ '../views/TasksMain.vue'),
       },
     ],
   },

@@ -19,13 +19,10 @@
 </template>
 
 <script>
+import { ref } from 'vue';
+
 export default {
   name: 'TaskItems',
-  data() {
-    return {
-      isBtnVisible: false,
-    };
-  },
   props: {
     task: {
       type: Object,
@@ -33,15 +30,18 @@ export default {
       default: () => {},
     },
   },
-  methods: {
-    toggleVisibility() {
-      this.isBtnVisible = !this.isBtnVisible;
-    },
-    async removeTask() {
-      await this.$store.dispatch('Tasks/deleteTask', { id: this.task.id });
-      await this.$store.dispatch('Tasks/fetchTasks');
-      console.log('deleted', this.task);
-    },
+  setup(props, context) {
+    const isBtnVisible = ref(false);
+
+    function toggleVisibility() {
+      isBtnVisible.value = !isBtnVisible.value;
+    }
+
+    function removeTask() {
+      context.emit('removeTask', props.task.id);
+    }
+
+    return { isBtnVisible, toggleVisibility, removeTask };
   },
 };
 </script>

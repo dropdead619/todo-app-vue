@@ -16,20 +16,17 @@ const store = {
   },
   actions: {
     fetchTasks({ commit }) {
-      return new Promise(resolve => {
+      commit('TOGGLE_LOADING_STATE');
+      fetch('https://todo-backend-4b5b9-default-rtdb.firebaseio.com/tasks.json').then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+      }).then(data => {
+        for (const el in data) {
+          data[el].id = el;
+        }
+        commit('SET_DATA', data);
         commit('TOGGLE_LOADING_STATE');
-        fetch('https://todo-backend-4b5b9-default-rtdb.firebaseio.com/tasks.json').then(response => {
-          if (response.ok) {
-            return response.json();
-          }
-        }).then(data => {
-          for (const el in data) {
-            data[el].id = el;
-          }
-          commit('SET_DATA', data);
-          commit('TOGGLE_LOADING_STATE');
-          resolve(data);
-        });
       });
     },
     addTasks(_, payload) {
