@@ -46,6 +46,7 @@ export default {
 
     const showInput = ref(false);
     const showAddForm = ref(false);
+    const justAdded = ref(false);
 
     const store = useStore();
 
@@ -64,7 +65,7 @@ export default {
     function addTask(task) {
       store.dispatch('Tasks/addTasks', task).then(() => {
         setTimeout(() => {
-          store.dispatch('Tasks/fetchTasks').then(() =>
+          store.dispatch('Tasks/fetchTasks', true).then(() =>
             toggleAddForm());
         }, 500);
       });
@@ -74,7 +75,7 @@ export default {
       store.dispatch('Tasks/fetchTasks');
     });
 
-    return { title, showInput, showAddForm, isLoading, toggleInput, toggleAddForm, addTask };
+    return { title, showInput, showAddForm, isLoading, toggleInput, toggleAddForm, addTask, justAdded };
   },
 };
 </script>

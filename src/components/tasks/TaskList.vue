@@ -2,7 +2,11 @@
   <ul
     v-for="task in tasks"
     :key="task">
-    <TaskItems :task="task" @removeTask="deleteTask" />
+    <TaskItems
+      :task="task"
+      @deleteTask="deleteTask"
+      @editTask="editTask"
+      @toggleState="toggleState" />
   </ul>
 </template>
 
@@ -19,7 +23,6 @@ export default {
   components: {
     TaskItems,
   },
-  emits: ['removeTask'],
   setup() {
     const store = useStore();
 
@@ -27,15 +30,24 @@ export default {
       return store.getters['Tasks/tasks'];
     });
 
+    function toggleState(task) {
+      task.isDone = !task.isDone;
+      store.dispatch('Tasks/editTask', task);
+    }
+
     function deleteTask(id) {
       store.dispatch('Tasks/deleteTask', { id: id }).then(() => {
-        setTimeout(() => {
-          store.dispatch('Tasks/fetchTasks');
-        }, 500);
+        store.dispatch('Tasks/fetchTasks');
       });
     }
 
-    return { tasks, deleteTask };
+    function editTask(task) {
+      store.dispatch('Tasks/editTask', task).then(() => {
+        store.dispatch('Tasks/fetchTasks');
+      });
+    }
+
+    return { tasks, toggleState, deleteTask, editTask };
   },
 };
 </script>

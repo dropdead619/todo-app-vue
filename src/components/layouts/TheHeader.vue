@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header class="header sticky-top">
     <nav class="header__nav">
       <router-link :to="{ name: 'TasksMain' }"><fa icon="home" /> &nbsp; Main page </router-link>
       <router-link :to="{ name: 'UserProfile' }"><fa icon="user" /> &nbsp; My profile </router-link>

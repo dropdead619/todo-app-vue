@@ -46,6 +46,7 @@ export default {
     const task = reactive({
       title: '',
       description: '',
+      isDone: false,
     });
     const showInput = ref(false);
 
@@ -63,6 +64,7 @@ export default {
       context.emit('addTask', task);
       task.title = '';
       task.description = '';
+      task.isDone = false;
     }
 
     return { title, task, showInput, isLoading, onSubmit, closeModal };
