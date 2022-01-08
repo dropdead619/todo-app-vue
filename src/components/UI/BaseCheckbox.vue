@@ -1,6 +1,7 @@
 <template>
-  <label class="custom-checkbox" :class="checked ? 'btn-danger' : 'btn-outline-danger'">
+  <label class="custom-checkbox" :class="checked ? 'btn-success' : 'btn-outline-danger'">
     <input
+      v-bind="$attrs"
       autocomplete="off"
       class="btn custom-checkbox-input"
       type="checkbox"
@@ -11,6 +12,7 @@
 
 <script>
 export default {
+  inheritAttrs: false,
   name: 'BaseCheckbox',
   emits: ['toggle'],
   props: {

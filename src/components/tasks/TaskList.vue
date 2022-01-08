@@ -1,12 +1,16 @@
 <template>
-  <ul
-    v-for="task in tasks"
-    :key="task">
-    <TaskItems
-      :task="task"
-      @deleteTask="deleteTask"
-      @editTask="editTask"
-      @toggleState="toggleState" />
+  <ul class="task-list">
+    <li
+      v-for="task in tasks"
+      :key="task.id"
+      class="task-list-item">
+      <TaskItems
+        :archived="archived ? archived : false"
+        :task="task"
+        @archiveTask="archiveTask"
+        @deleteTask="deleteTask"
+        @toggleState="toggleState" />
+    </li>
   </ul>
 </template>
 
@@ -23,11 +27,17 @@ export default {
   components: {
     TaskItems,
   },
-  setup() {
+  props: {
+    archived: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  setup(props) {
     const store = useStore();
 
     const tasks = computed(function () {
-      return store.getters['Tasks/tasks'];
+      return props.archived ? store.getters['Tasks/archived'] : store.getters['Tasks/tasks'];
     });
 
     function toggleState(task) {
@@ -41,13 +51,14 @@ export default {
       });
     }
 
-    function editTask(task) {
+    function archiveTask(task) {
+      task.archived = !task.archived;
       store.dispatch('Tasks/editTask', task).then(() => {
         store.dispatch('Tasks/fetchTasks');
       });
     }
 
-    return { tasks, toggleState, deleteTask, editTask };
+    return { tasks, toggleState, deleteTask, archiveTask };
   },
 };
 </script>

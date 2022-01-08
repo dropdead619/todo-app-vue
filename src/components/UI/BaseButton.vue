@@ -1,16 +1,18 @@
 <template>
-  <div class="modal" @click.self="onClick">
+  <button
+    class="btn btn-white btn--scale m-2"
+    @click="onClick">
     <slot></slot>
-  </div>
+  </button>
 </template>
 
 <script>
 export default {
-  name: 'BaseModal',
-  emits: ['closeModal'],
+  name: 'BaseButton',
+  emits: ['click'],
   setup(_, { emit }) {
     function onClick() {
-      emit('closeModal');
+      emit('click');
     }
 
     return { onClick };

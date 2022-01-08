@@ -3,28 +3,48 @@ import TheEmptyRouterView from '@/components/TheEmptyRouterView.vue';
 
 const routes = [
   {
-    path: '/',
-    redirect: '/tasks/main',
-  },
-  {
-    path: '/tasks',
-    component: TheEmptyRouterView,
+    path: '/login',
+    component: () => import(/* webpackChunkName: "auth" */ '@/layouts/TheLayoutLogin.vue'),
     children: [
       {
-        path: 'main',
-        name: 'TasksMain',
-        component: () => import(/* webpackChunkName: "tasks" */ '../views/TasksMain.vue'),
+        path: '',
+        name: 'Login',
+        component: () => import(/* webpackChunkName: "auth" */ '@/views/auth/LoginPage.vue'),
       },
     ],
   },
   {
-    path: '/user',
-    component: TheEmptyRouterView,
+    path: '/',
+    name: 'default',
+    redirect: '/tasks/main',
+    component: () => import(/* webpackChunkName: "default" */ '@/layouts/TheLayoutDefault.vue'),
     children: [
       {
-        path: 'profile',
-        name: 'UserProfile',
-        component: () => import(/* webpackChunkName: "user" */ '../views/UserProfile.vue'),
+        path: '/tasks',
+        component: TheEmptyRouterView,
+        children: [
+          {
+            path: 'main',
+            name: 'TasksMain',
+            component: () => import(/* webpackChunkName: "tasks" */ '../views/TasksMain.vue'),
+          },
+          {
+            path: 'archived',
+            name: 'TasksArchive',
+            component: () => import(/* webpackChunkName: "tasks" */ '../views/TasksArchive.vue'),
+          },
+        ],
+      },
+      {
+        path: '/user',
+        component: TheEmptyRouterView,
+        children: [
+          {
+            path: 'profile',
+            name: 'UserProfile',
+            component: () => import(/* webpackChunkName: "user" */ '../views/UserProfile.vue'),
+          },
+        ],
       },
     ],
   },

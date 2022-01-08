@@ -1,54 +1,73 @@
 <template>
   <div
-    class="card"
+    class="d-flex flex-column"
     @mouseenter="toggleVisibility"
     @mouseleave="toggleVisibility">
-    <BaseCheckbox :checked="task.isDone" @toggle="toggleState">
-      <fa icon="check" />
-    </BaseCheckbox>
-    <div class="card-body">
-      <h5 class="card-title">{{ task.title }}</h5>
-      <p class="card-text">
-        {{task.description}}
-      </p>
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="text-white  m-3"> {{ $dayjs(task.createdAt).format('HH:mm DD.MM.YYYY') }}</div>
+      <div
+        v-if="!archived && isBtnVisible">
+        <BaseButton
+          @click="deleteTask">
+          <fa icon="minus" />
+        </BaseButton>
+        <BaseButton
+          @click="archiveTask">
+          <fa icon="archive" />
+        </BaseButton>
+        <BaseButton
+          v-if="task.editable"
+          @click="toggleEditForm">
+          <fa icon="pen" />
+        </BaseButton>
+      </div>
     </div>
-    <button
-      v-if="isBtnVisible"
-      class="btn btn-white btn--scale delete"
-      @click="deleteTask">
-      <fa icon="minus" />
-    </button>
-    <button
-      v-if="isBtnVisible && task.editable"
-      class="btn btn-white btn--scale edit"
-      @click="editTask">
-      <fa icon="pen" />
-    </button>
+
+    <div
+      class="card">
+      <BaseCheckbox
+        :checked="task.isDone"
+        :disabled="archived"
+        @toggle="toggleState">
+        <fa v-if="task.isDone" icon="check" />
+        <fa v-else icon="minus" />
+      </BaseCheckbox>
+      <div class="card-body">
+        <h5 class="card-title">{{ task.title }}</h5>
+        <p class="card-text">
+          {{task.description}}
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
-import BaseCheckbox from '@/components/UI/BaseCheckbox.vue';
+import { ref, inject } from 'vue';
 
 export default {
   name: 'TaskItems',
-  components: {
-    BaseCheckbox,
-  },
   props: {
     task: {
       type: Object,
       required: true,
       default: () => {},
     },
+    archived: {
+      type: Boolean,
+      default: false,
+    },
   },
-  emits: ['toggleState', 'deleteTask', 'editTask'],
+  emits: ['toggleState', 'deleteTask', 'archiveTask'],
   setup(props, context) {
     const isBtnVisible = ref(false);
 
     function toggleVisibility() {
       isBtnVisible.value = !isBtnVisible.value;
+    }
+
+    function archiveTask() {
+      context.emit('archiveTask', props.task);
     }
 
     function toggleState() {
@@ -59,29 +78,15 @@ export default {
       context.emit('deleteTask', props.task.id);
     }
 
-    function editTask() {
-      context.emit('editTask', props.task);
-      console.log('items', props.task);
-    }
+    const toggleEditForm = props.archived ? '' : inject('toggleEditForm');
 
-    return { isBtnVisible, toggleVisibility, deleteTask, editTask, toggleState };
+    return { isBtnVisible, toggleVisibility, deleteTask, toggleState, archiveTask, toggleEditForm };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.card {
-  position: relative;
   .btn {
-    position: absolute;
     width: 40px;
-    top: 0;
   }
-  .edit {
-    right: 50px;
-  }
-  .delete {
-    right: 0;
-  }
-}
 </style>
