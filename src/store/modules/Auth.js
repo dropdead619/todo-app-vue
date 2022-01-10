@@ -17,7 +17,7 @@ const store = {
   actions: {
     async signup({ commit }, payload) {
       commit('TOGGLE_LOADING_STATE', null, { root: true });
-      const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBfugCxKkiT_MdConmcQAN3TtdyrN_VM4k', {
+      const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBfugCxKkiT_MdConmcQAN3TtdyrN_VM4k', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ const store = {
       });
       const responseData = await response.json();
       if (!response.ok) {
-        const error = new Error(responseData.message || 'Failed to authenticate');
+        const error = new Error(responseData.error.message || 'Failed to authenticate');
         throw error;
       }
       commit('SET_USER', responseData);

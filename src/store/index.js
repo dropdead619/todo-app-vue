@@ -1,5 +1,6 @@
 import { createStore } from 'vuex';
 import Tasks from '@/store/modules/Tasks';
+import Auth from '@/store/modules/Auth';
 
 export default createStore({
   state: {
@@ -19,5 +20,6 @@ export default createStore({
   },
   modules: {
     Tasks,
+    Auth,
   },
 });

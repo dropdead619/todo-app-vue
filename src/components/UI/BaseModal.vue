@@ -1,19 +1,36 @@
 <template>
-  <div class="modal" @click.self="onClick">
-    <slot></slot>
-  </div>
+  <teleport to="body">
+    <BaseBackdrop
+      v-if="show"
+      @click.self="close" />
+    <div
+      v-if="show"
+      :class="`modal modal--${size}`">
+      <slot></slot>
+    </div>
+  </teleport>
 </template>
 
 <script>
 export default {
   name: 'BaseModal',
-  emits: ['closeModal'],
+  props: {
+    show: {
+      type: Boolean,
+      required: true,
+    },
+    size: {
+      type: String,
+      default: 'small',
+    },
+  },
+  emits: ['close'],
   setup(_, { emit }) {
-    function onClick() {
-      emit('closeModal');
+    function close() {
+      emit('close');
     }
 
-    return { onClick };
+    return { close };
   },
 };
 </script>

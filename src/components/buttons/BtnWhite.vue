@@ -1,12 +1,12 @@
 <template>
   <button
-    class="btn">
+    class="btn btn-white m-2 btn--scale">
     <slot></slot>
   </button>
 </template>
 
 <script>
 export default {
-  name: 'BaseButton',
+  name: 'BtnWhite',
 };
 </script>

@@ -50,7 +50,7 @@ const store = {
       commit('TOGGLE_LOADING_STATE', null, { root: true });
     },
     fetchTaskById({ commit }, id) {
-      commit('TOGGLE_LOADING_STATE', { root: true });
+      commit('TOGGLE_LOADING_STATE', null, { root: true });
       return fetch(`https://todo-backend-4b5b9-default-rtdb.firebaseio.com/tasks/${id}.json`).then(response => {
         if (response.ok) {
           return response.json();

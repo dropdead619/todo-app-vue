@@ -1,23 +1,20 @@
 <template>
   <div>
-    <teleport to="body">
-      <BaseModal
-        v-if="showAddForm"
-        class="justify-content-around"
-        @closeModal="toggleAddForm">
-        <TaskForm
-          @submitForm="addTask" />
-      </BaseModal>
-      <BaseModal
-        v-if="showEditForm"
-        class="justify-content-around"
-        @closeModal="toggleEditForm">
-        <TaskForm
-          :id="task.id"
-          isEditing
-          @submitForm="editTask" />
-      </BaseModal>
-    </teleport>
+    <BaseModal
+      :show="showAddForm"
+      @close="toggleAddForm">
+      <TaskForm
+        @keyup.enter="addTask"
+        @submitForm="addTask" />
+    </BaseModal>
+    <BaseModal
+      :show="showEditForm"
+      @close="toggleEditForm">
+      <TaskForm
+        :id="task.id"
+        isEditing
+        @submitForm="editTask" />
+    </BaseModal>
     <div>
       <div class="title d-flex align-items-center justify-content-center">
         <BaseInput
@@ -26,10 +23,10 @@
           class="m-4"
           type="text" />
         <h1 class="m-4">{{ title }}</h1>
-        <button class="btn btn-white btn--scale m-3" @click="toggleInput">
+        <BtnWhite @click="toggleInput">
           <fa icon="edit" />
-        </button>
-        <button class="btn btn-white btn--scale" @click="toggleAddForm"><fa icon="plus" /> </button>
+        </BtnWhite>
+        <BtnWhite @click="toggleAddForm"><fa icon="plus" /> </BtnWhite>
         <form class="m-4">
           <input placeholder="Filter by task name" type="text">
         </form>

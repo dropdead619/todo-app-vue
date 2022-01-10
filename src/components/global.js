@@ -1,14 +1,22 @@
 
 import BaseCheckbox from '@/components/UI/BaseCheckbox.vue';
 import BaseInput from '@/components/UI/BaseInput.vue';
-import BaseModal from '@/components/UI/BaseModal';
-import BasePreloader from '@/components/UI/BasePreloader';
-import BaseButton from '@/components/UI/BaseButton';
+import BaseBackdrop from '@/components/UI/BaseBackdrop.vue';
+import BasePreloader from '@/components/UI/BasePreloader.vue';
+import BaseButton from '@/components/UI/BaseButton.vue';
+import BaseCard from '@/components/UI/BaseCard.vue';
+import BaseDialog from '@/components/UI/BaseDialog.vue';
+import BaseModal from '@/components/UI/BaseModal.vue';
+import BtnWhite from '@/components/buttons/BtnWhite.vue';
 
 export function registerGlobalComponents(app) {
   app.component('BaseCheckbox', BaseCheckbox);
   app.component('BaseInput', BaseInput);
-  app.component('BaseModal', BaseModal);
+  app.component('BaseBackdrop', BaseBackdrop);
+  app.component('BaseDialog', BaseDialog);
   app.component('BasePreloader', BasePreloader);
   app.component('BaseButton', BaseButton);
+  app.component('BaseCard', BaseCard);
+  app.component('BaseModal', BaseModal);
+  app.component('BtnWhite', BtnWhite);
 }

@@ -1,7 +1,6 @@
 <template>
   <form
     class="form"
-    @keyup.enter="onSubmit"
     @submit.prevent="onSubmit">
     <div class="form-item">
       <BaseInput
@@ -20,12 +19,12 @@
         required />
     </div>
     <div class="form-item">
-      <button class="btn btn-primary" type="submit"> {{ buttonText }}</button>
+      <BaseButton class="btn-primary"> {{ buttonText }}</BaseButton>
     </div>
   </form>
-  <template v-if="isLoading">
+  <!-- <template v-if="isLoading">
     <BasePreloader>Loading...</BasePreloader>
-  </template>
+  </template> -->
 </template>
 
 <script>

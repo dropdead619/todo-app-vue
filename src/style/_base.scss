@@ -83,11 +83,11 @@ label {
 }
 
 .form {
-  width: 500px;
+  max-width: 700px;
+  width: 30rem;
   border: 10px solid white;
   border-radius: 15px;
   &-item {
-    max-width: 500px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -102,6 +102,11 @@ label {
     padding: 4px 8px;
     font-size: 14px;
   }
+  @media (max-width: 768px) {
+    & {
+      width: 20rem;
+    }
+  }
 }
 
 h1,
@@ -113,26 +118,36 @@ h6 {
   color: white;
 }
 
-.card {
-  background-color: #262626;
-  color: white;
-  width: 100%;
-  flex-direction: row;
-  align-items: center;
-  padding: 0.2rem;
-}
-
 .modal {
   position: fixed;
-  top: 0;
-  z-index: 999;
-  max-width: 1920px;
-  width: 100%;
-  height: 100vh;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.4);
+  top: 20vh;
+  left: 10%;
+  width: 80%;
+  z-index: 100;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 2px 26px rgba(235, 235, 235, 0.144);
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  color: white;
+  background-color: #ffffff;
+  @media (min-width: 768px) {
+    &--small {
+      left: calc(50% - 15rem);
+      width: 30rem;
+    }
+
+    &--medium {
+      left: calc(50% - 17rem);
+      width: 35rem;
+    }
+
+    &--large {
+      left: calc(50% - 20rem);
+      width: 40rem;
+    }
+  }
 }
 
 .modal__dialog {
@@ -142,8 +157,9 @@ h6 {
   background: transparent;
   width: 90px;
   height: 90px;
-  img {
-    width: 100%;
-    height: 100%;
-  }
+}
+
+.preloader {
+  width: 100%;
+  height: 100%;
 }

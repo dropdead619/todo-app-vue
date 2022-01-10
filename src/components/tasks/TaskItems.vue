@@ -7,24 +7,23 @@
       <div class="text-white  m-3"> {{ $dayjs(task.createdAt).format('HH:mm DD.MM.YYYY') }}</div>
       <div
         v-if="!archived && isBtnVisible">
-        <BaseButton
+        <BtnWhite
           @click="deleteTask">
           <fa icon="minus" />
-        </BaseButton>
-        <BaseButton
+        </BtnWhite>
+        <BtnWhite
           @click="archiveTask">
           <fa icon="archive" />
-        </BaseButton>
-        <BaseButton
+        </BtnWhite>
+        <BtnWhite
           v-if="task.editable"
           @click="toggleEditForm">
           <fa icon="pen" />
-        </BaseButton>
+        </BtnWhite>
       </div>
     </div>
 
-    <div
-      class="card">
+    <BaseCard class="mw-100">
       <BaseCheckbox
         :checked="task.isDone"
         :disabled="archived"
@@ -38,7 +37,7 @@
           {{task.description}}
         </p>
       </div>
-    </div>
+    </BaseCard>
   </div>
 </template>
 
