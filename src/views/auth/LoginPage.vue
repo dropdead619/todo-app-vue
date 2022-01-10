@@ -97,13 +97,15 @@ export default {
       try {
         if (loginMode.value === 'signUp') {
           await store.dispatch('Auth/signup', user);
+        } else {
+          await store.dispatch('Auth/signin', user);
         }
       } catch (error) {
         errors.value = error;
         toggleErrorDialog();
         return;
       }
-      router.push({ name: 'default' });
+      router.replace({ name: 'default' });
     }
 
     return { user, errors, showErrors, loginModeName, switchModeButtonText, toggleErrorDialog, onSubmit, toggleMode };
