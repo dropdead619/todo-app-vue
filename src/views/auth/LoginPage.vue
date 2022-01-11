@@ -2,7 +2,7 @@
   <div>
     <BaseDialog
       :show="showErrors"
-      size="small"
+      size="medium"
       :title="loginModeName"
       @close="toggleErrorDialog">
       <div>

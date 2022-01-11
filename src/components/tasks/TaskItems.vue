@@ -1,4 +1,20 @@
 <template>
+  <div>
+    <BaseDialog
+      :show="showDeleteWindow"
+      size="small"
+      title="Delete selected task?"
+      @close="toggleDeleteWindow">
+      <template #actions>
+        <BaseButton class="btn-success m-2" @click="deleteTask">
+          Yes
+        </BaseButton>
+        <BaseButton class="btn-danger m-2" @click="toggleDeleteWindow">
+          No
+        </BaseButton>
+      </template>
+    </BaseDialog>
+  </div>
   <div
     class="d-flex flex-column"
     @mouseenter="toggleVisibility"
@@ -8,7 +24,7 @@
       <div
         v-if="!archived && isBtnVisible">
         <BtnWhite
-          @click="deleteTask">
+          @click="toggleDeleteWindow">
           <fa icon="minus" />
         </BtnWhite>
         <BtnWhite
@@ -61,6 +77,12 @@ export default {
   setup(props, context) {
     const isBtnVisible = ref(false);
 
+    const showDeleteWindow = ref(false);
+
+    function toggleDeleteWindow() {
+      showDeleteWindow.value = !showDeleteWindow.value;
+    }
+
     function toggleVisibility() {
       isBtnVisible.value = !isBtnVisible.value;
     }
@@ -79,13 +101,7 @@ export default {
 
     const toggleEditForm = props.archived ? '' : inject('toggleEditForm');
 
-    return { isBtnVisible, toggleVisibility, deleteTask, toggleState, archiveTask, toggleEditForm };
+    return { showDeleteWindow, isBtnVisible, toggleDeleteWindow, toggleVisibility, deleteTask, toggleState, archiveTask, toggleEditForm };
   },
 };
 </script>
-
-<style lang="scss" scoped>
-  .btn {
-    width: 40px;
-  }
-</style>
