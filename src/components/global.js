@@ -8,6 +8,7 @@ import BaseCard from '@/components/UI/BaseCard.vue';
 import BaseDialog from '@/components/UI/BaseDialog.vue';
 import BaseModal from '@/components/UI/BaseModal.vue';
 import BtnWhite from '@/components/buttons/BtnWhite.vue';
+import BaseTextarea from '@/components/UI/BaseTextarea.vue';
 
 export function registerGlobalComponents(app) {
   app.component('BaseCheckbox', BaseCheckbox);
@@ -19,4 +20,5 @@ export function registerGlobalComponents(app) {
   app.component('BaseCard', BaseCard);
   app.component('BaseModal', BaseModal);
   app.component('BtnWhite', BtnWhite);
+  app.component('BaseTextarea', BaseTextarea);
 }

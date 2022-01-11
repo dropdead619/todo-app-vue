@@ -1,15 +1,16 @@
 <template>
   <label class="form-label"> {{ label }} </label>
-  <input
+  <textarea
     v-bind="$attrs"
-    class="w-75"
+    class="textarea"
     :value="modelValue"
-    @input="$emit('update:modelValue', $event.target.value)">
+    @input="$emit('update:modelValue', $event.target.value)"></textarea>
 </template>
 
 <script>
 export default {
   inheritAttrs: false,
+  name: 'BaseTextarea',
   props: {
     label: {
       type: String,

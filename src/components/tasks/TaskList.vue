@@ -4,12 +4,14 @@
       v-for="task in tasks"
       :key="task.id"
       class="task-list-item">
-      <TaskItems
-        :archived="archived ? archived : false"
-        :task="task"
-        @archiveTask="archiveTask"
-        @deleteTask="deleteTask"
-        @toggleState="toggleState" />
+      <transition name="hover-scale">
+        <TaskItems
+          :archived="archived ? archived : false"
+          :task="task"
+          @archiveTask="archiveTask"
+          @deleteTask="deleteTask"
+          @toggleState="toggleState" />
+      </transition>
     </li>
   </ul>
 </template>
@@ -62,3 +64,19 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+  .hover-scale-enter-active {
+  transition: all .3s ease-out;
+}
+
+.hover-scale-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+
+.hover-scale-enter-from,
+.hover-scale-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+</style>

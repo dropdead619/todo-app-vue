@@ -11,7 +11,7 @@
         required />
     </div>
     <div class="form-item">
-      <BaseInput
+      <BaseTextarea
         v-model="task.description"
         class="form-input"
         label="Task description:"
@@ -22,9 +22,6 @@
       <BaseButton class="btn-primary"> {{ buttonText }}</BaseButton>
     </div>
   </form>
-  <!-- <template v-if="isLoading">
-    <BasePreloader>Loading...</BasePreloader>
-  </template> -->
 </template>
 
 <script>

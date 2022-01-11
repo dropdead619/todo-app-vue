@@ -16,7 +16,7 @@
     </BaseDialog>
   </div>
   <div
-    class="d-flex flex-column">
+    class="d-flex flex-column justify-content-evenly">
     <div class="d-flex align-items-center justify-content-between">
       <div class="text-white  m-3"> {{ $dayjs(task.createdAt).format('HH:mm DD.MM.YYYY') }}</div>
       <div v-show="!archived">

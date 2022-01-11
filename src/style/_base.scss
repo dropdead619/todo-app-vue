@@ -46,10 +46,13 @@ input {
   flex-direction: column;
   margin: 0 auto;
   margin-bottom: 40px;
-  padding: 1rem 4rem 2rem 4rem;
+  padding: 0rem 4rem;
   &-item {
+    cursor: default;
     list-style: none;
-    padding: 0;
+    border-radius: 12px;
+    margin: 1rem 0rem;
+    box-shadow: 0 2px 26px rgba(235, 235, 235, 0.144);
   }
 }
 

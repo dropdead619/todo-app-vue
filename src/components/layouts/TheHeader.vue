@@ -15,11 +15,22 @@
   </BaseDialog>
   <header class="header sticky-top">
     <nav class="header__nav">
-      <RouterLink class="header__nav_link" :to="{ name: 'TasksMain' }"><fa icon="home" /> &nbsp; Main page </RouterLink>
-      <RouterLink class="header__nav_link" :to="{ name: 'TasksArchive' }"><fa icon="archive" /> &nbsp; Archived tasks </RouterLink>
+      <RouterLink
+        class="header__nav_link"
+        tabindex="0"
+        :to="{ name: 'TasksMain' }">
+        <fa icon="home" /> &nbsp; Main page
+      </RouterLink>
+      <RouterLink
+        class="header__nav_link"
+        tabindex="0"
+        :to="{ name: 'TasksArchive' }">
+        <fa icon="archive" /> &nbsp; Archived tasks
+      </RouterLink>
       <span
         class="header__nav_link"
         role="button"
+        tabindex="0"
         @click="toggleLogoutWindow">
         <fa icon="user" /> &nbsp; Logout
       </span>
