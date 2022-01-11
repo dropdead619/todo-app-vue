@@ -2,7 +2,7 @@
   <div>
     <BaseDialog
       :show="showErrors"
-      size="medium"
+      size="small"
       :title="loginModeName"
       @close="toggleErrorDialog">
       <div>
@@ -96,16 +96,16 @@ export default {
 
       try {
         if (loginMode.value === 'signUp') {
-          await store.dispatch('Auth/signup', user);
+          await store.dispatch('auth/signup', user);
         } else {
-          await store.dispatch('Auth/signin', user);
+          await store.dispatch('auth/signin', user);
         }
       } catch (error) {
         errors.value = error;
         toggleErrorDialog();
         return;
       }
-      router.replace({ name: 'default' });
+      router.push({ name: 'TasksMain' });
     }
 
     return { user, errors, showErrors, loginModeName, switchModeButtonText, toggleErrorDialog, onSubmit, toggleMode };

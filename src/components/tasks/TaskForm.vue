@@ -78,7 +78,7 @@ export default {
 
     onMounted(() => {
       if (props.isEditing) {
-        store.dispatch('Tasks/fetchTaskById', props.id).then((res) => {
+        store.dispatch('tasks/fetchTaskById', props.id).then((res) => {
           task.title = res.title;
           task.description = res.description;
           task.isDone = res.isDone;

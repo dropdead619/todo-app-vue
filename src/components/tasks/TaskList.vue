@@ -37,24 +37,24 @@ export default {
     const store = useStore();
 
     const tasks = computed(function () {
-      return props.archived ? store.getters['Tasks/archived'] : store.getters['Tasks/tasks'];
+      return props.archived ? store.getters['tasks/archived'] : store.getters['tasks/tasks'];
     });
 
     function toggleState(task) {
       task.isDone = !task.isDone;
-      store.dispatch('Tasks/editTask', task);
+      store.dispatch('tasks/editTask', task);
     }
 
     function deleteTask(id) {
-      store.dispatch('Tasks/deleteTask', { id: id }).then(() => {
-        store.dispatch('Tasks/fetchTasks');
+      store.dispatch('tasks/deleteTask', { id: id }).then(() => {
+        store.dispatch('tasks/fetchTasks');
       });
     }
 
     function archiveTask(task) {
       task.archived = !task.archived;
-      store.dispatch('Tasks/editTask', task).then(() => {
-        store.dispatch('Tasks/fetchTasks');
+      store.dispatch('tasks/editTask', task).then(() => {
+        store.dispatch('tasks/fetchTasks');
       });
     }
 

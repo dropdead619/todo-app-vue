@@ -3,7 +3,9 @@
     <div class="title d-flex align-items-center justify-content-center">
       <h1 class="m-4">Archived tasks: </h1>
     </div>
-    <TaskList v-if="!isLoading" archived />
+    <TaskList
+      v-if="!isLoading"
+      archived />
     <template v-else-if="!archivedTasks">
       <div class="text-center text-warning">No archived tasks...</div>
     </template>
@@ -30,11 +32,11 @@ export default {
     });
 
     const archivedTasks = computed(function () {
-      return store.getters['Tasks/archived'];
+      return store.getters['tasks/archived'];
     });
 
     onBeforeMount(function () {
-      store.dispatch('Tasks/fetchTasks');
+      store.dispatch('tasks/fetchTasks');
     });
 
     return { isLoading, archivedTasks };

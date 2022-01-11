@@ -5,6 +5,7 @@ import store from './store';
 import titleMixin from './mixins/titleMixin';
 import FontAwesomeIcon from '@/plugins/fontAwesome';
 import { registerGlobalComponents } from '@/components/global.js';
+import '@/router/beforeEachGuard.js';
 
 import '@/style/app.scss';
 import dayjs from 'dayjs';

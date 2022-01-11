@@ -9,9 +9,9 @@ const store = {
   },
   mutations: {
     SET_USER(state, payload) {
-      state.token = payload.idToken;
-      state.userId = payload.localId;
-      state.tokenExpiration = payload.expiresIn;
+      state.token = payload?.idToken;
+      state.userId = payload?.localId;
+      state.tokenExpiration = payload?.expiresIn;
     },
   },
   actions: {
@@ -34,6 +34,7 @@ const store = {
         throw error;
       }
       commit('SET_USER', responseData);
+      commit('TOGGLE_LOADING_STATE', null, { root: true });
     },
     async signin({ commit }, payload) {
       commit('TOGGLE_LOADING_STATE', null, { root: true });
@@ -54,6 +55,10 @@ const store = {
         throw error;
       }
       commit('SET_USER', responseData);
+      commit('TOGGLE_LOADING_STATE', null, { root: true });
+    },
+    signout({ commit }) {
+      commit('SET_USER', null);
     },
   },
   getters: {

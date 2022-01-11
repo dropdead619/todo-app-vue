@@ -1,6 +1,7 @@
 import { createStore } from 'vuex';
-import Tasks from '@/store/modules/Tasks';
-import Auth from '@/store/modules/Auth';
+import createPersistedState from 'vuex-persistedstate';
+import tasks from '@/store/modules/tasks';
+import auth from '@/store/modules/auth';
 
 export default createStore({
   state: {
@@ -19,7 +20,10 @@ export default createStore({
     },
   },
   modules: {
-    Tasks,
-    Auth,
+    tasks,
+    auth,
   },
+  plugins: [createPersistedState({
+    paths: ['auth'],
+  })],
 });

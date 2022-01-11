@@ -2,10 +2,15 @@ import store from '@/store';
 import router from '@/router';
 
 router.beforeEach((to, from) => {
-  console.log(to);
-  if (store.getters['Auth/isLoggedIn']) {
-    return { name: 'default' };
-  } else {
-    return { name: 'login' };
+  if (store.getters['auth/isLoggedIn']) {
+    if (to.meta.onlyLoggedOut) {
+      return { name: 'default' };
+    } else {
+      return;
+    }
+  }
+
+  if (!to.meta.onlyLoggedOut) {
+    return { name: 'auth' };
   }
 });

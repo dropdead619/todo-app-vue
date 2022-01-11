@@ -73,7 +73,7 @@ export default {
     });
 
     const tasks = computed(function () {
-      return store.getters['Tasks/tasks'];
+      return store.getters['tasks/tasks'];
     });
 
     const task = computed(function () {
@@ -96,21 +96,21 @@ export default {
 
     function addTask(task) {
       task.createdAt = new Date();
-      store.dispatch('Tasks/addTasks', task).then(() => {
-        store.dispatch('Tasks/fetchTasks', true).then(() =>
+      store.dispatch('tasks/addTasks', task).then(() => {
+        store.dispatch('tasks/fetchTasks', true).then(() =>
           toggleAddForm());
       });
     }
 
     function editTask(task) {
-      store.dispatch('Tasks/editTask', task).then(() => {
-        store.dispatch('Tasks/fetchTasks', true).then(() =>
+      store.dispatch('tasks/editTask', task).then(() => {
+        store.dispatch('tasks/fetchTasks', true).then(() =>
           toggleEditForm());
       });
     }
 
     onBeforeMount(function () {
-      store.dispatch('Tasks/fetchTasks');
+      store.dispatch('tasks/fetchTasks');
     });
 
     return { title, task, tasks, showInput, showAddForm, showEditForm, isLoading, toggleInput, toggleAddForm, toggleEditForm, addTask, editTask, justAdded };

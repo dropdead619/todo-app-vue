@@ -3,12 +3,15 @@ import TheEmptyRouterView from '@/components/TheEmptyRouterView.vue';
 
 const routes = [
   {
-    path: '/login',
+    path: '/auth',
+    meta: {
+      onlyLoggedOut: true,
+    },
     component: () => import(/* webpackChunkName: "auth" */ '@/layouts/TheLayoutLogin.vue'),
     children: [
       {
         path: '',
-        name: 'login',
+        name: 'auth',
         component: () => import(/* webpackChunkName: "auth" */ '@/views/auth/LoginPage.vue'),
       },
     ],
@@ -35,18 +38,12 @@ const routes = [
           },
         ],
       },
-      {
-        path: '/user',
-        component: TheEmptyRouterView,
-        children: [
-          {
-            path: 'profile',
-            name: 'UserProfile',
-            component: () => import(/* webpackChunkName: "user" */ '../views/UserProfile.vue'),
-          },
-        ],
-      },
     ],
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'Error404',
+    component: () => import(/* webpackChunkName: "error" */ '@/views/errors/Error404.vue'),
   },
 ];
 
