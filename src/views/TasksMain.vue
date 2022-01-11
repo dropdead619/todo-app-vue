@@ -1,7 +1,7 @@
 <template>
   <div>
     <BaseModal
-      :show="showAddForm"
+      :show="showAddForm && !isLoading"
       @close="toggleAddForm">
       <TaskForm
         @keyup.enter="addTask"
@@ -35,11 +35,6 @@
       <TaskList v-if="!isLoading && tasks" />
       <template v-else-if="!tasks">
         <div class="text-center text-warning">Add new task...</div>
-      </template>
-      <template v-else>
-        <teleport to="body">
-          <BasePreloader>Loading...</BasePreloader>
-        </teleport>
       </template>
     </div>
   </div>

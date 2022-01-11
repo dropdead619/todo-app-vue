@@ -16,13 +16,10 @@
     </BaseDialog>
   </div>
   <div
-    class="d-flex flex-column"
-    @mouseenter="toggleVisibility"
-    @mouseleave="toggleVisibility">
+    class="d-flex flex-column">
     <div class="d-flex align-items-center justify-content-between">
       <div class="text-white  m-3"> {{ $dayjs(task.createdAt).format('HH:mm DD.MM.YYYY') }}</div>
-      <div
-        v-if="!archived && isBtnVisible">
+      <div v-show="!archived">
         <BtnWhite
           @click="toggleDeleteWindow">
           <fa icon="minus" />
@@ -32,7 +29,7 @@
           <fa icon="archive" />
         </BtnWhite>
         <BtnWhite
-          v-if="task.editable"
+          v-show="task.editable"
           @click="toggleEditForm">
           <fa icon="pen" />
         </BtnWhite>
@@ -75,16 +72,10 @@ export default {
   },
   emits: ['toggleState', 'deleteTask', 'archiveTask'],
   setup(props, context) {
-    const isBtnVisible = ref(false);
-
     const showDeleteWindow = ref(false);
 
     function toggleDeleteWindow() {
       showDeleteWindow.value = !showDeleteWindow.value;
-    }
-
-    function toggleVisibility() {
-      isBtnVisible.value = !isBtnVisible.value;
     }
 
     function archiveTask() {
@@ -101,7 +92,7 @@ export default {
 
     const toggleEditForm = props.archived ? '' : inject('toggleEditForm');
 
-    return { showDeleteWindow, isBtnVisible, toggleDeleteWindow, toggleVisibility, deleteTask, toggleState, archiveTask, toggleEditForm };
+    return { showDeleteWindow, toggleDeleteWindow, deleteTask, toggleState, archiveTask, toggleEditForm };
   },
 };
 </script>
