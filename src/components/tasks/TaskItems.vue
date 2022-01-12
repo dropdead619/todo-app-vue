@@ -6,10 +6,16 @@
       title="Delete selected task?"
       @close="toggleDeleteWindow">
       <template #actions>
-        <BaseButton class="btn-success m-2" @click="deleteTask">
+        <BaseButton
+          class="m-2"
+          variant="success"
+          @click="deleteTask">
           Yes
         </BaseButton>
-        <BaseButton class="btn-danger m-2" @click="toggleDeleteWindow">
+        <BaseButton
+          class="m-2"
+          variant="danger"
+          @click="toggleDeleteWindow">
           No
         </BaseButton>
       </template>
@@ -20,19 +26,22 @@
     <div class="d-flex align-items-center justify-content-between">
       <div class="text-white  m-3"> {{ $dayjs(task.createdAt).format('HH:mm DD.MM.YYYY') }}</div>
       <div v-show="!archived">
-        <BtnWhite
+        <BaseButton
+          class="m-2"
           @click="toggleDeleteWindow">
           <fa icon="minus" />
-        </BtnWhite>
-        <BtnWhite
+        </BaseButton>
+        <BaseButton
+          class="m-2"
           @click="archiveTask">
           <fa icon="archive" />
-        </BtnWhite>
-        <BtnWhite
+        </BaseButton>
+        <BaseButton
           v-show="task.editable"
+          class="m-2"
           @click="toggleEditForm">
           <fa icon="pen" />
-        </BtnWhite>
+        </BaseButton>
       </div>
     </div>
 

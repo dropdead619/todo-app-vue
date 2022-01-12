@@ -1,4 +1,13 @@
 <template>
+  <BaseDialog
+    :show="showErrors"
+    size="medium"
+    title="Incorrect input"
+    @close="toggleErrorDialog">
+    <div>
+      {{ errors }}
+    </div>
+  </BaseDialog>
   <form
     class="form"
     @submit.prevent="onSubmit">
@@ -7,19 +16,17 @@
         v-model="task.title"
         class="form-input"
         label="Task title:"
-        placeholder="input title"
-        required />
+        placeholder="input title" />
     </div>
     <div class="form-item">
       <BaseTextarea
         v-model="task.description"
         class="form-input"
         label="Task description:"
-        placeholder="input description"
-        required />
+        placeholder="input description" />
     </div>
     <div class="form-item">
-      <BaseButton class="btn-primary"> {{ buttonText }}</BaseButton>
+      <BaseButton variant="dark"> {{ buttonText }}</BaseButton>
     </div>
   </form>
 </template>
@@ -50,6 +57,11 @@ export default {
       isDone: false,
       archived: false,
     });
+
+    const showErrors = ref(false);
+
+    const errors = ref('');
+
     const showInput = ref(false);
 
     const store = useStore();
@@ -63,6 +75,12 @@ export default {
     });
 
     function onSubmit() {
+      if (task.title === '' ||
+        task.description === '') {
+        errors.value = 'Input fields cannot be empty!';
+        toggleErrorDialog();
+        return;
+      }
       context.emit('submitForm', task);
       if (!props.isEditing) {
         task.title = '';
@@ -71,6 +89,10 @@ export default {
         task.isDone = false;
         task.archived = false;
       }
+    }
+
+    function toggleErrorDialog() {
+      showErrors.value = !showErrors.value;
     }
 
     onMounted(() => {
@@ -86,7 +108,7 @@ export default {
       }
     });
 
-    return { task, showInput, isLoading, buttonText, onSubmit };
+    return { showErrors, errors, task, showInput, isLoading, buttonText, onSubmit, toggleErrorDialog };
   },
 };
 </script>

@@ -17,16 +17,27 @@
     </BaseModal>
     <div>
       <div class="title d-flex align-items-center justify-content-center">
-        <BaseInput
-          v-if="showInput"
-          v-model="title"
-          class="m-4"
-          type="text" />
+        <BaseDialog
+          :show="showInput"
+          title="Edit list name"
+          @close="toggleInput">
+          <BaseInput
+            v-if="showInput"
+            v-model="title"
+            class="m-2"
+            type="text" />
+        </BaseDialog>
         <h1 class="m-4">{{ title }}</h1>
-        <BtnWhite @click="toggleInput">
+        <BaseButton
+          class="m-2"
+          @click="toggleInput">
           <fa icon="edit" />
-        </BtnWhite>
-        <BtnWhite @click="toggleAddForm"><fa icon="plus" /> </BtnWhite>
+        </BaseButton>
+        <BaseButton
+          class="m-2"
+          @click="toggleAddForm">
+          <fa icon="plus" />
+        </BaseButton>
         <form class="m-4">
           <input placeholder="Filter by task name" type="text">
         </form>

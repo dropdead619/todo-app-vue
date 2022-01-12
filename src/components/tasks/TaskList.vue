@@ -4,14 +4,12 @@
       v-for="task in tasks"
       :key="task.id"
       class="task-list-item">
-      <transition name="hover-scale">
-        <TaskItems
-          :archived="archived ? archived : false"
-          :task="task"
-          @archiveTask="archiveTask"
-          @deleteTask="deleteTask"
-          @toggleState="toggleState" />
-      </transition>
+      <TaskItems
+        :archived="archived ? archived : false"
+        :task="task"
+        @archiveTask="archiveTask"
+        @deleteTask="deleteTask"
+        @toggleState="toggleState" />
     </li>
   </ul>
 </template>

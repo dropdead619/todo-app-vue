@@ -9,7 +9,7 @@
       open>
       <header class="w-100 p-2">
         <slot name="header">
-          <h2>{{ title }}</h2>
+          <h2 class="text-light">{{ title }}</h2>
         </slot>
       </header>
       <section class="p-2 text-black">

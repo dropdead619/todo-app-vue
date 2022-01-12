@@ -1,5 +1,6 @@
 <template>
   <div class="todo-list">
+    {{show}}
     <BasePreloader :show="isLoading" />
     <TheHeader />
     <div>
@@ -20,9 +21,11 @@ export default {
 
   setup() {
     const store = useStore();
+
     const isLoading = computed(function () {
       return store.getters.isLoading;
     });
+
     return { isLoading };
   },
 };
