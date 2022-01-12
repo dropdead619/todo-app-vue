@@ -103,7 +103,6 @@ export default {
           task.isDone = res.isDone;
           task.createdAt = res.createdAt;
           task.archived = res.archived;
-          task.id = props.id;
         });
       }
     });

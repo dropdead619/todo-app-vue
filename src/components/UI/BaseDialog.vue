@@ -7,7 +7,7 @@
       v-if="show"
       :class="`modal modal--${size}`"
       open>
-      <header class="w-100 p-2">
+      <header class="p-2 bg-dark rounded-top">
         <slot name="header">
           <h2 class="text-light">{{ title }}</h2>
         </slot>
@@ -50,11 +50,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-
-header {
-    background-color: #282828;
-}
-
-</style>

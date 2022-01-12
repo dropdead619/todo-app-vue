@@ -11,7 +11,6 @@
       :show="showEditForm"
       @close="toggleEditForm">
       <TaskForm
-        :id="task.id"
         isEditing
         @submitForm="editTask" />
     </BaseModal>
@@ -38,15 +37,27 @@
           @click="toggleAddForm">
           <fa icon="plus" />
         </BaseButton>
-        <form class="m-4">
-          <input placeholder="Filter by task name" type="text">
+        <form class="m-4 d-flex align-items-center">
+          <div>
+            <BaseInput
+              v-model="searchFilter"
+              class="p-2 w-100"
+              placeholder="Find by task name"
+              type="text"
+              @input="filterInput" />
+          </div>
+          <div>
+            <BaseButton
+              class="m-2"
+              variant="warning"
+              @click="resetFilters">
+              <span class="m-2">Reset</span>
+              <fa icon="undo-alt" />
+            </BaseButton>
+          </div>
         </form>
       </div>
-
       <TaskList v-if="!isLoading && tasks" />
-      <template v-else-if="!tasks">
-        <div class="text-center text-warning">Add new task...</div>
-      </template>
     </div>
   </div>
 </template>
@@ -55,7 +66,7 @@
 import TaskList from '@/components/tasks/TaskList';
 import TaskForm from '@/components/tasks/TaskForm';
 import { useStore } from 'vuex';
-import { ref, computed, onBeforeMount, provide } from 'vue';
+import { ref, computed, onBeforeMount, provide, watch } from 'vue';
 
 export default {
   name: 'TasksMain',
@@ -70,23 +81,31 @@ export default {
     const showInput = ref(false);
     const showAddForm = ref(false);
     const showEditForm = ref(false);
-    const justAdded = ref(false);
-
     const store = useStore();
 
     const isLoading = computed(function () {
       return store.getters.isLoading;
     });
 
+    const filter = computed(function () {
+      return store.getters['search/filter'];
+    });
+
+    const searchFilter = ref(filter.value);
+
     const tasks = computed(function () {
       return store.getters['tasks/tasks'];
     });
 
-    const task = computed(function () {
-      return tasks.value.find(el => el.editable === true);
+    watch(title, (val) => {
+      document.title = val;
     });
 
     provide('toggleEditForm', toggleEditForm);
+
+    function filterInput(e) {
+      store.dispatch('search/setFilter', e.target.value);
+    }
 
     function toggleInput() {
       showInput.value = !showInput.value;
@@ -100,6 +119,11 @@ export default {
       showEditForm.value = !showEditForm.value;
     }
 
+    function resetFilters() {
+      searchFilter.value = '';
+      store.dispatch('search/setFilter', '');
+    }
+
     function addTask(task) {
       task.createdAt = new Date();
       store.dispatch('tasks/addTasks', task).then(() => {
@@ -110,7 +134,7 @@ export default {
 
     function editTask(task) {
       store.dispatch('tasks/editTask', task).then(() => {
-        store.dispatch('tasks/fetchTasks', true).then(() =>
+        store.dispatch('tasks/fetchTasks').then(() =>
           toggleEditForm());
       });
     }
@@ -119,7 +143,7 @@ export default {
       store.dispatch('tasks/fetchTasks');
     });
 
-    return { title, task, tasks, showInput, showAddForm, showEditForm, isLoading, toggleInput, toggleAddForm, toggleEditForm, addTask, editTask, justAdded };
+    return { title, tasks, showInput, searchFilter, showAddForm, showEditForm, isLoading, filterInput, resetFilters, toggleInput, toggleAddForm, toggleEditForm, addTask, editTask };
   },
 };
 </script>

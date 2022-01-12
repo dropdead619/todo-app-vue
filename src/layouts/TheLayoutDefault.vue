@@ -1,6 +1,5 @@
 <template>
   <div class="todo-list">
-    {{show}}
     <BasePreloader :show="isLoading" />
     <TheHeader />
     <div>

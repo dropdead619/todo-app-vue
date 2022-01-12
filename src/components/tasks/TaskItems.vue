@@ -25,8 +25,9 @@
     class="d-flex flex-column justify-content-evenly">
     <div class="d-flex align-items-center justify-content-between">
       <div class="text-white  m-3"> {{ $dayjs(task.createdAt).format('HH:mm DD.MM.YYYY') }}</div>
-      <div v-show="!archived">
+      <div>
         <BaseButton
+          v-show="!archived"
           class="m-2"
           @click="toggleDeleteWindow">
           <fa icon="minus" />
@@ -34,10 +35,11 @@
         <BaseButton
           class="m-2"
           @click="archiveTask">
-          <fa icon="archive" />
+          <fa v-if="!archived"  icon="archive" />
+          <fa v-else-if="archived" icon="arrow-left" />
         </BaseButton>
         <BaseButton
-          v-show="task.editable"
+          v-show="!archived"
           class="m-2"
           @click="toggleEditForm">
           <fa icon="pen" />
@@ -53,9 +55,9 @@
         <fa v-if="task.isDone" icon="check" />
         <fa v-else icon="minus" />
       </BaseCheckbox>
-      <div class="card-body">
+      <div class="card-body w-75">
         <h5 class="card-title">{{ task.title }}</h5>
-        <p class="card-text">
+        <p class="card-text text-truncate">
           {{task.description}}
         </p>
       </div>

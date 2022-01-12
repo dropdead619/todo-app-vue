@@ -1,7 +1,10 @@
 <template>
+  <template v-if="filteredList.length === 0">
+    <div class="text-center text-warning">Add new task...</div>
+  </template>
   <ul class="task-list">
     <li
-      v-for="task in tasks"
+      v-for="task in archived ? tasks : filteredList"
       :key="task.id"
       class="task-list-item">
       <TaskItems
@@ -23,7 +26,6 @@ import { computed } from 'vue';
 
 export default {
   name: 'TaskList',
-  title: 'Task list',
   components: {
     TaskItems,
   },
@@ -38,6 +40,16 @@ export default {
 
     const tasks = computed(function () {
       return props.archived ? store.getters['tasks/archived'] : store.getters['tasks/tasks'];
+    });
+
+    const filter = computed(function () {
+      return store.getters['search/filter'];
+    });
+
+    const filteredList = computed(() => {
+      return tasks.value.filter(task => {
+        return task.title.toLowerCase().includes(filter.value.toLowerCase());
+      });
     });
 
     function toggleState(task) {
@@ -58,11 +70,7 @@ export default {
       });
     }
 
-    return { tasks, toggleState, deleteTask, archiveTask };
+    return { tasks, filteredList, toggleState, deleteTask, archiveTask };
   },
 };
 </script>
-
-<style lang="scss" >
-
-</style>

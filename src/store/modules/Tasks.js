@@ -15,7 +15,7 @@ const store = {
     },
   },
   actions: {
-    async fetchTasks({ commit }, editable = false) {
+    async fetchTasks({ commit }) {
       commit('TOGGLE_LOADING_STATE', null, { root: true });
       const response = await fetch('https://todo-backend-4b5b9-default-rtdb.firebaseio.com/tasks.json');
       const data = await response.json();
@@ -31,9 +31,6 @@ const store = {
       }
       for (const el in data) {
         data[el].id = el;
-      }
-      if (editable) {
-        Object.values(data)[Object.values(data).length - 1].editable = editable;
       }
       const archived = Object.values(data).filter(el => el.archived === true);
       const filteredData = Object.values(data).filter(el => el.archived === false);
