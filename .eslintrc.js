@@ -97,5 +97,6 @@ module.exports = {
       registeredComponentsOnly: true,
     }],
     'vue/html-closing-bracket-spacing': ['error'],
+    "vue/no-multiple-template-root": 0,
   },
 };

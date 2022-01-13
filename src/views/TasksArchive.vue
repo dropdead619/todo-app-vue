@@ -6,9 +6,6 @@
     <TaskList
       v-if="!isLoading"
       archived />
-    <template v-else-if="!archivedTasks">
-      <div class="text-center text-warning">No archived tasks...</div>
-    </template>
   </div>
 </template>
 

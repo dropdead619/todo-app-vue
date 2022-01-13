@@ -5,10 +5,16 @@
     title="Logout from your account?"
     @close="toggleLogoutWindow">
     <template #actions>
-      <BaseButton class="btn-success m-2" @click="logout">
+      <BaseButton
+        class="success m-2"
+        variant="success"
+        @click="logout">
         Yes
       </BaseButton>
-      <BaseButton class="btn-danger m-2" @click="toggleLogoutWindow">
+      <BaseButton
+        class="danger m-2"
+        variant="danger"
+        @click="toggleLogoutWindow">
         No
       </BaseButton>
     </template>

@@ -4,15 +4,7 @@
       :show="showAddForm && !isLoading"
       @close="toggleAddForm">
       <TaskForm
-        @keyup.enter="addTask"
         @submitForm="addTask" />
-    </BaseModal>
-    <BaseModal
-      :show="showEditForm"
-      @close="toggleEditForm">
-      <TaskForm
-        isEditing
-        @submitForm="editTask" />
     </BaseModal>
     <div>
       <div class="title d-flex align-items-center justify-content-center">
@@ -23,7 +15,7 @@
           <BaseInput
             v-if="showInput"
             v-model="title"
-            class="m-2"
+            class="m-2 p-2"
             type="text" />
         </BaseDialog>
         <h1 class="m-4">{{ title }}</h1>
@@ -57,7 +49,7 @@
           </div>
         </form>
       </div>
-      <TaskList v-if="!isLoading && tasks" />
+      <TaskList v-if="!isLoading" />
     </div>
   </div>
 </template>
@@ -66,7 +58,7 @@
 import TaskList from '@/components/tasks/TaskList';
 import TaskForm from '@/components/tasks/TaskForm';
 import { useStore } from 'vuex';
-import { ref, computed, onBeforeMount, provide, watch } from 'vue';
+import { ref, computed, onBeforeMount, watch } from 'vue';
 
 export default {
   name: 'TasksMain',
@@ -80,7 +72,6 @@ export default {
 
     const showInput = ref(false);
     const showAddForm = ref(false);
-    const showEditForm = ref(false);
     const store = useStore();
 
     const isLoading = computed(function () {
@@ -101,8 +92,6 @@ export default {
       document.title = val;
     });
 
-    provide('toggleEditForm', toggleEditForm);
-
     function filterInput(e) {
       store.dispatch('search/setFilter', e.target.value);
     }
@@ -115,35 +104,22 @@ export default {
       showAddForm.value = !showAddForm.value;
     }
 
-    function toggleEditForm() {
-      showEditForm.value = !showEditForm.value;
-    }
-
     function resetFilters() {
       searchFilter.value = '';
       store.dispatch('search/setFilter', '');
     }
 
     function addTask(task) {
-      task.createdAt = new Date();
       store.dispatch('tasks/addTasks', task).then(() => {
-        store.dispatch('tasks/fetchTasks', true).then(() =>
-          toggleAddForm());
-      });
-    }
-
-    function editTask(task) {
-      store.dispatch('tasks/editTask', task).then(() => {
-        store.dispatch('tasks/fetchTasks').then(() =>
-          toggleEditForm());
-      });
+        store.dispatch('tasks/fetchTasks');
+      }).then(() => toggleAddForm());
     }
 
     onBeforeMount(function () {
       store.dispatch('tasks/fetchTasks');
     });
 
-    return { title, tasks, showInput, searchFilter, showAddForm, showEditForm, isLoading, filterInput, resetFilters, toggleInput, toggleAddForm, toggleEditForm, addTask, editTask };
+    return { title, tasks, showInput, searchFilter, showAddForm, isLoading, filterInput, resetFilters, toggleInput, toggleAddForm, addTask };
   },
 };
 </script>

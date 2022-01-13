@@ -17,7 +17,7 @@
       </section>
       <menu class="d-flex justify-content-end p-2 m-0">
         <slot name="actions">
-          <BaseButton class="btn-primary" @click="close">Close</BaseButton>
+          <BaseButton variant="primary" @click="close">Close</BaseButton>
         </slot>
       </menu>
     </dialog>

@@ -1,6 +1,9 @@
 <template>
-  <template v-if="filteredList.length === 0">
+  <template v-if="!!!tasks">
     <div class="text-center text-warning">Add new task...</div>
+  </template>
+  <template v-else-if="filteredList?.length === 0">
+    <div class="text-center text-warning">No match found</div>
   </template>
   <ul class="task-list">
     <li
@@ -47,8 +50,8 @@ export default {
     });
 
     const filteredList = computed(() => {
-      return tasks.value.filter(task => {
-        return task.title.toLowerCase().includes(filter.value.toLowerCase());
+      return tasks.value?.filter(task => {
+        return task.title.toLowerCase().includes(filter?.value.toLowerCase());
       });
     });
 

@@ -29,9 +29,6 @@ const store = {
         commit('TOGGLE_LOADING_STATE', null, { root: true });
         return;
       }
-      for (const el in data) {
-        data[el].id = el;
-      }
       const archived = Object.values(data).filter(el => el.archived === true);
       const filteredData = Object.values(data).filter(el => el.archived === false);
       if (filteredData.length === 0) {
@@ -46,20 +43,18 @@ const store = {
       }
       commit('TOGGLE_LOADING_STATE', null, { root: true });
     },
-    fetchTaskById({ commit }, id) {
-      commit('TOGGLE_LOADING_STATE', null, { root: true });
+    fetchTaskById(_, id) {
       return fetch(`https://todo-backend-4b5b9-default-rtdb.firebaseio.com/tasks/${id}.json`).then(response => {
         if (response.ok) {
           return response.json();
         }
       }).then(data => {
-        commit('TOGGLE_LOADING_STATE', null, { root: true });
         return data;
       });
     },
-    addTasks({ commit }, payload) {
+    async addTasks({ commit, dispatch }, payload) {
       commit('TOGGLE_LOADING_STATE', null, { root: true });
-      return fetch('https://todo-backend-4b5b9-default-rtdb.firebaseio.com/tasks.json', {
+      const response = await fetch('https://todo-backend-4b5b9-default-rtdb.firebaseio.com/tasks.json', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +66,22 @@ const store = {
           archived: payload.archived,
           createdAt: payload.createdAt,
         }),
-      }).then(() => commit('TOGGLE_LOADING_STATE', null, { root: true }));
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        const error = new Error(data.message || 'Failed to fetch data');
+        throw error;
+      }
+      await dispatch('editTask', {
+        id: data.name,
+        title: payload.title,
+        description: payload.description,
+        isDone: payload.isDone,
+        archived: payload.archived,
+        createdAt: payload.createdAt,
+      });
+
+      commit('TOGGLE_LOADING_STATE', null, { root: true });
     },
     editTask(_, payload) {
       return fetch(`https://todo-backend-4b5b9-default-rtdb.firebaseio.com/tasks/${payload.id}.json`, {
@@ -80,6 +90,7 @@ const store = {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          id: payload.id,
           title: payload.title,
           description: payload.description,
           isDone: payload.isDone,

@@ -20,6 +20,14 @@
         </BaseButton>
       </template>
     </BaseDialog>
+    <BaseModal
+      :show="showEditForm"
+      @close="toggleEditForm">
+      <TaskForm
+        :id="task.id"
+        isEditing
+        @submitForm="editTask" />
+    </BaseModal>
   </div>
   <div
     class="d-flex flex-column justify-content-evenly">
@@ -66,7 +74,9 @@
 </template>
 
 <script>
-import { ref, inject } from 'vue';
+import { ref } from 'vue';
+import { useStore } from 'vuex';
+import TaskForm from '@/components/tasks/TaskForm';
 
 export default {
   name: 'TaskItems',
@@ -82,8 +92,14 @@ export default {
     },
   },
   emits: ['toggleState', 'deleteTask', 'archiveTask'],
+  components: {
+    TaskForm,
+  },
   setup(props, context) {
     const showDeleteWindow = ref(false);
+    const showEditForm = ref(false);
+
+    const store = useStore();
 
     function toggleDeleteWindow() {
       showDeleteWindow.value = !showDeleteWindow.value;
@@ -101,9 +117,18 @@ export default {
       context.emit('deleteTask', props.task.id);
     }
 
-    const toggleEditForm = props.archived ? '' : inject('toggleEditForm');
+    function editTask(task) {
+      store.dispatch('tasks/editTask', task).then(() => {
+        store.dispatch('tasks/fetchTasks');
+      }).then(() =>
+        toggleEditForm());
+    }
 
-    return { showDeleteWindow, toggleDeleteWindow, deleteTask, toggleState, archiveTask, toggleEditForm };
+    function toggleEditForm() {
+      showEditForm.value = !showEditForm.value;
+    }
+
+    return { showEditForm, showDeleteWindow, editTask, toggleDeleteWindow, deleteTask, toggleState, archiveTask, toggleEditForm };
   },
 };
 </script>

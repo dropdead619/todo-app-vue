@@ -51,6 +51,7 @@ export default {
   emits: ['submitForm'],
   setup(props, context) {
     const task = reactive({
+      id: '',
       title: '',
       description: '',
       createdAt: '',
@@ -81,7 +82,14 @@ export default {
         toggleErrorDialog();
         return;
       }
-      context.emit('submitForm', task);
+      context.emit('submitForm', {
+        id: props.isEditing ? task.id : '',
+        title: task.title,
+        description: task.description,
+        createdAt: props.isEditing ? task.createdAt : new Date(),
+        isDone: task.isDone,
+        archived: task.archived,
+      });
       if (!props.isEditing) {
         task.title = '';
         task.description = '';
@@ -98,6 +106,7 @@ export default {
     onMounted(() => {
       if (props.isEditing) {
         store.dispatch('tasks/fetchTaskById', props.id).then((res) => {
+          task.id = res.id;
           task.title = res.title;
           task.description = res.description;
           task.isDone = res.isDone;
