@@ -1,3 +1,5 @@
+import api from '@/api/requests';
+
 const store = {
   namespaced: true,
   state() {
@@ -17,12 +19,8 @@ const store = {
   actions: {
     async fetchTasks({ commit }) {
       commit('TOGGLE_LOADING_STATE', null, { root: true });
-      const response = await fetch('https://todo-backend-4b5b9-default-rtdb.firebaseio.com/tasks.json');
-      const data = await response.json();
-      if (!response.ok) {
-        const error = new Error(data.message || 'Failed to fetch data');
-        throw error;
-      }
+      const data = await api.GET('/tasks.json');
+      console.log(data);
       if (!data) {
         commit('SET_DATA', null);
         commit('SET_ARCHIVED', null);
@@ -43,37 +41,14 @@ const store = {
       }
       commit('TOGGLE_LOADING_STATE', null, { root: true });
     },
-    fetchTaskById(_, id) {
-      return fetch(`https://todo-backend-4b5b9-default-rtdb.firebaseio.com/tasks/${id}.json`).then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-      }).then(data => {
-        return data;
-      });
+
+    async fetchTaskById(_, id) {
+      return await api.GET(`/tasks/${id}.json`);
     },
+
     async addTasks({ commit, dispatch }, payload) {
       commit('TOGGLE_LOADING_STATE', null, { root: true });
-      const response = await fetch('https://todo-backend-4b5b9-default-rtdb.firebaseio.com/tasks.json', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          title: payload.title,
-          description: payload.description,
-          isDone: payload.isDone,
-          archived: payload.archived,
-          createdAt: payload.createdAt,
-        }),
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        const error = new Error(data.message || 'Failed to fetch data');
-        throw error;
-      }
-      await dispatch('editTask', {
-        id: data.name,
+      const data = await api.POST('/tasks.json', {
         title: payload.title,
         description: payload.description,
         isDone: payload.isDone,
@@ -81,28 +56,25 @@ const store = {
         createdAt: payload.createdAt,
       });
 
+      await dispatch('editTask', {
+        id: data.name,
+      });
+
       commit('TOGGLE_LOADING_STATE', null, { root: true });
     },
-    editTask(_, payload) {
-      return fetch(`https://todo-backend-4b5b9-default-rtdb.firebaseio.com/tasks/${payload.id}.json`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: payload.id,
-          title: payload.title,
-          description: payload.description,
-          isDone: payload.isDone,
-          createdAt: payload.createdAt,
-          archived: payload.archived,
-        }),
+
+    async editTask(_, payload) {
+      return await api.PATCH(`/tasks/${payload.id}.json`, {
+        id: payload.id,
+        title: payload.title,
+        description: payload.description,
+        isDone: payload.isDone,
+        archived: payload.archived,
       });
     },
-    deleteTask(_, { id }) {
-      return fetch(`https://todo-backend-4b5b9-default-rtdb.firebaseio.com/tasks/${id}.json`, {
-        method: 'DELETE',
-      });
+
+    async deleteTask(_, { id }) {
+      return await api.DELETE(`/tasks/${id}.json`);
     },
   },
   getters: {

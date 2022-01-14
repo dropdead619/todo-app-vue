@@ -1,10 +1,9 @@
 <template>
-  <div class="todo-list">
-    <BasePreloader :show="isLoading" />
-    <TheHeader />
-    <div>
-      <router-view />
-    </div>
+  <BasePreloader :show="isLoading" />
+
+  <TheHeader />
+  <div>
+    <router-view />
   </div>
 </template>
 

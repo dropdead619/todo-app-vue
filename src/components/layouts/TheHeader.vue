@@ -1,7 +1,7 @@
 <template>
   <BaseDialog
     :show="showLogoutWindow"
-    size="medium"
+    size="tiny"
     title="Logout from your account?"
     @close="toggleLogoutWindow">
     <template #actions>
@@ -19,26 +19,28 @@
       </BaseButton>
     </template>
   </BaseDialog>
-  <header class="header sticky-top">
+  <header class="header fixed-top">
     <nav class="header__nav">
-      <RouterLink
-        class="header__nav_link"
-        tabindex="0"
-        :to="{ name: 'TasksMain' }">
-        <fa icon="home" /> &nbsp; Main page
-      </RouterLink>
-      <RouterLink
-        class="header__nav_link"
-        tabindex="0"
-        :to="{ name: 'TasksArchive' }">
-        <fa icon="archive" /> &nbsp; Archived tasks
-      </RouterLink>
+      <div>
+        <RouterLink
+          class="header__nav_link mb-2"
+          tabindex="0"
+          :to="{ name: 'TasksMain' }">
+          <fa class="mb-1" icon="home" /> Main
+        </RouterLink>
+        <RouterLink
+          class="header__nav_link"
+          tabindex="0"
+          :to="{ name: 'TasksArchive' }">
+          <fa class="mb-1" icon="archive" /> Archived
+        </RouterLink>
+      </div>
       <span
         class="header__nav_link"
         role="button"
         tabindex="0"
         @click="toggleLogoutWindow">
-        <fa icon="user" /> &nbsp; Logout
+        <fa class="mb-1" icon="user" /> Logout
       </span>
     </nav>
   </header>

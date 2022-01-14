@@ -1,9 +1,36 @@
 .textarea {
-    width: 75%;
-    min-height: 25rem;
+  width: 75%;
+  min-height: 25rem;
 }
 
 input {
-    min-height: 40px;
-    border-radius: 12px;
+  min-height: 2.5rem;
+  border-radius: 12px;
+}
+
+.form {
+  max-width: 43.75rem;
+  width: 30rem;
+  border: 10px solid white;
+  border-radius: 15px;
+  &-item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: $white;
+  }
+  &-label {
+    font-size: 1rem;
+    color: $black;
+  }
+  &-input {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+  }
+  @media (max-width: 768px) {
+    & {
+      width: 20rem;
+    }
+  }
 }
