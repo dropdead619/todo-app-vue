@@ -17,10 +17,10 @@ const store = {
     },
   },
   actions: {
-    async fetchTasks({ commit }) {
+    async fetchTasks({ commit, rootGetters }) {
       commit('TOGGLE_LOADING_STATE', null, { root: true });
-      const data = await api.GET('/tasks.json');
-      console.log(data);
+      console.log(rootGetters);
+      const data = await api.GET(`/${rootGetters['auth/userId']}/tasks.json`);
       if (!data) {
         commit('SET_DATA', null);
         commit('SET_ARCHIVED', null);
@@ -42,13 +42,13 @@ const store = {
       commit('TOGGLE_LOADING_STATE', null, { root: true });
     },
 
-    async fetchTaskById(_, id) {
-      return await api.GET(`/tasks/${id}.json`);
+    async fetchTaskById({ rootGetters }, id) {
+      return await api.GET(`/${rootGetters['auth/userId']}/tasks/${id}.json`);
     },
 
-    async addTasks({ commit, dispatch }, payload) {
+    async addTasks({ commit, dispatch, rootGetters }, payload) {
       commit('TOGGLE_LOADING_STATE', null, { root: true });
-      const data = await api.POST('/tasks.json', {
+      const data = await api.POST(`/${rootGetters['auth/userId']}/tasks.json`, {
         title: payload.title,
         description: payload.description,
         isDone: payload.isDone,
@@ -63,8 +63,8 @@ const store = {
       commit('TOGGLE_LOADING_STATE', null, { root: true });
     },
 
-    async editTask(_, payload) {
-      return await api.PATCH(`/tasks/${payload.id}.json`, {
+    async editTask({ rootGetters }, payload) {
+      return await api.PATCH(`/${rootGetters['auth/userId']}/tasks/${payload.id}.json`, {
         id: payload.id,
         title: payload.title,
         description: payload.description,
@@ -73,8 +73,8 @@ const store = {
       });
     },
 
-    async deleteTask(_, { id }) {
-      return await api.DELETE(`/tasks/${id}.json`);
+    async deleteTask({ rootGetters }, { id }) {
+      return await api.DELETE(`/${rootGetters['auth/userId']}/tasks/${id}.json`);
     },
   },
   getters: {

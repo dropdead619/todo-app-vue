@@ -1,57 +1,42 @@
 <template>
-  <div>
-    <BaseModal
-      :show="showAddForm && !isLoading"
-      @close="toggleAddForm">
-      <TaskForm
-        @submitForm="addTask" />
-    </BaseModal>
-    <div>
-      <div class="title d-flex align-items-center justify-content-center">
-        <BaseDialog
-          :show="showInput"
-          title="Edit list name"
-          @close="toggleInput">
-          <BaseInput
-            v-if="showInput"
-            v-model="title"
-            class="m-2 p-2"
-            type="text" />
-        </BaseDialog>
-        <h1 class="m-4">{{ title }}</h1>
-        <BaseButton
-          class="m-2"
-          @click="toggleInput">
-          <fa icon="edit" />
-        </BaseButton>
-        <BaseButton
-          class="m-2"
-          @click="toggleAddForm">
-          <fa icon="plus" />
-        </BaseButton>
-        <form class="m-4 d-flex align-items-center">
-          <div>
-            <BaseInput
-              v-model="searchFilter"
-              class="p-2 w-100"
-              placeholder="Find by task name"
-              type="text"
-              @input="filterInput" />
-          </div>
-          <div>
-            <BaseButton
-              class="m-2"
-              variant="warning"
-              @click="resetFilters">
-              <span class="m-2">Reset</span>
-              <fa icon="undo-alt" />
-            </BaseButton>
-          </div>
-        </form>
-      </div>
-      <TaskList v-if="!isLoading" />
-    </div>
+  <BaseModal
+    :show="showAddForm && !isLoading"
+    @close="toggleAddForm">
+    <TaskForm
+      @submitForm="addTask" />
+  </BaseModal>
+  <BaseDialog
+    :show="showInput"
+    title="Edit list name"
+    @close="toggleInput">
+    <BaseInput
+      v-if="showInput"
+      v-model="title"
+      class="m-2 p-2"
+      type="text" />
+  </BaseDialog>
+  <div class="d-flex align-items-center justify-content-center">
+    <h1 class="m-4">{{ title }}</h1>
+    <BaseButton
+      class="m-2"
+      @click="toggleInput">
+      <fa icon="edit" />
+    </BaseButton>
+    <BaseButton
+      class="m-2"
+      @click="toggleAddForm">
+      <fa icon="plus" />
+    </BaseButton>
+    <form class="m-4 d-flex align-items-center">
+      <BaseInput
+        v-model="searchFilter"
+        class="p-2 w-100"
+        placeholder="Find by title"
+        type="text"
+        @input="filterInput" />
+    </form>
   </div>
+  <TaskList v-if="!isLoading" />
 </template>
 
 <script>
@@ -104,11 +89,6 @@ export default {
       showAddForm.value = !showAddForm.value;
     }
 
-    function resetFilters() {
-      searchFilter.value = '';
-      store.dispatch('search/setFilter', '');
-    }
-
     function addTask(task) {
       store.dispatch('tasks/addTasks', task).then(() => {
         store.dispatch('tasks/fetchTasks');
@@ -119,7 +99,7 @@ export default {
       store.dispatch('tasks/fetchTasks');
     });
 
-    return { title, tasks, showInput, searchFilter, showAddForm, isLoading, filterInput, resetFilters, toggleInput, toggleAddForm, addTask };
+    return { title, tasks, showInput, searchFilter, showAddForm, isLoading, filterInput, toggleInput, toggleAddForm, addTask };
   },
 };
 </script>

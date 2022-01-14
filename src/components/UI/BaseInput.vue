@@ -1,10 +1,12 @@
 <template>
-  <label class="form-label"> {{ label }} </label>
-  <input
-    v-bind="$attrs"
-    class="w-75"
-    :value="modelValue"
-    @input="$emit('update:modelValue', $event.target.value)">
+  <div class="d-flex flex-column w-100">
+    <label class="form-label h4"> {{ label }} </label>
+    <input
+      v-bind="$attrs"
+      class=""
+      :value="modelValue"
+      @input="$emit('update:modelValue', $event.target.value)">
+  </div>
 </template>
 
 <script>

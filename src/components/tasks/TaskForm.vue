@@ -25,8 +25,8 @@
         label="Task description:"
         placeholder="input description" />
     </div>
-    <div class="form-item">
-      <BaseButton variant="dark"> {{ buttonText }}</BaseButton>
+    <div class="form-item justify-content-end">
+      <BaseButton class="bg-gradient" variant="dark"> {{ buttonText }}</BaseButton>
     </div>
   </form>
 </template>

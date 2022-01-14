@@ -7,13 +7,13 @@
       @close="toggleDeleteWindow">
       <template #actions>
         <BaseButton
-          class="m-2"
-          variant="success"
+          class="m-2 bg-gradient"
+          variant="dark"
           @click="deleteTask">
           Yes
         </BaseButton>
         <BaseButton
-          class="m-2"
+          class="m-2 bg-gradient"
           variant="danger"
           @click="toggleDeleteWindow">
           No
@@ -30,7 +30,7 @@
     </BaseModal>
   </div>
   <div
-    class="d-flex flex-column justify-content-evenly">
+    class="d-flex flex-column justify-content-evenly bg-gradient bg-black rounded-3">
     <div class="d-flex align-items-center justify-content-between">
       <div class="text-white  m-3"> {{ $dayjs(task.createdAt).format('HH:mm DD.MM.YYYY') }}</div>
       <div>
@@ -55,7 +55,7 @@
       </div>
     </div>
 
-    <BaseCard class="mw-100">
+    <BaseCard class="d-flex align-items-baseline rounded-3" @click="toggleShowFullTask">
       <BaseCheckbox
         :checked="task.isDone"
         :disabled="archived"
@@ -65,7 +65,7 @@
       </BaseCheckbox>
       <div class="card-body w-75">
         <h5 class="card-title">{{ task.title }}</h5>
-        <p class="card-text text-truncate">
+        <p class="card-text" :class="{ 'text-truncate': !showFullTask }">
           {{task.description}}
         </p>
       </div>
@@ -99,10 +99,16 @@ export default {
     const showDeleteWindow = ref(false);
     const showEditForm = ref(false);
 
+    const showFullTask = ref(false);
+
     const store = useStore();
 
     function toggleDeleteWindow() {
       showDeleteWindow.value = !showDeleteWindow.value;
+    }
+
+    function toggleShowFullTask() {
+      showFullTask.value = !showFullTask.value;
     }
 
     function archiveTask() {
@@ -128,7 +134,7 @@ export default {
       showEditForm.value = !showEditForm.value;
     }
 
-    return { showEditForm, showDeleteWindow, editTask, toggleDeleteWindow, deleteTask, toggleState, archiveTask, toggleEditForm };
+    return { showFullTask, showEditForm, showDeleteWindow, editTask, toggleShowFullTask, toggleDeleteWindow, deleteTask, toggleState, archiveTask, toggleEditForm };
   },
 };
 </script>

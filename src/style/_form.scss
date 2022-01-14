@@ -1,11 +1,23 @@
 .textarea {
-  width: 75%;
-  min-height: 25rem;
+  min-height: 15rem;
+  border-radius: 12px;
+  resize: none;
 }
 
 input {
   min-height: 2.5rem;
   border-radius: 12px;
+  border: 1px solid $dark;
+}
+
+input,
+textarea {
+  outline: none;
+}
+
+input:focus,
+textarea:focus {
+  box-shadow: $theme-outline-shadow-red;
 }
 
 .form {
@@ -32,5 +44,20 @@ input {
     & {
       width: 20rem;
     }
+  }
+}
+
+.custom-checkbox {
+  width: 2.5rem;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  margin: 1rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &-input {
+    visibility: hidden;
+    position: absolute;
   }
 }

@@ -33,11 +33,10 @@
           type="password" />
       </div>
       <div class="form-item">
-        <BaseButton variant="success">{{ loginModeName }}</BaseButton>
+        <BaseButton variant="dark bg-gradient">{{ loginModeName }}</BaseButton>
         <BaseButton
-          class="m-auto"
           type="button"
-          variant="outline-secondary"
+          variant="outline-secondary bg-gradient"
           @click="toggleMode">
           {{ switchModeButtonText }}
         </BaseButton>

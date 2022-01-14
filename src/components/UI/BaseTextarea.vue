@@ -1,10 +1,12 @@
 <template>
-  <label class="form-label"> {{ label }} </label>
-  <textarea
-    v-bind="$attrs"
-    class="textarea"
-    :value="modelValue"
-    @input="$emit('update:modelValue', $event.target.value)"></textarea>
+  <div class="d-flex flex-column w-100">
+    <label class="form-label h4"> {{ label }} </label>
+    <textarea
+      v-bind="$attrs"
+      class="textarea w-100"
+      :value="modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"></textarea>
+  </div>
 </template>
 
 <script>

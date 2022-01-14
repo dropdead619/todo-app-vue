@@ -7,9 +7,9 @@
       v-if="show"
       :class="`modal modal--${size}`"
       open>
-      <header class="p-2 bg-dark rounded-top">
+      <header class="p-2 rounded-top bg-dark bg-gradient">
         <slot name="header">
-          <h2 class="text-light">{{ title }}</h2>
+          <span class="text-light fa-2x p-1">{{ title }}</span>
         </slot>
       </header>
       <section class="p-2 text-black">

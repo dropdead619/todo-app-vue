@@ -6,13 +6,13 @@
     @close="toggleLogoutWindow">
     <template #actions>
       <BaseButton
-        class="success m-2"
-        variant="success"
+        class="bg-gradient m-2"
+        variant="dark"
         @click="logout">
         Yes
       </BaseButton>
       <BaseButton
-        class="danger m-2"
+        class="bg-gradient m-2"
         variant="danger"
         @click="toggleLogoutWindow">
         No
