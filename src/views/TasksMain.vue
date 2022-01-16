@@ -7,7 +7,7 @@
   </BaseModal>
   <BaseDialog
     :show="showInput"
-    title="Edit list name"
+    :title="translateString('editListNameModal')"
     @close="toggleInput">
     <BaseInput
       v-if="showInput"
@@ -31,9 +31,8 @@
       <BaseInput
         v-model="searchFilter"
         class="p-2 w-100"
-        placeholder="Find by title"
-        type="text"
-        @input="filterInput" />
+        :placeholder="translateString('findByTitle')"
+        type="text" />
     </form>
   </div>
   <TaskList v-if="!isLoading" />
@@ -43,6 +42,7 @@
 import TaskList from '@/components/tasks/TaskList';
 import TaskForm from '@/components/tasks/TaskForm';
 import { useStore } from 'vuex';
+import { useTranslator } from '@/composables/translate';
 import { ref, computed, onBeforeMount, watch } from 'vue';
 
 export default {
@@ -54,20 +54,23 @@ export default {
   emits: ['removeTask'],
   setup() {
     const title = ref('Task List');
-
     const showInput = ref(false);
     const showAddForm = ref(false);
     const store = useStore();
+    const { translateString } = useTranslator();
 
     const isLoading = computed(function () {
       return store.getters.isLoading;
     });
 
-    const filter = computed(function () {
-      return store.getters['search/filter'];
+    const searchFilter = computed({
+      get() {
+        return store.getters['search/filter'];
+      },
+      set(val) {
+        store.dispatch('search/setFilter', val);
+      },
     });
-
-    const searchFilter = ref(filter.value);
 
     const tasks = computed(function () {
       return store.getters['tasks/tasks'];
@@ -76,10 +79,6 @@ export default {
     watch(title, (val) => {
       document.title = val;
     });
-
-    function filterInput(e) {
-      store.dispatch('search/setFilter', e.target.value);
-    }
 
     function toggleInput() {
       showInput.value = !showInput.value;
@@ -99,7 +98,7 @@ export default {
       store.dispatch('tasks/fetchTasks');
     });
 
-    return { title, tasks, showInput, searchFilter, showAddForm, isLoading, filterInput, toggleInput, toggleAddForm, addTask };
+    return { title, tasks, showInput, searchFilter, showAddForm, isLoading, translateString, toggleInput, toggleAddForm, addTask };
   },
 };
 </script>

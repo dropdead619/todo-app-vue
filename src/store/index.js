@@ -3,6 +3,7 @@ import createPersistedState from 'vuex-persistedstate';
 import tasks from '@/store/modules/tasks';
 import auth from '@/store/modules/auth';
 import search from '@/store/modules/search';
+import lang from '@/store/modules/lang';
 
 export default createStore({
   state: {
@@ -24,8 +25,9 @@ export default createStore({
     tasks,
     auth,
     search,
+    lang,
   },
   plugins: [createPersistedState({
-    paths: ['auth', 'search'],
+    paths: ['auth', 'search', 'lang'],
   })],
 });

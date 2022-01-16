@@ -2,7 +2,7 @@
   <BaseDialog
     :show="showErrors"
     size="medium"
-    title="Incorrect input"
+    :title="translateString('incorrectInput')"
     @close="toggleErrorDialog">
     <div>
       {{ errors }}
@@ -15,15 +15,15 @@
       <BaseInput
         v-model="task.title"
         class="form-input"
-        label="Task title:"
-        placeholder="input title" />
+        :label="translateString('taskTitle')"
+        :placeholder="translateString('inputTitle')" />
     </div>
     <div class="form-item">
       <BaseTextarea
         v-model="task.description"
         class="form-input"
-        label="Task description:"
-        placeholder="input description" />
+        :label="translateString('taskDescription')"
+        :placeholder="translateString('inputDescription')" />
     </div>
     <div class="form-item justify-content-end">
       <BaseButton class="bg-gradient" variant="dark"> {{ buttonText }}</BaseButton>
@@ -34,6 +34,7 @@
 <script>
 import { useStore } from 'vuex';
 import { ref, reactive, computed, onMounted } from 'vue';
+import { useTranslator } from '@/composables/translate';
 
 export default {
   name: 'TaskForm',
@@ -59,6 +60,8 @@ export default {
       archived: false,
     });
 
+    const { translateString } = useTranslator();
+
     const showErrors = ref(false);
 
     const errors = ref('');
@@ -72,13 +75,13 @@ export default {
     });
 
     const buttonText = computed(function () {
-      return props.isEditing ? 'Edit task' : 'Add task';
+      return props.isEditing ? translateString('editTask') : translateString('addTask');
     });
 
     function onSubmit() {
       if (task.title === '' ||
         task.description === '') {
-        errors.value = 'Input fields cannot be empty!';
+        errors.value = translateString('cannotEmptyError');
         toggleErrorDialog();
         return;
       }
@@ -116,7 +119,7 @@ export default {
       }
     });
 
-    return { showErrors, errors, task, showInput, isLoading, buttonText, onSubmit, toggleErrorDialog };
+    return { showErrors, errors, task, showInput, isLoading, buttonText, translateString, onSubmit, toggleErrorDialog };
   },
 };
 </script>

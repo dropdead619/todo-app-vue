@@ -3,20 +3,20 @@
     <BaseDialog
       :show="showDeleteWindow"
       size="small"
-      title="Delete selected task?"
+      :title="translateString('deleteTaskModal')"
       @close="toggleDeleteWindow">
       <template #actions>
         <BaseButton
           class="m-2 bg-gradient"
           variant="dark"
           @click="deleteTask">
-          Yes
+          {{translateString('yes')}}
         </BaseButton>
         <BaseButton
           class="m-2 bg-gradient"
           variant="danger"
           @click="toggleDeleteWindow">
-          No
+          {{translateString('no')}}
         </BaseButton>
       </template>
     </BaseDialog>
@@ -65,7 +65,15 @@
       </BaseCheckbox>
       <div class="card-body w-75">
         <h5 class="card-title">{{ task.title }}</h5>
-        <p class="card-text" :class="{ 'text-truncate': !showFullTask }">
+        <p
+          v-if="!showFullTask"
+          class="card-text text-truncate">
+          {{task.description}}
+        </p>
+        <p
+          v-else
+          class="card-text "
+          style="white-space: pre-wrap;">
           {{task.description}}
         </p>
       </div>
@@ -76,6 +84,7 @@
 <script>
 import { ref } from 'vue';
 import { useStore } from 'vuex';
+import { useTranslator } from '@/composables/translate';
 import TaskForm from '@/components/tasks/TaskForm';
 
 export default {
@@ -102,6 +111,7 @@ export default {
     const showFullTask = ref(false);
 
     const store = useStore();
+    const { translateString } = useTranslator();
 
     function toggleDeleteWindow() {
       showDeleteWindow.value = !showDeleteWindow.value;
@@ -134,7 +144,7 @@ export default {
       showEditForm.value = !showEditForm.value;
     }
 
-    return { showFullTask, showEditForm, showDeleteWindow, editTask, toggleShowFullTask, toggleDeleteWindow, deleteTask, toggleState, archiveTask, toggleEditForm };
+    return { showFullTask, showEditForm, showDeleteWindow, translateString, editTask, toggleShowFullTask, toggleDeleteWindow, deleteTask, toggleState, archiveTask, toggleEditForm };
   },
 };
 </script>

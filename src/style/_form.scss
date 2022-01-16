@@ -11,12 +11,14 @@ input {
 }
 
 input,
-textarea {
+textarea,
+select {
   outline: none;
 }
 
 input:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
   box-shadow: $theme-outline-shadow-red;
 }
 
@@ -45,6 +47,13 @@ textarea:focus {
       width: 20rem;
     }
   }
+}
+
+.select {
+  width: fit-content;
+  padding: 0.4rem;
+  background-color: transparent;
+  border-radius: 6px;
 }
 
 .custom-checkbox {

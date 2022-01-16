@@ -13,6 +13,7 @@
   <div>
     <div class="title d-flex align-items-center justify-content-center">
       <h1 class="m-4">{{ loginModeName }}</h1>
+      <LanguageSwitcherSelect />
     </div>
     <form
       class="form m-auto"
@@ -21,15 +22,15 @@
         <BaseInput
           v-model.trim="user.email"
           class="form-input"
-          label="E-mail: "
-          placeholder="Your email..." />
+          :label="translateString('email')"
+          :placeholder="translateString('email') + '...'" />
       </div>
       <div class="form-item">
         <BaseInput
           v-model.trim="user.password"
           class="form-input"
-          label="Password: "
-          placeholder="Your password..."
+          :label="translateString('password')"
+          :placeholder="translateString('password') + '...'"
           type="password" />
       </div>
       <div class="form-item">
@@ -49,13 +50,19 @@
 import { ref, computed, reactive } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import { useTranslator } from '@/composables/translate';
+import LanguageSwitcherSelect from '@/components/form/LanguageSwitcherSelect';
 
 export default {
   name: 'LoginPage',
+  components: {
+    LanguageSwitcherSelect,
+  },
   setup() {
     const loginMode = ref('signIn');
     const showErrors = ref(false);
 
+    const { translateString } = useTranslator();
     const errors = ref('');
 
     const store = useStore();
@@ -67,11 +74,11 @@ export default {
     });
 
     const loginModeName = computed(function () {
-      return loginMode.value === 'signIn' ? 'Sign in' : 'Sign up';
+      return loginMode.value === 'signIn' ? translateString('signIn') : translateString('signUp');
     });
 
     const switchModeButtonText = computed(function () {
-      return loginMode.value === 'signIn' ? 'Don\'t have an account?' : 'Already have an account?';
+      return loginMode.value === 'signIn' ? translateString('noAccount') : translateString('haveAccount');
     });
 
     function toggleMode() {
@@ -108,7 +115,7 @@ export default {
       router.push({ name: 'TasksMain' });
     }
 
-    return { user, errors, showErrors, loginModeName, switchModeButtonText, toggleErrorDialog, onSubmit, toggleMode };
+    return { user, errors, showErrors, loginModeName, switchModeButtonText, translateString, toggleErrorDialog, onSubmit, toggleMode };
   },
 };
 </script>
