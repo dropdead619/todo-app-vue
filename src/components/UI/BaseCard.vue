@@ -10,6 +10,6 @@
   color: white;
   flex-direction: row;
   align-items: center;
-  padding: 0.2rem;
+  padding: 0rem;
 }
 </style>

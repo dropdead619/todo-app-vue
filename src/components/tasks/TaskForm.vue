@@ -70,11 +70,9 @@ export default {
 
     const store = useStore();
 
-    const isLoading = computed(function () {
-      return store.getters.isLoading;
-    });
+    const isLoading = computed(() => store.getters.isLoading);
 
-    const buttonText = computed(function () {
+    const buttonText = computed(() => {
       return props.isEditing ? translateString('editTask') : translateString('addTask');
     });
 

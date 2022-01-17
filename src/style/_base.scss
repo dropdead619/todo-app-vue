@@ -7,6 +7,27 @@
   }
 }
 
+.pointer {
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+}
+
+.tags {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.tags-list {
+  width: 100%;
+  display: flex;
+  margin: 0 auto;
+  padding: 0.25rem;
+  flex-wrap: wrap;
+}
+
 .task-list {
   max-width: 42rem;
   width: 100%;
@@ -37,6 +58,10 @@
   @media (max-width: 850px) {
     transform: translate(-6rem);
     overflow: hidden;
+  }
+  &_visible {
+    transform: translate(0rem);
+    overflow: visible;
   }
   &__nav {
     height: 100%;

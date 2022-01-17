@@ -38,6 +38,17 @@ const routes = [
           },
         ],
       },
+      {
+        path: '/tags',
+        component: TheEmptyRouterView,
+        children: [
+          {
+            path: '',
+            name: 'TagsMain',
+            component: () => import(/* webpackChunkName: "tasks" */ '../views/TagsMain.vue'),
+          },
+        ],
+      },
     ],
   },
   {

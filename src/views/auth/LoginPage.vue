@@ -73,11 +73,11 @@ export default {
       password: '',
     });
 
-    const loginModeName = computed(function () {
+    const loginModeName = computed(() => {
       return loginMode.value === 'signIn' ? translateString('signIn') : translateString('signUp');
     });
 
-    const switchModeButtonText = computed(function () {
+    const switchModeButtonText = computed(() => {
       return loginMode.value === 'signIn' ? translateString('noAccount') : translateString('haveAccount');
     });
 

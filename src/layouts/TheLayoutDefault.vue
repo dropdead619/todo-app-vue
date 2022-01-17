@@ -1,28 +1,26 @@
 <template>
   <BasePreloader :show="isLoading" />
 
-  <TheHeader />
+  <TheSider />
   <div>
     <router-view />
   </div>
 </template>
 
 <script>
-import TheHeader from '@/components/layouts/TheHeader';
+import TheSider from '@/components/layouts/TheSider';
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 
 export default {
   components: {
-    TheHeader,
+    TheSider,
   },
 
   setup() {
     const store = useStore();
 
-    const isLoading = computed(function () {
-      return store.getters.isLoading;
-    });
+    const isLoading = computed(() => store.getters.isLoading);
 
     return { isLoading };
   },

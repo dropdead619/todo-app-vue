@@ -1,8 +1,10 @@
+import store from '@/store';
+
 const baseURL = process.env.VUE_APP_SERVER_URL;
 const headers = { 'Content-Type': 'application/json' };
 
 const GET = async (url, options) => {
-  const response = await fetch(baseURL + url, { headers: headers, ...options });
+  const response = await fetch(baseURL + '/' + store.getters['auth/userId'] + url, { headers: headers, ...options });
   const data = await response.json();
   if (response.ok) {
     return data;
@@ -12,7 +14,7 @@ const GET = async (url, options) => {
 };
 
 const POST = async (url, body, options) => {
-  const response = await fetch(baseURL + url, {
+  const response = await fetch(baseURL + '/' + store.getters['auth/userId'] + url, {
     method: 'POST',
     headers: headers,
     body: JSON.stringify(body),
@@ -27,7 +29,7 @@ const POST = async (url, body, options) => {
 };
 
 const PUT = async (url, body, options) => {
-  const response = await fetch(baseURL + url, {
+  const response = await fetch(baseURL + '/' + store.getters['auth/userId'] + url, {
     method: 'PUT',
     headers: headers,
     body: JSON.stringify(body),
@@ -42,7 +44,7 @@ const PUT = async (url, body, options) => {
 };
 
 const PATCH = async (url, body, options) => {
-  const response = await fetch(baseURL + url, {
+  const response = await fetch(baseURL + '/' + store.getters['auth/userId'] + url, {
     method: 'PATCH',
     headers: headers,
     body: JSON.stringify(body),
@@ -57,7 +59,7 @@ const PATCH = async (url, body, options) => {
 };
 
 const DELETE = async (url, options) => {
-  const response = await fetch(baseURL + url, {
+  const response = await fetch(baseURL + '/' + store.getters['auth/userId'] + url, {
     method: 'DELETE',
     ...options,
   });

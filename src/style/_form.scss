@@ -60,13 +60,27 @@ select:focus {
   width: 2.5rem;
   height: 2.5rem;
   min-width: 2.5rem;
-  margin: 1rem;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 0.8rem;
+
   &-input {
     visibility: hidden;
     position: absolute;
+  }
+}
+
+.custom-multiselect {
+  max-width: 30rem;
+  border-radius: 12px;
+  white-space: normal;
+  padding: 0rem 1rem;
+  option {
+    display: inline-block;
+    color: white;
+    margin: 0.75rem;
+    border: 1px solid $white;
   }
 }

@@ -24,7 +24,10 @@
         "no": "No",
         "logoutDialog": "Logout from your account?",
         "editListNameModal": "Edit list name",
-        "deleteTaskModal": "Delete selected task?"
+        "deleteTaskModal": "Delete selected task?",
+        "tagsPage": "Tags",
+        "tagsTitle": "Tag title",
+        "tagsVariant": "Tag color"
     },
     "ru": {
         "mainPage": "Главная",
@@ -51,6 +54,9 @@
         "no": "Нет",
         "logoutDialog": "Выйти из аккаунта?",
         "editListNameModal": "Редактировать название",
-        "deleteTaskModal": "Удалить выбранную задачу?"
+        "deleteTaskModal": "Удалить выбранную задачу?",
+        "tagsPage": "Метки",
+        "tagsTitle": "Наименование метки",
+        "tagsVariant": "Цвет метки"
     }
   }

@@ -27,13 +27,9 @@ export default {
 
     const { translateString } = useTranslator();
 
-    const isLoading = computed(function () {
-      return store.getters.isLoading;
-    });
+    const isLoading = computed(() => store.getters.isLoading);
 
-    const archivedTasks = computed(function () {
-      return store.getters['tasks/archived'];
-    });
+    const archivedTasks = computed(() => store.getters['tasks/archived']);
 
     onBeforeMount(function () {
       store.dispatch('tasks/fetchTasks');

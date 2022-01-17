@@ -41,13 +41,11 @@ export default {
   setup(props) {
     const store = useStore();
 
-    const tasks = computed(function () {
+    const tasks = computed(() => {
       return props.archived ? store.getters['tasks/archived'] : store.getters['tasks/tasks'];
     });
 
-    const filter = computed(function () {
-      return store.getters['search/filter'];
-    });
+    const filter = computed(() => store.getters['search/filter']);
 
     const filteredList = computed(() => {
       return tasks.value?.filter(task => {

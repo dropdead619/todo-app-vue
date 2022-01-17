@@ -4,6 +4,7 @@ import tasks from '@/store/modules/tasks';
 import auth from '@/store/modules/auth';
 import search from '@/store/modules/search';
 import lang from '@/store/modules/lang';
+import tags from '@/store/modules/tags';
 
 export default createStore({
   state: {
@@ -26,6 +27,7 @@ export default createStore({
     auth,
     search,
     lang,
+    tags,
   },
   plugins: [createPersistedState({
     paths: ['auth', 'search', 'lang'],

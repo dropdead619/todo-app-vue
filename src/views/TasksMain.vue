@@ -15,8 +15,8 @@
       class="m-2 p-2"
       type="text" />
   </BaseDialog>
-  <div class="d-flex align-items-center justify-content-center">
-    <h1 class="m-4">{{ title }}</h1>
+  <div class="d-flex align-items-center justify-content-center px-5">
+    <h1 class="m-3">{{ title }}</h1>
     <BaseButton
       class="m-2"
       @click="toggleInput">
@@ -42,6 +42,7 @@
 import TaskList from '@/components/tasks/TaskList';
 import TaskForm from '@/components/tasks/TaskForm';
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 import { useTranslator } from '@/composables/translate';
 import { ref, computed, onBeforeMount, watch } from 'vue';
 
@@ -56,12 +57,12 @@ export default {
     const title = ref('Task List');
     const showInput = ref(false);
     const showAddForm = ref(false);
+
     const store = useStore();
+    const router = useRouter();
     const { translateString } = useTranslator();
 
-    const isLoading = computed(function () {
-      return store.getters.isLoading;
-    });
+    const isLoading = computed(() => store.getters.isLoading);
 
     const searchFilter = computed({
       get() {
@@ -72,9 +73,7 @@ export default {
       },
     });
 
-    const tasks = computed(function () {
-      return store.getters['tasks/tasks'];
-    });
+    const tasks = computed(() => store.getters['tasks/tasks']);
 
     watch(title, (val) => {
       document.title = val;
@@ -89,9 +88,8 @@ export default {
     }
 
     function addTask(task) {
-      store.dispatch('tasks/addTasks', task).then(() => {
-        store.dispatch('tasks/fetchTasks');
-      }).then(() => toggleAddForm());
+      store.dispatch('tasks/addTasks', task)
+        .then((res) => router.push({ name: 'TagsMain', query: { taskId: res } }));
     }
 
     onBeforeMount(function () {
