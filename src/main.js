@@ -5,6 +5,7 @@ import store from './store';
 import FontAwesomeIcon from '@/plugins/fontAwesome';
 import { registerGlobalComponents } from '@/components/global.js';
 import '@/router/beforeEachGuard.js';
+import '@/router/afterEachGuard.js';
 
 import '@/style/app.scss';
 import dayjs from 'dayjs';

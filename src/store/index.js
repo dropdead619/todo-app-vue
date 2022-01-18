@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+
 import createPersistedState from 'vuex-persistedstate';
 import tasks from '@/store/modules/tasks';
 import auth from '@/store/modules/auth';
@@ -14,8 +15,10 @@ export default createStore({
     TOGGLE_LOADING_STATE(state) {
       state.isLoading = !state.isLoading;
     },
+
   },
   actions: {
+
   },
   getters: {
     isLoading(state) {

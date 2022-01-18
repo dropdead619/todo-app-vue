@@ -15,11 +15,10 @@
         "inputDescription": "Input description",
         "incorrectInput": "Incorrect input",
         "cannotEmptyError": "Input fields cannot be empty!",
-        "addTask": "Add task",
-        "editTask": "Edit task",
+        "add": "Add",
+        "edit": "Edit",
         "archivedTasks": "Archived tasks:",
         "findByTitle": "Find by title",
-
         "yes": "Yes",
         "no": "No",
         "logoutDialog": "Logout from your account?",
@@ -27,7 +26,11 @@
         "deleteTaskModal": "Delete selected task?",
         "tagsPage": "Tags",
         "tagsTitle": "Tag title",
-        "tagsVariant": "Tag color"
+        "tagsVariant": "Tag color",
+        "chooseExisting": "Choose from existing",
+        "selectTags": "Select tags (press CTRL + Right click to select multiple)",
+        "updateTask": "Update task",
+        "selected": "Selected:"
     },
     "ru": {
         "mainPage": "Главная",
@@ -45,11 +48,10 @@
         "cannotEmptyError": "Поля не могут быть пустыми!",
         "inputTitle": "Введите название",
         "inputDescription": "Введите описание",
-        "addTask": "Добавить задачу",
-        "editTask": "Редактировать задачу",
+        "add": "Добавить",
+        "edit": "Редактировать",
         "archivedTasks": "Архивные задачи:",
         "findByTitle": "Найти по наименованию",
-
         "yes": "Да",
         "no": "Нет",
         "logoutDialog": "Выйти из аккаунта?",
@@ -57,6 +59,10 @@
         "deleteTaskModal": "Удалить выбранную задачу?",
         "tagsPage": "Метки",
         "tagsTitle": "Наименование метки",
-        "tagsVariant": "Цвет метки"
+        "tagsVariant": "Цвет метки",
+        "chooseExisting": "Выбрать из уже существующих",
+        "selectTags": "Выберите метки (нажмите CTRL + Right click чтобы выбрать несколько)",
+        "updateTask": "Обновить задачу",
+        "selected": "Выбранное:"
     }
   }

@@ -73,7 +73,7 @@ export default {
     const isLoading = computed(() => store.getters.isLoading);
 
     const buttonText = computed(() => {
-      return props.isEditing ? translateString('editTask') : translateString('addTask');
+      return props.isEditing ? translateString('edit') : translateString('add');
     });
 
     function onSubmit() {

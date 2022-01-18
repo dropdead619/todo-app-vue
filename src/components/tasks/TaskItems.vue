@@ -84,7 +84,7 @@
         </p>
       </div>
     </BaseCard>
-    <div class="bg-dark bg-gradient rounded-bottom">
+    <div v-if="task.tags" class="bg-dark bg-gradient rounded-bottom">
       <TagsList class="flex-row-reverse" :tags="task.tags" />
     </div>
   </div>

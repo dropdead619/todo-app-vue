@@ -19,7 +19,7 @@
         :placeholder="translateString('inputTitle')" />
     </div>
     <div class="form-item d-flex flex-column align-items-start">
-      <label class="form-label h4"> Tag color: </label>
+      <label class="form-label h4"> {{translateString('tagsVariant')}} </label>
       <div>
         <BaseTag
           v-for="variant in colorVariants"
@@ -35,13 +35,14 @@
     </div>
     <div class="form-item justify-content-between">
       <BaseButton
+        v-if="!isEditing"
         class="bg-gradient"
         type="button"
         variant="light"
         @click="$emit('toggleForm')">
-        Choose from existing
+        {{translateString('chooseExisting')}}
       </BaseButton>
-      <BaseButton class="bg-gradient" variant="dark"> Add tag </BaseButton>
+      <BaseButton class="bg-gradient" variant="dark"> {{editBtnText}} </BaseButton>
     </div>
   </form>
 </template>
@@ -67,9 +68,9 @@ export default {
       type: Boolean,
       default: false,
     },
-    id: {
-      type: String,
-      default: '',
+    tagInfo: {
+      type: [Object, Array],
+      default: null,
     },
   },
   emits: ['submitForm', 'toggleForm'],
@@ -91,6 +92,10 @@ export default {
     const store = useStore();
 
     const isLoading = computed(() => store.getters.isLoading);
+
+    const editBtnText = computed(() => {
+      return props.isEditing ? translateString('edit') : translateString('add');
+    });
 
     function selectColor(color) {
       tag.variant = color;
@@ -118,16 +123,15 @@ export default {
     }
 
     onMounted(() => {
-    //   if (props.isEditing) {
-    //     store.dispatch('tasks/fetchTaskById', props.id).then((res) => {
-    //       tag.id = res.id;
-    //       tag.title = res.title;
-    //       tag.variant = res.variant;
-    //     });
-    //   }
+      if (props.isEditing) {
+        tag.id = props.tagInfo.id;
+        tag.title = props.tagInfo.title;
+        tag.variant = props.tagInfo.variant;
+        selectColor(tag.variant);
+      }
     });
 
-    return { showErrors, colorVariants, errors, tag, showInput, isLoading, translateString, onSubmit, toggleErrorDialog, selectColor };
+    return { showErrors, colorVariants, errors, tag, showInput, isLoading, translateString, editBtnText, onSubmit, toggleErrorDialog, selectColor };
   },
 };
 </script>

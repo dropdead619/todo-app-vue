@@ -16,7 +16,7 @@
       type="text" />
   </BaseDialog>
   <div class="d-flex align-items-center justify-content-center px-5">
-    <h1 class="m-3">{{ title }}</h1>
+    <h1 class="m-3">{{translateString('mainPage')}}</h1>
     <BaseButton
       class="m-2"
       @click="toggleInput">
@@ -42,9 +42,12 @@
 import TaskList from '@/components/tasks/TaskList';
 import TaskForm from '@/components/tasks/TaskForm';
 import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
+
+import { DEFAULT_TITLE } from '@/config/constants';
+
 import { useTranslator } from '@/composables/translate';
-import { ref, computed, onBeforeMount, watch } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 
 export default {
   name: 'TasksMain',
@@ -54,12 +57,13 @@ export default {
   },
   emits: ['removeTask'],
   setup() {
-    const title = ref('Task List');
+    const store = useStore();
+    const route = useRoute();
+    const router = useRouter();
+    const title = ref(route.meta.title || DEFAULT_TITLE);
     const showInput = ref(false);
     const showAddForm = ref(false);
 
-    const store = useStore();
-    const router = useRouter();
     const { translateString } = useTranslator();
 
     const isLoading = computed(() => store.getters.isLoading);
@@ -77,6 +81,7 @@ export default {
 
     watch(title, (val) => {
       document.title = val;
+      route.meta.title = val;
     });
 
     function toggleInput() {
@@ -92,7 +97,7 @@ export default {
         .then((res) => router.push({ name: 'TagsMain', query: { taskId: res } }));
     }
 
-    onBeforeMount(function () {
+    onMounted(function () {
       store.dispatch('tasks/fetchTasks');
     });
 

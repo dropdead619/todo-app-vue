@@ -9,25 +9,36 @@
   <div class="tags">
     <div class="title d-flex align-items-center justify-content-center">
       <h1 class="m-4">{{ translateString('tagsPage') }} </h1>
-      <BaseButton @click="toggleTagAddForm"> <fa icon="tags" /> Add new</BaseButton>
+      <BaseButton @click="toggleTagAddForm"> <fa icon="tags" /> {{ translateString('add') }}</BaseButton>
     </div>
     <div>
-      <TagsList :tags="tags" />
+      <TagsList v-if="tags" :tags="tags" />
     </div>
     <div class=" d-flex flex-column align-items-center justify-content-center">
-      <TagsMultiselect
-        v-model:value="selectedTags"
-        label="Select tasks"
-        :tags="tags" />
-      <div>
-        <label class="mt-4">{{ 'Selected tags:' }} </label>
+      <label class="m-4"> {{ translateString('selectTags') }}</label>
+      <select
+        v-if="!isLoading"
+        v-model="selectedTags"
+        class="custom-multiselect bg-dark"
+        multiple>
+        <option
+          v-for="tag in tags"
+          :key="tag.id"
+          class="badge"
+          :class="`bg-${tag.variant}`"
+          :value="tag">
+          {{ tag.title }}
+        </option>
+      </select>
+      <div class="mt-4 d-flex justify-content-start align-items-center">
+        <label class="mx-2"> {{ translateString('selected') }} </label>
         <TagsList :tags="selectedTags" />
       </div>
 
       <BaseButton
         class="mt-4"
         @click="updateTask">
-        Update task
+        {{ translateString('updateTask') }}
       </BaseButton>
     </div>
   </div>
@@ -36,19 +47,17 @@
 <script>
 import TagsList from '@/components/tags/TagsList';
 import TagsForm from '@/components/tags/TagsForm';
-import TagsMultiselect from '@/components/form/TagsMultiselect';
 import { useStore } from 'vuex';
 import { useTranslator } from '@/composables/translate';
 import { useRouter, useRoute } from 'vue-router';
 
-import { ref, computed, onBeforeMount } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 
 export default {
   name: 'TagsMain',
   components: {
     TagsList,
     TagsForm,
-    TagsMultiselect,
   },
   setup() {
     const store = useStore();
@@ -87,7 +96,7 @@ export default {
       showTagAddForm.value = !showTagAddForm.value;
     }
 
-    onBeforeMount(function () {
+    onMounted(function () {
       store.dispatch('tags/fetchTags');
     });
 
