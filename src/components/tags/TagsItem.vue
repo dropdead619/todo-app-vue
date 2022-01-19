@@ -5,13 +5,16 @@
     <TagsForm
       isEditing
       :tagInfo="tag"
+      @deleteTag="deleteTag"
       @submitForm="editTag"
       @toggleForm="toggleTagEditForm" />
   </BaseModal>
   <BaseTag
     class="pointer"
+    tabindex="0"
     :variant="tag.variant"
-    @click="toggleTagEditForm">
+    @click="toggleTagEditForm"
+    @keyup.enter="toggleTagEditForm">
     {{ tag.title }}
   </BaseTag>
 </template>
@@ -31,7 +34,7 @@ export default {
   components: {
     TagsForm,
   },
-  emits: ['editTag'],
+  emits: ['editTag', 'deleteTag'],
   setup(_, { emit }) {
     const showTagEditForm = ref(false);
     const store = useStore();
@@ -45,7 +48,17 @@ export default {
       emit('editTag', submitedTag);
     }
 
-    return { showTagEditForm, toggleTagEditForm, editTag, isLoading };
+    function deleteTag(tagId) {
+      emit('deleteTag', tagId);
+    }
+
+    return {
+      showTagEditForm,
+      toggleTagEditForm,
+      editTag,
+      deleteTag,
+      isLoading,
+    };
   },
 };
 </script>

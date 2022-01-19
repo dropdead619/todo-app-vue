@@ -2,6 +2,9 @@
   min-height: 15rem;
   border-radius: 12px;
   resize: none;
+  @media (max-width: 576px) {
+    min-height: 8rem;
+  }
 }
 
 input {
@@ -24,7 +27,6 @@ select:focus {
 
 .form {
   max-width: 43.75rem;
-  width: 30rem;
   border: 10px solid white;
   border-radius: 15px;
   &-item {
@@ -32,7 +34,6 @@ select:focus {
     display: flex;
     justify-content: space-between;
     padding: 1rem;
-    background-color: $white;
   }
   &-label {
     font-size: 1rem;
@@ -41,11 +42,6 @@ select:focus {
   &-input {
     padding: 0.25rem 0.5rem;
     font-size: 0.875rem;
-  }
-  @media (max-width: 768px) {
-    & {
-      width: 20rem;
-    }
   }
 }
 
@@ -65,7 +61,7 @@ select:focus {
   justify-content: center;
   align-items: center;
   margin-left: 0.8rem;
-
+  outline: none;
   &-input {
     visibility: hidden;
     position: absolute;

@@ -48,8 +48,9 @@
         </RouterLink>
       </div>
       <span
-        class="sidebar__nav_link"
+        class="sidebar__nav_link logout"
         role="button"
+        tabindex="0"
         @click="toggleLogoutWindow">
         <fa class="mb-1" icon="user" /> {{ translateString('logout')}}
       </span>

@@ -30,12 +30,20 @@
          &nbsp;
         </BaseTag>
       </div>
-
+      <label class="form-label h4 mt-3"> {{translateString('selected')}} </label>
       <BaseTag :variant="tag.variant">&nbsp;</BaseTag>
     </div>
     <div class="form-item justify-content-between">
       <BaseButton
-        v-if="!isEditing"
+        v-if="isEditing"
+        class="bg-gradient"
+        type="button"
+        variant="danger"
+        @click="$emit('deleteTag', tag.id)">
+        Удалить
+      </BaseButton>
+      <BaseButton
+        v-else
         class="bg-gradient"
         type="button"
         variant="light"
@@ -73,7 +81,7 @@ export default {
       default: null,
     },
   },
-  emits: ['submitForm', 'toggleForm'],
+  emits: ['submitForm', 'toggleForm', 'deleteTag'],
   setup(props, context) {
     const tag = reactive({
       id: '',

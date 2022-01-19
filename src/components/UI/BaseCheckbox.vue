@@ -1,5 +1,9 @@
 <template>
-  <label class="custom-checkbox" :class="checked ? 'btn-success' : 'btn-outline-danger'">
+  <label
+    class="custom-checkbox"
+    :class="checked ? 'btn-success' : 'btn-outline-danger'"
+    tabindex="0"
+    @keyup.enter="toggleCheckbox">
     <input
       v-bind="$attrs"
       autocomplete="off"

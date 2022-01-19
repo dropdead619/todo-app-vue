@@ -2,22 +2,32 @@ const store = {
   namespaced: true,
   state() {
     return {
-      filter: '',
+      taskTitleFilter: '',
+      tagTitleFilter: '',
     };
   },
   mutations: {
-    SET_FILTER(state, payload) {
-      state.filter = payload;
+    SET_TASK_FILTER(state, payload) {
+      state.taskTitleFilter = payload;
+    },
+    SET_TAG_FILTER(state, payload) {
+      state.tagTitleFilter = payload;
     },
   },
   actions: {
-    setFilter({ commit }, payload) {
-      commit('SET_FILTER', payload);
+    setTaskFilter({ commit }, payload) {
+      commit('SET_TASK_FILTER', payload);
+    },
+    setTagFilter({ commit }, payload) {
+      commit('SET_TAG_FILTER', payload);
     },
   },
   getters: {
-    filter(state) {
-      return state.filter;
+    taskTitleFilter(state) {
+      return state.taskTitleFilter;
+    },
+    tagTitleFilter(state) {
+      return state.tagTitleFilter;
     },
   },
 };

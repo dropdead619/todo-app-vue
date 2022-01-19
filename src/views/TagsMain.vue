@@ -14,10 +14,11 @@
     <div>
       <TagsList v-if="tags" :tags="tags" />
     </div>
-    <div class=" d-flex flex-column align-items-center justify-content-center">
+    <div
+      v-if="tags"
+      class=" d-flex flex-column align-items-center justify-content-center">
       <label class="m-4"> {{ translateString('selectTags') }}</label>
       <select
-        v-if="!isLoading"
         v-model="selectedTags"
         class="custom-multiselect bg-dark"
         multiple>
@@ -41,6 +42,9 @@
         {{ translateString('updateTask') }}
       </BaseButton>
     </div>
+    <template v-else>
+      <div class="d-flex align-items-center justify-content-center text-warning">{{ translateString('nothingToDisplay') }}</div>
+    </template>
   </div>
 </template>
 

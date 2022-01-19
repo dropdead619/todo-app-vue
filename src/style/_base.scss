@@ -2,8 +2,14 @@
 @include font('ProximaNova', 'ProximaNova-Semibold', '500', 'normal');
 
 @media (max-width: 850px) {
-  body {
-    font-size: 12px;
+  html {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  html {
+    font-size: 0.8rem;
   }
 }
 
@@ -89,12 +95,29 @@ ul {
     border-radius: 10px;
     text-decoration: none;
     outline: none;
+
+    &.logout:focus {
+      box-shadow: $theme-outline-shadow-dark;
+    }
+
     &:hover {
       color: $white;
     }
     &:focus {
       box-shadow: $theme-outline-shadow-red;
     }
+  }
+}
+
+.main {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.badge {
+  outline: none;
+  &:focus {
+    box-shadow: $theme-outline-shadow-red;
   }
 }
 

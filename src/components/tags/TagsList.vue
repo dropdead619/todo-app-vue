@@ -1,7 +1,10 @@
 <template>
   <ul class="tags-list">
     <li v-for="tag in tags" :key="tag.id">
-      <TagsItem :tag="tag" @editTag="editTag" />
+      <TagsItem
+        :tag="tag"
+        @deleteTag="deleteTag"
+        @editTag="editTag" />
     </li>
   </ul>
 </template>
@@ -20,7 +23,6 @@ export default {
   components: {
     TagsItem,
   },
-  emits: ['editTag'],
   setup() {
     const store = useStore();
 
@@ -30,7 +32,13 @@ export default {
       });
     }
 
-    return { editTag };
+    function deleteTag(id) {
+      store.dispatch('tags/deleteTag', { id }).then(() => {
+        store.dispatch('tags/fetchTags');
+      });
+    }
+
+    return { editTag, deleteTag };
   },
 };
 </script>

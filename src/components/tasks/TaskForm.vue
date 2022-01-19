@@ -10,6 +10,7 @@
   </BaseDialog>
   <form
     class="form"
+    @keyup.enter.exact="onSubmit"
     @submit.prevent="onSubmit">
     <div class="form-item">
       <BaseInput
@@ -26,7 +27,12 @@
         :placeholder="translateString('inputDescription')" />
     </div>
     <div class="form-item justify-content-end">
-      <BaseButton class="bg-gradient" variant="dark"> {{ buttonText }}</BaseButton>
+      <BaseButton
+        class="bg-gradient"
+        type="submit"
+        variant="dark">
+        {{ buttonText }}
+      </BaseButton>
     </div>
   </form>
 </template>

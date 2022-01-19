@@ -3,7 +3,6 @@
     <label class="form-label h4"> {{ label }} </label>
     <input
       v-bind="$attrs"
-      class=""
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)">
   </div>

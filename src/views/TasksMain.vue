@@ -15,24 +15,35 @@
       class="m-2 p-2"
       type="text" />
   </BaseDialog>
-  <div class="d-flex align-items-center justify-content-center px-5">
-    <h1 class="m-3">{{translateString('mainPage')}}</h1>
-    <BaseButton
-      class="m-2"
-      @click="toggleInput">
-      <fa icon="edit" />
-    </BaseButton>
-    <BaseButton
-      class="m-2"
-      @click="toggleAddForm">
-      <fa icon="plus" />
-    </BaseButton>
-    <form class="m-4 d-flex align-items-center">
-      <BaseInput
-        v-model="searchFilter"
-        class="p-2 w-100"
-        :placeholder="translateString('findByTitle')"
-        type="text" />
+  <div class="main">
+    <div class="d-flex align-items-center justify-content-center">
+      <h1 class="m-3">{{translateString('mainPage')}}</h1>
+      <BaseButton
+        class="m-2"
+        @click="toggleInput">
+        <fa icon="edit" />
+      </BaseButton>
+      <BaseButton
+        class="m-2"
+        @click="toggleAddForm">
+        <fa icon="plus" />
+      </BaseButton>
+    </div>
+    <form class="mx-3 d-flex align-items-center">
+      <div class="form-item">
+        <BaseInput
+          v-model="taskFilter"
+          class="p-2 w-100"
+          :placeholder="translateString('findByTitle')"
+          type="text" />
+      </div>
+      <div class="form-item">
+        <BaseInput
+          v-model="tagFilter"
+          class="p-2 w-100"
+          :placeholder="translateString('findByTag')"
+          type="text" />
+      </div>
     </form>
   </div>
   <TaskList v-if="!isLoading" />
@@ -68,12 +79,21 @@ export default {
 
     const isLoading = computed(() => store.getters.isLoading);
 
-    const searchFilter = computed({
+    const taskFilter = computed({
       get() {
-        return store.getters['search/filter'];
+        return store.getters['search/taskTitleFilter'];
       },
       set(val) {
-        store.dispatch('search/setFilter', val);
+        store.dispatch('search/setTaskFilter', val);
+      },
+    });
+
+    const tagFilter = computed({
+      get() {
+        return store.getters['search/tagTitleFilter'].tagFilter;
+      },
+      set(val) {
+        store.dispatch('search/setTagFilter', val);
       },
     });
 
@@ -101,7 +121,7 @@ export default {
       store.dispatch('tasks/fetchTasks');
     });
 
-    return { title, tasks, showInput, searchFilter, showAddForm, isLoading, translateString, toggleInput, toggleAddForm, addTask };
+    return { title, tasks, showInput, taskFilter, tagFilter, showAddForm, isLoading, translateString, toggleInput, toggleAddForm, addTask };
   },
 };
 </script>

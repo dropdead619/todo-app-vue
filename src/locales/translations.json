@@ -19,6 +19,7 @@
         "edit": "Edit",
         "archivedTasks": "Archived tasks:",
         "findByTitle": "Find by title",
+        "findByTag": "Find by tag",
         "yes": "Yes",
         "no": "No",
         "logoutDialog": "Logout from your account?",
@@ -30,7 +31,9 @@
         "chooseExisting": "Choose from existing",
         "selectTags": "Select tags (press CTRL + Right click to select multiple)",
         "updateTask": "Update task",
-        "selected": "Selected:"
+        "selected": "Selected:",
+        "nothingToDisplay": "Whoops, nothing to display, add new content...",
+        "noMatch": "No match found..."
     },
     "ru": {
         "mainPage": "Главная",
@@ -52,6 +55,7 @@
         "edit": "Редактировать",
         "archivedTasks": "Архивные задачи:",
         "findByTitle": "Найти по наименованию",
+        "findByTag": "Найти по метке",
         "yes": "Да",
         "no": "Нет",
         "logoutDialog": "Выйти из аккаунта?",
@@ -63,6 +67,8 @@
         "chooseExisting": "Выбрать из уже существующих",
         "selectTags": "Выберите метки (нажмите CTRL + Right click чтобы выбрать несколько)",
         "updateTask": "Обновить задачу",
-        "selected": "Выбранное:"
+        "selected": "Выбранное:",
+        "nothingToDisplay": "Упс, здесь пусто, добавьте новый контент...",
+        "noMatch": "Не найдено совпадений..."
     }
   }

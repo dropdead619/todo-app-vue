@@ -1,9 +1,9 @@
 <template>
   <template v-if="!!!tasks">
-    <div class="text-center text-warning">Add new task...</div>
+    <div class="text-center text-warning">{{ translateString('nothingToDisplay') }}</div>
   </template>
   <template v-else-if="filteredList?.length === 0">
-    <div class="text-center text-warning">No match found</div>
+    <div class="text-center text-warning">{{ translateString('noMatch') }}</div>
   </template>
   <ul class="task-list">
     <li
@@ -22,7 +22,7 @@
 
 <script>
 import TaskItems from '@/components/tasks/TaskItems';
-
+import { useTranslator } from '@/composables/translate';
 import { useStore } from 'vuex';
 
 import { computed } from 'vue';
@@ -40,16 +40,21 @@ export default {
   },
   setup(props) {
     const store = useStore();
+    const { translateString } = useTranslator();
 
     const tasks = computed(() => {
       return props.archived ? store.getters['tasks/archived'] : store.getters['tasks/tasks'];
     });
 
-    const filter = computed(() => store.getters['search/filter']);
+    const taskFilter = computed(() => store.getters['search/taskTitleFilter']);
+    const tagFilter = computed(() => store.getters['search/tagTitleFilter']);
 
     const filteredList = computed(() => {
       return tasks.value?.filter(task => {
-        return task.title.toLowerCase().includes(filter?.value.toLowerCase());
+        if (!task.tags) return true;
+
+        return task.title.toLowerCase().includes(taskFilter?.value.toLowerCase()) &&
+     (Object.values(task.tags).find(tag => tag.title.toLowerCase().includes(tagFilter?.value.toLowerCase())));
       });
     });
 
@@ -71,7 +76,7 @@ export default {
       });
     }
 
-    return { tasks, filteredList, toggleState, deleteTask, archiveTask };
+    return { tasks, filteredList, translateString, toggleState, deleteTask, archiveTask };
   },
 };
 </script>

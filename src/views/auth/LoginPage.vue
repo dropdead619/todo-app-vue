@@ -18,14 +18,14 @@
     <form
       class="form m-auto"
       @submit.prevent="onSubmit">
-      <div class="form-item">
+      <div class="form-item bg-light">
         <BaseInput
           v-model.trim="user.email"
           class="form-input"
           :label="translateString('email')"
           :placeholder="translateString('email') + '...'" />
       </div>
-      <div class="form-item">
+      <div class="form-item  bg-light">
         <BaseInput
           v-model.trim="user.password"
           class="form-input"
@@ -33,7 +33,7 @@
           :placeholder="translateString('password') + '...'"
           type="password" />
       </div>
-      <div class="form-item">
+      <div class="form-item  bg-light">
         <BaseButton variant="dark bg-gradient">{{ loginModeName }}</BaseButton>
         <BaseButton
           type="button"
