@@ -24,14 +24,18 @@
     class="m-2 position-fixed h3 pointer"
     icon="hamburger"
     style="z-index: 1000"
-    @click="toggleSideVisibility" />
+    tabindex="1"
+    @click="toggleSideVisibility"
+    @keyup.enter.exact="toggleSideVisibility" />
 
   <fa
     v-else-if="sideVisible && isMobile"
     class="m-2 position-fixed h5 pointer"
     icon="times"
     style="z-index: 1000"
-    @click="toggleSideVisibility" />
+    tabindex="1"
+    @click="toggleSideVisibility"
+    @keyup.enter.exact="toggleSideVisibility" />
   <aside class="sidebar fixed-top" :class="{'sidebar_visible': sideVisible}">
     <nav class="sidebar__nav">
       <div class="text-center">

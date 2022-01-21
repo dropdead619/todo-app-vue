@@ -3,11 +3,13 @@
     <BaseBackdrop
       v-if="show"
       @click.self="close" />
-    <div
-      v-if="show"
-      :class="`modal modal--${size}`">
-      <slot></slot>
-    </div>
+    <transition name="fade">
+      <div
+        v-if="show"
+        :class="`modal modal--${size}`">
+        <slot></slot>
+      </div>
+    </transition>
   </teleport>
 </template>
 
