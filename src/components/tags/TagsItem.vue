@@ -10,7 +10,7 @@
       @toggleForm="toggleTagEditForm" />
   </BaseModal>
   <BaseTag
-    class="pointer"
+    class="pointer bg-gradient"
     tabindex="0"
     :variant="tag.variant"
     @click="toggleTagEditForm"
@@ -62,5 +62,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="scss"></style>

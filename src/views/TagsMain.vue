@@ -35,7 +35,6 @@
         <label class="mx-2"> {{ translateString('selected') }} </label>
         <TagsList :tags="selectedTags" />
       </div>
-
       <BaseButton
         class="mt-4"
         @click="updateTask">
@@ -108,5 +107,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="scss"></style>
