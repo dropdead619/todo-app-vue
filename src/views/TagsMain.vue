@@ -8,7 +8,7 @@
   </BaseModal>
   <div class="tags">
     <div class="title d-flex align-items-center justify-content-center">
-      <h1 class="m-4">{{ translateString('tagsPage') }} </h1>
+      <h1 class="m-4">{{ translateString('tagsPage', 2) }} </h1>
       <BaseButton @click="toggleTagAddForm"> <fa icon="tags" /> {{ translateString('add') }}</BaseButton>
     </div>
     <div>

@@ -45,6 +45,7 @@
           type="text" />
       </div>
     </form>
+    <div>{{totalTasks}}</div>
   </div>
   <TaskList v-if="!isLoading" />
 </template>
@@ -98,6 +99,9 @@ export default {
     });
 
     const tasks = computed(() => store.getters['tasks/tasks']);
+    const totalTasks = computed(() => {
+      return tasks.value?.length + ' ' + translateString('task', tasks.value?.length);
+    });
 
     watch(title, (val) => {
       document.title = val;
@@ -121,7 +125,7 @@ export default {
       store.dispatch('tasks/fetchTasks');
     });
 
-    return { title, tasks, showInput, taskFilter, tagFilter, showAddForm, isLoading, translateString, toggleInput, toggleAddForm, addTask };
+    return { title, totalTasks, showInput, taskFilter, tagFilter, showAddForm, isLoading, translateString, toggleInput, toggleAddForm, addTask };
   },
 };
 </script>

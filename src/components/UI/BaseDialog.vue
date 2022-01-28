@@ -1,5 +1,6 @@
 <template>
-  <teleport to="body">
+  <teleport
+    to="body">
     <BaseBackdrop
       v-if="show"
       @click.self="close" />
