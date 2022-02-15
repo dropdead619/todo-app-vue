@@ -45,9 +45,13 @@
           type="text" />
       </div>
     </form>
-    <div>{{totalTasks}}</div>
+    <hr class="divider">
+    <div class="w-100 text-center">{{totalTasks}}</div>
+    <hr class="divider">
   </div>
-  <TaskList v-if="!isLoading" />
+  <div class="task-list-container">
+    <TaskList v-if="!isLoading" />
+  </div>
 </template>
 
 <script>
@@ -58,7 +62,7 @@ import { useRouter, useRoute } from 'vue-router';
 
 import { DEFAULT_TITLE } from '@/config/constants';
 
-import { useTranslator } from '@/composables/translate';
+import { useTranslator } from '@/plugins/i18n';
 import { ref, computed, onMounted, watch } from 'vue';
 
 export default {
@@ -100,7 +104,7 @@ export default {
 
     const tasks = computed(() => store.getters['tasks/tasks']);
     const totalTasks = computed(() => {
-      return tasks.value?.length + ' ' + translateString('task', tasks.value?.length);
+      return (tasks.value?.length || 0) + ' ' + translateString('task', tasks.value?.length);
     });
 
     watch(title, (val) => {

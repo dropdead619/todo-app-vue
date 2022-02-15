@@ -2,7 +2,7 @@
   <BaseDialog
     :show="showErrors"
     size="medium"
-    :title="translateString('incorrectInput')"
+    :title="$translateString('incorrectInput')"
     @close="toggleErrorDialog">
     <div>
       {{ errors }}
@@ -15,11 +15,11 @@
       <BaseInput
         v-model="tag.title"
         class="form-input"
-        :label="translateString('tagsTitle')"
-        :placeholder="translateString('inputTitle')" />
+        :label="$translateString('tagsTitle')"
+        :placeholder="$translateString('inputTitle')" />
     </div>
     <div class="form-item d-flex flex-column align-items-start">
-      <label class="form-label h4"> {{translateString('tagsVariant')}} </label>
+      <label class="form-label h4"> {{$translateString('tagsVariant')}} </label>
       <div>
         <BaseTag
           v-for="variant in colorVariants"
@@ -30,7 +30,7 @@
          &nbsp;
         </BaseTag>
       </div>
-      <label class="form-label h4 mt-3"> {{translateString('selected')}} </label>
+      <label class="form-label h4 mt-3"> {{ $translateString('selected')}} </label>
       <BaseTag :variant="tag.variant">&nbsp;</BaseTag>
     </div>
     <div class="form-item justify-content-between">
@@ -48,7 +48,7 @@
         type="button"
         variant="light"
         @click="$emit('toggleForm')">
-        {{translateString('chooseExisting')}}
+        {{ $translateString('chooseExisting') }}
       </BaseButton>
       <BaseButton class="bg-gradient" variant="dark"> {{editBtnText}} </BaseButton>
     </div>
@@ -58,7 +58,7 @@
 <script>
 import { useStore } from 'vuex';
 import { ref, reactive, computed, onMounted } from 'vue';
-import { useTranslator } from '@/composables/translate';
+import { useTranslator } from '@/plugins/i18n';
 
 const colorVariants = [
   'primary',
@@ -89,8 +89,6 @@ export default {
       variant: '',
     });
 
-    const { translateString } = useTranslator();
-
     const showErrors = ref(false);
 
     const errors = ref('');
@@ -100,6 +98,8 @@ export default {
     const store = useStore();
 
     const isLoading = computed(() => store.getters.isLoading);
+
+    const { translateString } = useTranslator();
 
     const editBtnText = computed(() => {
       return props.isEditing ? translateString('edit') : translateString('add');
@@ -139,7 +139,7 @@ export default {
       }
     });
 
-    return { showErrors, colorVariants, errors, tag, showInput, isLoading, translateString, editBtnText, onSubmit, toggleErrorDialog, selectColor };
+    return { showErrors, colorVariants, errors, tag, showInput, isLoading, editBtnText, onSubmit, toggleErrorDialog, selectColor };
   },
 };
 </script>

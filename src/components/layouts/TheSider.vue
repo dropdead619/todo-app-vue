@@ -2,20 +2,20 @@
   <BaseDialog
     :show="showLogoutWindow"
     size="tiny"
-    :title="translateString('logoutDialog')"
+    :title="$translateString('logoutDialog')"
     @close="toggleLogoutWindow">
     <template #actions>
       <BaseButton
         class="bg-gradient m-2"
         variant="dark"
         @click="logout">
-        {{ translateString('yes') }}
+        {{ $translateString('yes') }}
       </BaseButton>
       <BaseButton
         class="bg-gradient m-2"
         variant="danger"
         @click="toggleLogoutWindow">
-        {{ translateString('no') }}
+        {{ $translateString('no') }}
       </BaseButton>
     </template>
   </BaseDialog>
@@ -43,12 +43,12 @@
         <RouterLink
           class="sidebar__nav_link mb-2"
           :to="{ name: 'TasksMain' }">
-          <fa class="mb-1" icon="home" /> {{ translateString('mainPage')}}
+          <fa class="mb-1" icon="home" /> {{ $translateString('mainPage')}}
         </RouterLink>
         <RouterLink
           class="sidebar__nav_link  mb-2"
           :to="{ name: 'TasksArchive' }">
-          <fa class="mb-1" icon="archive" /> {{ translateString('archivedPage')}}
+          <fa class="mb-1" icon="archive" /> {{ $translateString('archivedPage')}}
         </RouterLink>
       </div>
       <span
@@ -56,7 +56,7 @@
         role="button"
         tabindex="0"
         @click="toggleLogoutWindow">
-        <fa class="mb-1" icon="user" /> {{ translateString('logout')}}
+        <fa class="mb-1" icon="user" /> {{ $translateString('logout')}}
       </span>
     </nav>
   </aside>
@@ -67,7 +67,6 @@ import { ref } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import { useIsMobile } from '@/composables/isMobile';
-import { useTranslator } from '@/composables/translate';
 import LanguageSwitcherSelect from '@/components/form/LanguageSwitcherSelect';
 
 export default {
@@ -79,7 +78,6 @@ export default {
     const router = useRouter();
     const showLogoutWindow = ref(false);
     const sideVisible = ref(false);
-    const { translateString } = useTranslator();
     const { isMobile } = useIsMobile();
 
     function toggleLogoutWindow() {
@@ -95,7 +93,7 @@ export default {
       router.replace({ name: 'auth' });
     }
 
-    return { isMobile, sideVisible, translateString, showLogoutWindow, toggleSideVisibility, toggleLogoutWindow, logout };
+    return { isMobile, sideVisible, showLogoutWindow, toggleSideVisibility, toggleLogoutWindow, logout };
   },
 };
 </script>

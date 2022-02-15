@@ -16,7 +16,7 @@
       <LanguageSwitcherSelect />
     </div>
     <form
-      class="form m-auto"
+      class="form auth-form m-auto "
       @submit.prevent="onSubmit">
       <div class="form-item bg-light">
         <BaseInput
@@ -50,7 +50,7 @@
 import { ref, computed, reactive } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
-import { useTranslator } from '@/composables/translate';
+import { useTranslator } from '@/plugins/i18n';
 import LanguageSwitcherSelect from '@/components/form/LanguageSwitcherSelect';
 
 export default {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="title d-flex align-items-center justify-content-center">
-      <h1 class="m-4">{{translateString('archivedTasks')}} </h1>
+      <h1 class="m-4">{{$translateString('archivedTasks')}} </h1>
     </div>
     <TaskList
       v-if="!isLoading"
@@ -12,8 +12,6 @@
 <script>
 import TaskList from '@/components/tasks/TaskList';
 import { useStore } from 'vuex';
-import { useTranslator } from '@/composables/translate';
-
 import { computed, onBeforeMount } from 'vue';
 
 export default {
@@ -25,8 +23,6 @@ export default {
   setup() {
     const store = useStore();
 
-    const { translateString } = useTranslator();
-
     const isLoading = computed(() => store.getters.isLoading);
 
     const archivedTasks = computed(() => store.getters['tasks/archived']);
@@ -35,7 +31,7 @@ export default {
       store.dispatch('tasks/fetchTasks');
     });
 
-    return { isLoading, archivedTasks, translateString };
+    return { isLoading, archivedTasks };
   },
 };
 </script>

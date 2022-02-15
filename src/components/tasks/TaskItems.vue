@@ -3,20 +3,20 @@
     <BaseDialog
       :show="showDeleteWindow"
       size="small"
-      :title="translateString('deleteTaskModal')"
+      :title="$translateString('deleteTaskModal')"
       @close="toggleDeleteWindow">
       <template #actions>
         <BaseButton
           class="m-2 bg-gradient"
           variant="dark"
           @click="deleteTask">
-          {{translateString('yes')}}
+          {{ $translateString('yes')}}
         </BaseButton>
         <BaseButton
           class="m-2 bg-gradient"
           variant="danger"
           @click="toggleDeleteWindow">
-          {{translateString('no')}}
+          {{ $translateString('no')}}
         </BaseButton>
       </template>
     </BaseDialog>
@@ -33,31 +33,45 @@
     class="d-flex flex-column justify-content-evenly">
     <div class="d-flex align-items-center justify-content-between rounded-top bg-gradient bg-black">
       <div class="text-white m-3"> {{ $dayjs(task.createdAt).format('HH:mm DD.MM.YYYY') }}</div>
-      <div>
+      <div class="dropdown m-2">
         <BaseButton
-          class="m-2 bg-gradient"
-          variant="dark"
-          @click="archiveTask">
-          <fa
-            v-if="!archived"
-            class=""
-            icon="archive" />
-          <fa v-else-if="archived" icon="arrow-left" />
-        </BaseButton>
-        <BaseButton
-          v-show="!archived"
-          class="m-2  bg-gradient"
-          variant="dark"
-          @click="toggleEditForm">
-          <fa icon="pen" />
-        </BaseButton>
-        <BaseButton
-          v-show="!archived"
-          class="m-2  bg-gradient"
-          variant="dark"
-          @click="toggleDeleteWindow">
-          <fa icon="minus" />
-        </BaseButton>
+          class="btn dropdown-toggle"
+          @click="toggleDropdown" />
+        <ul
+          id="dropdownMenu2"
+          class="dropdown-menu actions-dropdown"
+          :class="{ 'show': showDropdown }">
+          <li>
+            <BaseButton
+              class="dropdown-item bg-gradient"
+              variant="dark"
+              @click="archiveTask">
+              <fa
+                v-if="!archived"
+                icon="archive" />
+              <fa v-else-if="archived" icon="arrow-left" />
+            </BaseButton>
+          </li>
+          <li><hr class="dropdown-divider"></li>
+          <li>
+            <BaseButton
+              v-show="!archived"
+              class="dropdown-item  bg-gradient"
+              variant="dark"
+              @click="toggleEditForm">
+              <fa icon="pen" />
+            </BaseButton>
+          </li>
+          <li><hr class="dropdown-divider"></li>
+          <li>
+            <BaseButton
+              class="dropdown-item bg-gradient"
+              variant="dark"
+              @click="toggleDeleteWindow">
+              <fa icon="minus" />
+            </BaseButton>
+          </li>
+        </ul>
       </div>
     </div>
 
@@ -93,7 +107,6 @@
 <script>
 import { ref } from 'vue';
 import { useStore } from 'vuex';
-import { useTranslator } from '@/composables/translate';
 import TaskForm from '@/components/tasks/TaskForm';
 import TagsList from '@/components/tags/TagsList';
 
@@ -116,17 +129,27 @@ export default {
     TagsList,
   },
   setup(props, context) {
+    const store = useStore();
+
+    const showDropdown = ref(false);
+
+    function toggleDropdown() {
+      showDropdown.value = !showDropdown.value;
+    }
+
     const showDeleteWindow = ref(false);
+
     const showEditForm = ref(false);
 
-    const showFullTask = ref(false);
-
-    const store = useStore();
-    const { translateString } = useTranslator();
+    function toggleEditForm() {
+      showEditForm.value = !showEditForm.value;
+    }
 
     function toggleDeleteWindow() {
       showDeleteWindow.value = !showDeleteWindow.value;
     }
+
+    const showFullTask = ref(false);
 
     function toggleShowFullTask() {
       showFullTask.value = !showFullTask.value;
@@ -151,11 +174,7 @@ export default {
         toggleEditForm());
     }
 
-    function toggleEditForm() {
-      showEditForm.value = !showEditForm.value;
-    }
-
-    return { showFullTask, showEditForm, showDeleteWindow, translateString, editTask, toggleShowFullTask, toggleDeleteWindow, deleteTask, toggleState, archiveTask, toggleEditForm };
+    return { showFullTask, showDropdown, showEditForm, showDeleteWindow, editTask, toggleShowFullTask, toggleDeleteWindow, deleteTask, toggleState, archiveTask, toggleEditForm, toggleDropdown };
   },
 };
 </script>

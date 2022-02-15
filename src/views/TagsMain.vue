@@ -8,8 +8,8 @@
   </BaseModal>
   <div class="tags">
     <div class="title d-flex align-items-center justify-content-center">
-      <h1 class="m-4">{{ translateString('tagsPage', 2) }} </h1>
-      <BaseButton @click="toggleTagAddForm"> <fa icon="tags" /> {{ translateString('add') }}</BaseButton>
+      <h1 class="m-4">{{ $translateString('tagsPage', 2) }} </h1>
+      <BaseButton @click="toggleTagAddForm"> <fa icon="tags" /> {{ $translateString('add') }}</BaseButton>
     </div>
     <div>
       <TagsList v-if="tags" :tags="tags" />
@@ -17,7 +17,7 @@
     <div
       v-if="tags"
       class=" d-flex flex-column align-items-center justify-content-center">
-      <label class="m-4"> {{ translateString('selectTags') }}</label>
+      <label class="m-4"> {{ $translateString('selectTags') }}</label>
       <select
         v-model="selectedTags"
         class="custom-multiselect bg-dark"
@@ -32,17 +32,17 @@
         </option>
       </select>
       <div class="mt-4 d-flex justify-content-start align-items-center">
-        <label class="mx-2"> {{ translateString('selected') }} </label>
+        <label class="mx-2"> {{ $translateString('selected') }} </label>
         <TagsList :tags="selectedTags" />
       </div>
       <BaseButton
         class="mt-4"
         @click="updateTask">
-        {{ translateString('updateTask') }}
+        {{ $translateString('updateTask') }}
       </BaseButton>
     </div>
     <template v-else>
-      <div class="d-flex align-items-center justify-content-center text-warning">{{ translateString('nothingToDisplay') }}</div>
+      <div class="d-flex align-items-center justify-content-center text-warning">{{ $translateString('nothingToDisplay') }}</div>
     </template>
   </div>
 </template>
@@ -51,7 +51,6 @@
 import TagsList from '@/components/tags/TagsList';
 import TagsForm from '@/components/tags/TagsForm';
 import { useStore } from 'vuex';
-import { useTranslator } from '@/composables/translate';
 import { useRouter, useRoute } from 'vue-router';
 
 import { ref, computed, onMounted } from 'vue';
@@ -67,16 +66,9 @@ export default {
     const router = useRouter();
     const route = useRoute();
 
-    const { translateString } = useTranslator();
-
-    const showTagAddForm = ref(false);
-
     const selectedTags = ref([]);
-
     const tags = computed(() => store.getters['tags/tags']);
-
     const isLoading = computed(() => store.getters.isLoading);
-
     const archivedTasks = computed(() => store.getters['tasks/archived']);
 
     function addTag(tag) {
@@ -95,6 +87,8 @@ export default {
       });
     }
 
+    const showTagAddForm = ref(false);
+
     function toggleTagAddForm() {
       showTagAddForm.value = !showTagAddForm.value;
     }
@@ -103,7 +97,7 @@ export default {
       store.dispatch('tags/fetchTags');
     });
 
-    return { selectedTags, tags, showTagAddForm, isLoading, archivedTasks, translateString, addTag, updateTask, toggleTagAddForm };
+    return { selectedTags, tags, showTagAddForm, isLoading, archivedTasks, addTag, updateTask, toggleTagAddForm };
   },
 };
 </script>

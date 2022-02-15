@@ -1,13 +1,18 @@
-
 import TRANSLATIONS from '@/locales/translations.json';
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 
-export function useTranslator() {
-  const store = useStore();
-  const lang = computed(() => store.getters['lang/activeLang']);
+export default {
+  install: (app, options) => {
+    const { translateString } = useTranslator();
+    app.config.globalProperties.$translateString = translateString;
+  },
+};
 
-  function translateString(string, count = 0) {
+export function useTranslator() {
+  const translateString = (string, count = 0) => {
+    const store = useStore();
+    const lang = computed(() => store.getters['lang/activeLang']);
     const arrCount = count.toString().split();
     const lastNum = +arrCount[arrCount.length - 1];
     if (Array.isArray(TRANSLATIONS[lang.value][string])) {
@@ -29,7 +34,7 @@ export function useTranslator() {
     }
 
     return TRANSLATIONS[lang.value][string];
-  }
+  };
 
   return { translateString };
 }

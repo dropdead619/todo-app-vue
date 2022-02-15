@@ -40,7 +40,7 @@
 <script>
 import { useStore } from 'vuex';
 import { ref, reactive, computed, onMounted } from 'vue';
-import { useTranslator } from '@/composables/translate';
+import { useTranslator } from '@/plugins/i18n';
 
 export default {
   name: 'TaskForm',

@@ -1,9 +1,9 @@
 <template>
   <template v-if="!!!tasks">
-    <div class="text-center text-warning">{{ translateString('nothingToDisplay') }}</div>
+    <div class="text-center text-warning">{{ $translateString('nothingToDisplay') }}</div>
   </template>
   <template v-else-if="filteredList?.length === 0">
-    <div class="text-center text-warning">{{ translateString('noMatch') }}</div>
+    <div class="text-center text-warning">{{ $translateString('noMatch') }}</div>
   </template>
   <ul class="task-list">
     <li
@@ -22,7 +22,6 @@
 
 <script>
 import TaskItems from '@/components/tasks/TaskItems';
-import { useTranslator } from '@/composables/translate';
 import { useStore } from 'vuex';
 
 import { computed } from 'vue';
@@ -40,7 +39,6 @@ export default {
   },
   setup(props) {
     const store = useStore();
-    const { translateString } = useTranslator();
 
     const tasks = computed(() => {
       return props.archived ? store.getters['tasks/archived'] : store.getters['tasks/tasks'];
@@ -76,7 +74,7 @@ export default {
       });
     }
 
-    return { tasks, filteredList, translateString, toggleState, deleteTask, archiveTask };
+    return { tasks, filteredList, toggleState, deleteTask, archiveTask };
   },
 };
 </script>
