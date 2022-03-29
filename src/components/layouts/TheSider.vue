@@ -102,7 +102,6 @@ export default {
     const toggleDark = useToggle(isDark);
 
     watch(isDark, (val) => {
-      console.log(val);
       store.commit('TOGGLE_APP_THEME', val, { root: true });
     });
 
