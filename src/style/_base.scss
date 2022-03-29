@@ -38,10 +38,6 @@ ul {
   flex-wrap: wrap;
 }
 
-.task-list-container {
-  background-image: linear-gradient(to bottom, #161616, #2d2334, #502d4d, #7b325c, #a8355f, #a8355f, #a8355f, #a8355f, #7b325c, #502d4d, #2d2334, #161616);
-}
-
 .task-list {
   max-width: 42rem;
   width: 100%;
@@ -61,8 +57,8 @@ ul {
   width: 6rem;
   height: 100vh;
   padding: 2.5rem 0.625rem;
-  background: rgb(20, 20, 20);
-  background: linear-gradient(180deg, $gray-900 73%, $red-600 100%);
+  background: $body-bg;
+  box-shadow: $theme-outline-shadow-light;
   z-index: 50;
   transition: transform 0.3s ease-out;
   @media (max-width: 850px) {
@@ -104,7 +100,7 @@ ul {
       color: $white;
     }
     &:focus {
-      box-shadow: $theme-outline-shadow-red;
+      box-shadow: $theme-outline-shadow-light;
     }
   }
 }

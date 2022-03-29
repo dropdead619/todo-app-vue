@@ -10,20 +10,19 @@ import tags from '@/store/modules/tags';
 export default createStore({
   state: {
     isLoading: false,
+    isDark: null,
   },
   mutations: {
     TOGGLE_LOADING_STATE(state) {
       state.isLoading = !state.isLoading;
     },
-
-  },
-  actions: {
-
+    TOGGLE_APP_THEME(state, payload) {
+      state.isDark = payload;
+    },
   },
   getters: {
-    isLoading(state) {
-      return state.isLoading;
-    },
+    isLoading: (state) => state.isLoading,
+    isDark: (state) => state.isDark,
   },
   modules: {
     tasks,

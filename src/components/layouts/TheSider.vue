@@ -36,10 +36,18 @@
     tabindex="1"
     @click="toggleSideVisibility"
     @keyup.enter.exact="toggleSideVisibility" />
+
   <aside class="sidebar fixed-top" :class="{'sidebar_visible': sideVisible}">
     <nav class="sidebar__nav">
       <div class="text-center">
-        <LanguageSwitcherSelect class="mb-5" />
+        <LanguageSwitcherSelect class="mb-3" />
+        <BaseButton
+          class="mb-3"
+          :variant="isDark ? 'light' : 'dark'"
+          @click="toggleDark()">
+          <IconMoon v-if="isDark" />
+          <IconSun v-else />
+        </BaseButton>
         <RouterLink
           class="sidebar__nav_link mb-2"
           :to="{ name: 'TasksMain' }">
@@ -63,15 +71,20 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import { useIsMobile } from '@/composables/isMobile';
+import { useDark, useToggle } from '@vueuse/core';
+import IconMoon from '@/components/icons/IconMoon';
+import IconSun from '@/components/icons/IconSun';
 import LanguageSwitcherSelect from '@/components/form/LanguageSwitcherSelect';
 
 export default {
   components: {
     LanguageSwitcherSelect,
+    IconMoon,
+    IconSun,
   },
   setup() {
     const store = useStore();
@@ -79,6 +92,19 @@ export default {
     const showLogoutWindow = ref(false);
     const sideVisible = ref(false);
     const { isMobile } = useIsMobile();
+
+    const isDark = useDark({
+      selector: 'body',
+      attribute: 'class',
+      valueDark: 'dark',
+      valueLight: 'light',
+    });
+    const toggleDark = useToggle(isDark);
+
+    watch(isDark, (val) => {
+      console.log(val);
+      store.commit('TOGGLE_APP_THEME', val, { root: true });
+    });
 
     function toggleLogoutWindow() {
       showLogoutWindow.value = !showLogoutWindow.value;
@@ -93,7 +119,7 @@ export default {
       router.replace({ name: 'auth' });
     }
 
-    return { isMobile, sideVisible, showLogoutWindow, toggleSideVisibility, toggleLogoutWindow, logout };
+    return { isMobile, sideVisible, showLogoutWindow, toggleSideVisibility, toggleLogoutWindow, logout, toggleDark, isDark };
   },
 };
 </script>

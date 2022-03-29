@@ -84,3 +84,10 @@ select:focus {
     border: 1px solid $white;
   }
 }
+
+.lang-select {
+  color: $white;
+  &__option {
+     background-color: $dark; 
+  }
+}

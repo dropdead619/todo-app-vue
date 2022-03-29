@@ -1,0 +1,37 @@
+.dark {
+  background-color: $body-bg;
+  color: $white;
+}
+
+.light {
+  background-color: $white;
+  color: black;
+  .btn-light {
+    border: 1px solid black;
+  }
+  .lang-select {
+    color: black;
+    &__option {
+      background-color: $white;
+    }
+  }
+  .sidebar {
+    background: $white;
+    box-shadow: $theme-outline-shadow-dark;
+    &__nav {
+      .active {
+        color: black;
+        background: $gray-300;
+      }
+    }
+    &__nav_link {
+      &:hover {
+        color: black;
+      }
+    }
+  }
+  .card {
+    background-color: $white;
+    color: black;
+  }
+}

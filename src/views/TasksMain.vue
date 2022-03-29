@@ -46,8 +46,7 @@
       </div>
     </form>
     <hr class="divider">
-    <div class="w-100 text-center">{{totalTasks}}</div>
-    <hr class="divider">
+    <div class="w-100 text-end mb-2">{{totalTasks}}</div>
   </div>
   <div class="task-list-container">
     <TaskList v-if="!isLoading" />

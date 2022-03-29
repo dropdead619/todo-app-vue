@@ -1,9 +1,9 @@
 <template>
   <BaseSelect
     v-model="lang"
-    class="text-white"
+    class="lang-select"
     :data="[{ label: 'EN', value: 'en'}, { label: 'RU', value: 'ru'},]"
-    optClass="bg-dark" />
+    optClass="lang-select__option" />
 </template>
 
 <script>
