@@ -1,11 +1,15 @@
 .dark {
   background-color: $body-bg;
   color: $white;
+  transition: .4s;
+  transition-timing-function: ease-out;
 }
 
 .light {
   background-color: $white;
   color: black;
+  transition: .4s;
+  transition-timing-function: ease-out;
   .btn-light {
     border: 1px solid black;
   }

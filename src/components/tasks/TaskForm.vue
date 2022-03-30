@@ -58,9 +58,7 @@ function onSubmit() {
   }
 }
 
-function toggleErrorDialog() {
-  showErrors.value = !showErrors.value;
-}
+const toggleErrorDialog = useToggle(showErrors);
 
 onMounted(() => {
   if (props.isEditing) {

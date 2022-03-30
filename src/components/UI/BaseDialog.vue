@@ -27,7 +27,7 @@ function close() {
     to="body">
     <BaseBackdrop
       v-if="props.show"
-      @click.self="close" />
+      @click="close" />
     <transition name="fade">
       <dialog
         v-if="props.show"

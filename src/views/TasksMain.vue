@@ -12,10 +12,14 @@ const store = useStore();
 const route = useRoute();
 const router = useRouter();
 const title = ref(route.meta.title || DEFAULT_TITLE);
-const showInput = ref(false);
-const showAddForm = ref(false);
 
 const { translateString } = useTranslator();
+
+const showInput = ref(false);
+const toggleInput = useToggle(showInput);
+
+const showAddForm = ref(false);
+const toggleAddForm = useToggle(showAddForm);
 
 const isLoading = computed(() => store.getters.isLoading);
 
@@ -46,14 +50,6 @@ watch(title, (val) => {
   document.title = val;
   route.meta.title = val;
 });
-
-function toggleInput() {
-  showInput.value = !showInput.value;
-}
-
-function toggleAddForm() {
-  showAddForm.value = !showAddForm.value;
-}
 
 function addTask(task) {
   store.dispatch('tasks/addTasks', task)

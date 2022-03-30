@@ -10,9 +10,13 @@ import IconClose from '../icons/IconClose.vue';
 
 const store = useStore();
 const router = useRouter();
-const showLogoutWindow = ref(false);
-const sideVisible = ref(false);
 const isMobile = useMediaQuery('(max-width: 850px)');
+
+const showLogoutWindow = ref(false);
+const toggleLogoutWindow = useToggle(showLogoutWindow);
+
+const sideVisible = ref(false);
+const toggleSideVisibility = useToggle(sideVisible);
 
 const isDark = useDark({
   selector: 'body',
@@ -25,14 +29,6 @@ const toggleDark = useToggle(isDark);
 watch(isDark, (val) => {
   store.commit('TOGGLE_APP_THEME', val, { root: true });
 });
-
-function toggleLogoutWindow() {
-  showLogoutWindow.value = !showLogoutWindow.value;
-}
-
-function toggleSideVisibility() {
-  sideVisible.value = !sideVisible.value;
-}
 
 function logout() {
   store.dispatch('auth/signout');

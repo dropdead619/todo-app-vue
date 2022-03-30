@@ -25,28 +25,21 @@ const emit = defineEmits(['toggleState', 'deleteTask', 'archiveTask']);
 const store = useStore();
 
 const showDropdown = ref(false);
+const toggleDropdown = useToggle(showDropdown);
+const popup = ref();
 
-function toggleDropdown() {
-  showDropdown.value = !showDropdown.value;
-}
-
-const showDeleteWindow = ref(false);
+onClickOutside(popup, () => {
+  showDropdown.value = false;
+});
 
 const showEditForm = ref(false);
+const toggleEditForm = useToggle(showEditForm);
 
-function toggleEditForm() {
-  showEditForm.value = !showEditForm.value;
-}
-
-function toggleDeleteWindow() {
-  showDeleteWindow.value = !showDeleteWindow.value;
-}
+const showDeleteWindow = ref(false);
+const toggleDeleteWindow = useToggle(showDeleteWindow);
 
 const showFullTask = ref(false);
-
-function toggleShowFullTask() {
-  showFullTask.value = !showFullTask.value;
-}
+const toggleShowFullTask = useToggle(showFullTask);
 
 function archiveTask() {
   emit('archiveTask', props.task);
@@ -103,7 +96,7 @@ function editTask(task) {
     class="d-flex flex-column justify-content-evenly">
     <div class="d-flex align-items-center justify-content-between rounded-top bg-gradient bg-black">
       <div class="text-white m-3"> {{ $dayjs(task.createdAt).format('HH:mm DD.MM.YYYY') }}</div>
-      <div class="dropdown m-2">
+      <div ref="popup" class="dropdown m-2">
         <BaseButton
           class="btn dropdown-toggle"
           @click="toggleDropdown" />

@@ -13,9 +13,7 @@ const showTagEditForm = ref(false);
 const store = useStore();
 const isLoading = computed(() => store.getters.isLoading);
 
-function toggleTagEditForm() {
-  showTagEditForm.value = !showTagEditForm.value;
-}
+const toggleTagEditForm = useToggle(showTagEditForm);
 
 function editTag(submitedTag) {
   emit('editTag', submitedTag);

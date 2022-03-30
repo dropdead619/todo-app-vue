@@ -28,10 +28,7 @@ function updateTask() {
 }
 
 const showTagAddForm = ref(false);
-
-function toggleTagAddForm() {
-  showTagAddForm.value = !showTagAddForm.value;
-}
+const toggleTagAddForm = useToggle(showTagAddForm);
 
 onMounted(function () {
   store.dispatch('tags/fetchTags');

@@ -3,7 +3,9 @@ import { useTranslator } from '@/plugins/i18n';
 import LanguageSwitcherSelect from '@/components/form/LanguageSwitcherSelect.vue';
 
 const loginMode = ref('signIn');
+
 const showErrors = ref(false);
+const toggleErrorDialog = useToggle(showErrors);
 
 const { translateString } = useTranslator();
 const errors = ref('');
@@ -26,10 +28,6 @@ const switchModeButtonText = computed(() => {
 
 function toggleMode() {
   loginMode.value = loginMode.value === 'signIn' ? 'signUp' : 'signIn';
-}
-
-function toggleErrorDialog() {
-  showErrors.value = !showErrors.value;
 }
 
 function validateForm() {

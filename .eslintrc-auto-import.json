@@ -26,6 +26,7 @@
     "onBeforeMount": true,
     "onBeforeUnmount": true,
     "onBeforeUpdate": true,
+    "onClickOutside": true,
     "onDeactivated": true,
     "onErrorCaptured": true,
     "onMounted": true,
@@ -46,6 +47,7 @@
     "toRaw": true,
     "toRef": true,
     "toRefs": true,
+    "TransitionPresets": true,
     "triggerRef": true,
     "unref": true,
     "useAttrs": true,
@@ -58,6 +60,7 @@
     "useSlots": true,
     "useStore": true,
     "useToggle": true,
+    "useTransition": true,
     "watch": true,
     "watchEffect": true
   }
