@@ -1,6 +1,16 @@
+<script setup>
+// eslint-disable-next-line no-undef
+const props = defineProps({
+  show: {
+    type: Boolean,
+    default: false,
+  },
+});
+</script>
+
 <template>
   <teleport to="body">
-    <BaseBackdrop v-if="show">
+    <BaseBackdrop v-if="props.show">
       <img
         alt="preloader"
         class="preloader"
@@ -8,17 +18,6 @@
     </BaseBackdrop>
   </teleport>
 </template>
-
-<script>
-export default {
-  props: {
-    show: {
-      type: Boolean,
-      default: false,
-    },
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 .preloader {

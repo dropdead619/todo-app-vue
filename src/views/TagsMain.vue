@@ -47,57 +47,42 @@
   </div>
 </template>
 
-<script>
-import TagsList from '@/components/tags/TagsList';
-import TagsForm from '@/components/tags/TagsForm';
-import { useStore } from 'vuex';
-import { useRouter, useRoute } from 'vue-router';
+<script setup>
+import TagsList from '@/components/tags/TagsList.vue';
+import TagsForm from '@/components/tags/TagsForm.vue';
 
-import { ref, computed, onMounted } from 'vue';
+const store = useStore();
+const router = useRouter();
+const route = useRoute();
 
-export default {
-  name: 'TagsMain',
-  components: {
-    TagsList,
-    TagsForm,
-  },
-  setup() {
-    const store = useStore();
-    const router = useRouter();
-    const route = useRoute();
+const selectedTags = ref([]);
+const tags = computed(() => store.getters['tags/tags']);
+const isLoading = computed(() => store.getters.isLoading);
 
-    const selectedTags = ref([]);
-    const tags = computed(() => store.getters['tags/tags']);
-    const isLoading = computed(() => store.getters.isLoading);
-    const archivedTasks = computed(() => store.getters['tasks/archived']);
+function addTag(tag) {
+  store.dispatch('tags/addTag', tag).then(() => {
+    toggleTagAddForm();
+    store.dispatch('tags/fetchTags');
+  });
+}
 
-    function addTag(tag) {
-      store.dispatch('tags/addTag', tag).then(() => {
-        toggleTagAddForm();
-        store.dispatch('tags/fetchTags');
-      });
-    }
+function updateTask() {
+  store.dispatch('tasks/editTask', {
+    id: route.query.taskId,
+    tags: selectedTags.value,
+  }).then(() => {
+    router.push({ name: 'TasksMain' });
+  });
+}
 
-    function updateTask() {
-      store.dispatch('tasks/editTask', {
-        id: route.query.taskId,
-        tags: selectedTags.value,
-      }).then(() => {
-        router.push({ name: 'TasksMain' });
-      });
-    }
+const showTagAddForm = ref(false);
 
-    const showTagAddForm = ref(false);
+function toggleTagAddForm() {
+  showTagAddForm.value = !showTagAddForm.value;
+}
 
-    function toggleTagAddForm() {
-      showTagAddForm.value = !showTagAddForm.value;
-    }
+onMounted(function () {
+  store.dispatch('tags/fetchTags');
+});
 
-    onMounted(function () {
-      store.dispatch('tags/fetchTags');
-    });
-
-    return { selectedTags, tags, showTagAddForm, isLoading, archivedTasks, addTag, updateTask, toggleTagAddForm };
-  },
-};
 </script>

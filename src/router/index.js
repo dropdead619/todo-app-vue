@@ -7,12 +7,12 @@ const routes = [
     meta: {
       onlyLoggedOut: true,
     },
-    component: () => import(/* webpackChunkName: "auth" */ '@/layouts/TheLayoutLogin.vue'),
+    component: () => import('@/layouts/TheLayoutLogin.vue'),
     children: [
       {
         path: '',
         name: 'auth',
-        component: () => import(/* webpackChunkName: "auth" */ '@/views/auth/LoginPage.vue'),
+        component: () => import('@/views/auth/LoginPage.vue'),
       },
     ],
   },
@@ -20,7 +20,7 @@ const routes = [
     path: '/',
     name: 'default',
     redirect: '/tasks/main',
-    component: () => import(/* webpackChunkName: "default" */ '@/layouts/TheLayoutDefault.vue'),
+    component: () => import('@/layouts/TheLayoutDefault.vue'),
     children: [
       {
         path: '/tasks',
@@ -29,12 +29,12 @@ const routes = [
           {
             path: 'main',
             name: 'TasksMain',
-            component: () => import(/* webpackChunkName: "tasks" */ '../views/TasksMain.vue'),
+            component: () => import('../views/TasksMain.vue'),
           },
           {
             path: 'archived',
             name: 'TasksArchive',
-            component: () => import(/* webpackChunkName: "tasks" */ '../views/TasksArchive.vue'),
+            component: () => import('../views/TasksArchive.vue'),
           },
         ],
       },
@@ -45,7 +45,7 @@ const routes = [
           {
             path: '',
             name: 'TagsMain',
-            component: () => import(/* webpackChunkName: "tasks" */ '../views/TagsMain.vue'),
+            component: () => import('../views/TagsMain.vue'),
           },
         ],
       },
@@ -54,7 +54,7 @@ const routes = [
   {
     path: '/:pathMatch(.*)*',
     name: 'Error404',
-    component: () => import(/* webpackChunkName: "error" */ '@/views/errors/Error404.vue'),
+    component: () => import('@/views/errors/Error404.vue'),
   },
 ];
 

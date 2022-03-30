@@ -1,3 +1,82 @@
+
+<script setup>
+import { useTranslator } from '@/plugins/i18n';
+
+const colorVariants = [
+  'primary',
+  'secondary',
+  'success',
+  'info',
+  'warning',
+  'danger',
+];
+
+// eslint-disable-next-line no-undef
+const emit = defineEmits(['submitForm', 'toggleForm', 'deleteTag']);
+
+// eslint-disable-next-line no-undef
+const props = defineProps({
+  isEditing: {
+    type: Boolean,
+    default: false,
+  },
+  tagInfo: {
+    type: [Object, Array],
+    default: null,
+  },
+});
+
+const tag = reactive({
+  id: '',
+  title: '',
+  variant: '',
+});
+
+const showErrors = ref(false);
+
+const errors = ref('');
+
+const { translateString } = useTranslator();
+
+const editBtnText = computed(() => {
+  return props.isEditing ? translateString('edit') : translateString('add');
+});
+
+function selectColor(color) {
+  tag.variant = color;
+}
+
+function onSubmit() {
+  if (tag.title === '') {
+    errors.value = translateString('cannotEmptyError');
+    toggleErrorDialog();
+    return;
+  }
+  emit('submitForm', {
+    id: props.isEditing ? tag.id : '',
+    title: tag.title,
+    variant: tag.variant,
+  });
+  if (!props.isEditing) {
+    tag.title = '';
+    tag.variant = '';
+  }
+}
+
+function toggleErrorDialog() {
+  showErrors.value = !showErrors.value;
+}
+
+onMounted(() => {
+  if (props.isEditing) {
+    tag.id = props.tagInfo.id;
+    tag.title = props.tagInfo.title;
+    tag.variant = props.tagInfo.variant;
+    selectColor(tag.variant);
+  }
+});
+</script>
+
 <template>
   <BaseDialog
     :show="showErrors"
@@ -54,92 +133,3 @@
     </div>
   </form>
 </template>
-
-<script>
-import { useStore } from 'vuex';
-import { ref, reactive, computed, onMounted } from 'vue';
-import { useTranslator } from '@/plugins/i18n';
-
-const colorVariants = [
-  'primary',
-  'secondary',
-  'success',
-  'info',
-  'warning',
-  'danger',
-];
-
-export default {
-  name: 'TagsForm',
-  props: {
-    isEditing: {
-      type: Boolean,
-      default: false,
-    },
-    tagInfo: {
-      type: [Object, Array],
-      default: null,
-    },
-  },
-  emits: ['submitForm', 'toggleForm', 'deleteTag'],
-  setup(props, context) {
-    const tag = reactive({
-      id: '',
-      title: '',
-      variant: '',
-    });
-
-    const showErrors = ref(false);
-
-    const errors = ref('');
-
-    const showInput = ref(false);
-
-    const store = useStore();
-
-    const isLoading = computed(() => store.getters.isLoading);
-
-    const { translateString } = useTranslator();
-
-    const editBtnText = computed(() => {
-      return props.isEditing ? translateString('edit') : translateString('add');
-    });
-
-    function selectColor(color) {
-      tag.variant = color;
-    }
-
-    function onSubmit() {
-      if (tag.title === '') {
-        errors.value = translateString('cannotEmptyError');
-        toggleErrorDialog();
-        return;
-      }
-      context.emit('submitForm', {
-        id: props.isEditing ? tag.id : '',
-        title: tag.title,
-        variant: tag.variant,
-      });
-      if (!props.isEditing) {
-        tag.title = '';
-        tag.variant = '';
-      }
-    }
-
-    function toggleErrorDialog() {
-      showErrors.value = !showErrors.value;
-    }
-
-    onMounted(() => {
-      if (props.isEditing) {
-        tag.id = props.tagInfo.id;
-        tag.title = props.tagInfo.title;
-        tag.variant = props.tagInfo.variant;
-        selectColor(tag.variant);
-      }
-    });
-
-    return { showErrors, colorVariants, errors, tag, showInput, isLoading, editBtnText, onSubmit, toggleErrorDialog, selectColor };
-  },
-};
-</script>

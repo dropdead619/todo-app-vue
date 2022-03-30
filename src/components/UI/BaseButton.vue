@@ -1,20 +1,17 @@
 <template>
   <button
     class="btn btn_scale"
-    :class="`btn-${variant}`">
+    :class="`btn-${props.variant}`">
     <slot></slot>
   </button>
 </template>
 
-<script>
-
-export default {
-  name: 'BaseButton',
-  props: {
-    variant: {
-      type: String,
-      default: 'light',
-    },
+<script setup>
+// eslint-disable-next-line no-undef
+const props = defineProps({
+  variant: {
+    type: String,
+    default: 'light',
   },
-};
+});
 </script>

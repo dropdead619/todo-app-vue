@@ -1,15 +1,14 @@
 module.exports = {
   root: true,
   env: {
-    node: true,
+    es2021: true,
   },
   extends: [
     'plugin:vue/vue3-essential',
     '@vue/standard',
+    './.eslintrc-auto-import.json',
   ],
-  parserOptions: {
-    parser: 'babel-eslint',
-  },
+
   rules: {
     // 'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-console': 'off',
@@ -73,7 +72,7 @@ module.exports = {
     'vue/max-attributes-per-line': [
       'error', {
         singleline: 2,
-        multiline: { max: 1, allowFirstLine: false },
+        multiline: 1,
       },
     ],
     'vue/order-in-components': ['off'],
@@ -97,6 +96,6 @@ module.exports = {
       registeredComponentsOnly: true,
     }],
     'vue/html-closing-bracket-spacing': ['error'],
-    "vue/no-multiple-template-root": 0,
+    'vue/no-multiple-template-root': 0,
   },
 };

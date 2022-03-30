@@ -1,6 +1,4 @@
 import TRANSLATIONS from '@/locales/translations.json';
-import { computed } from 'vue';
-import { useStore } from 'vuex';
 
 export default {
   install: (app, options) => {

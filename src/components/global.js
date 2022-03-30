@@ -10,6 +10,7 @@ import BaseModal from '@/components/UI/BaseModal.vue';
 import BaseTextarea from '@/components/UI/BaseTextarea.vue';
 import BaseSelect from '@/components/UI/BaseSelect.vue';
 import BaseTag from '@/components/UI/BaseTag.vue';
+import TheSider from '@/components/layouts/TheSider.vue';
 
 export function registerGlobalComponents(app) {
   app.component('fa', FontAwesomeIcon);
@@ -24,4 +25,5 @@ export function registerGlobalComponents(app) {
   app.component('BaseTextarea', BaseTextarea);
   app.component('BaseSelect', BaseSelect);
   app.component('BaseTag', BaseTag);
+  app.component('TheSider', TheSider);
 }

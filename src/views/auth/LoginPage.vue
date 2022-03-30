@@ -47,11 +47,9 @@
 </template>
 
 <script>
-import { ref, computed, reactive } from 'vue';
-import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
+
 import { useTranslator } from '@/plugins/i18n';
-import LanguageSwitcherSelect from '@/components/form/LanguageSwitcherSelect';
+import LanguageSwitcherSelect from '@/components/form/LanguageSwitcherSelect.vue';
 
 export default {
   name: 'LoginPage',

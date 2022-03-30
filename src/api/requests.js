@@ -1,6 +1,6 @@
 import store from '@/store';
 
-const baseURL = process.env.VUE_APP_SERVER_URL;
+const baseURL = import.meta.env.VITE_SERVER_URL;
 const headers = { 'Content-Type': 'application/json' };
 
 const GET = async (url, options) => {

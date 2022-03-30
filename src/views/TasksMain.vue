@@ -53,82 +53,68 @@
   </div>
 </template>
 
-<script>
-import TaskList from '@/components/tasks/TaskList';
-import TaskForm from '@/components/tasks/TaskForm';
-import { useStore } from 'vuex';
-import { useRouter, useRoute } from 'vue-router';
+<script setup>
+import TaskList from '@/components/tasks/TaskList.vue';
+import TaskForm from '@/components/tasks/TaskForm.vue';
 
 import { DEFAULT_TITLE } from '@/config/constants';
 
 import { useTranslator } from '@/plugins/i18n';
-import { ref, computed, onMounted, watch } from 'vue';
 
-export default {
-  name: 'TasksMain',
-  components: {
-    TaskList,
-    TaskForm,
+const store = useStore();
+const route = useRoute();
+const router = useRouter();
+const title = ref(route.meta.title || DEFAULT_TITLE);
+const showInput = ref(false);
+const showAddForm = ref(false);
+
+const { translateString } = useTranslator();
+
+const isLoading = computed(() => store.getters.isLoading);
+
+const taskFilter = computed({
+  get() {
+    return store.getters['search/taskTitleFilter'];
   },
-  emits: ['removeTask'],
-  setup() {
-    const store = useStore();
-    const route = useRoute();
-    const router = useRouter();
-    const title = ref(route.meta.title || DEFAULT_TITLE);
-    const showInput = ref(false);
-    const showAddForm = ref(false);
-
-    const { translateString } = useTranslator();
-
-    const isLoading = computed(() => store.getters.isLoading);
-
-    const taskFilter = computed({
-      get() {
-        return store.getters['search/taskTitleFilter'];
-      },
-      set(val) {
-        store.dispatch('search/setTaskFilter', val);
-      },
-    });
-
-    const tagFilter = computed({
-      get() {
-        return store.getters['search/tagTitleFilter'].tagFilter;
-      },
-      set(val) {
-        store.dispatch('search/setTagFilter', val);
-      },
-    });
-
-    const tasks = computed(() => store.getters['tasks/tasks']);
-    const totalTasks = computed(() => {
-      return (tasks.value?.length || 0) + ' ' + translateString('task', tasks.value?.length);
-    });
-
-    watch(title, (val) => {
-      document.title = val;
-      route.meta.title = val;
-    });
-
-    function toggleInput() {
-      showInput.value = !showInput.value;
-    }
-
-    function toggleAddForm() {
-      showAddForm.value = !showAddForm.value;
-    }
-
-    function addTask(task) {
-      store.dispatch('tasks/addTasks', task)
-        .then((res) => router.push({ name: 'TagsMain', query: { taskId: res } }));
-    }
-
-    onMounted(function () {
-      store.dispatch('tasks/fetchTasks');
-    });
-
-    return { title, totalTasks, showInput, taskFilter, tagFilter, showAddForm, isLoading, translateString, toggleInput, toggleAddForm, addTask };
+  set(val) {
+    store.dispatch('search/setTaskFilter', val);
   },
-};
+});
+
+const tagFilter = computed({
+  get() {
+    return store.getters['search/tagTitleFilter'].tagFilter;
+  },
+  set(val) {
+    store.dispatch('search/setTagFilter', val);
+  },
+});
+
+const tasks = computed(() => store.getters['tasks/tasks']);
+const totalTasks = computed(() => {
+  return (tasks.value?.length || 0) + ' ' + translateString('task', tasks.value?.length);
+});
+
+watch(title, (val) => {
+  document.title = val;
+  route.meta.title = val;
+});
+
+function toggleInput() {
+  showInput.value = !showInput.value;
+}
+
+function toggleAddForm() {
+  showAddForm.value = !showAddForm.value;
+}
+
+function addTask(task) {
+  store.dispatch('tasks/addTasks', task)
+    .then((res) => router.push({ name: 'TagsMain', query: { taskId: res } }));
+}
+
+onMounted(function () {
+  store.dispatch('tasks/fetchTasks');
+});
+
 </script>

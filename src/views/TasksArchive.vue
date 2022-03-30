@@ -9,29 +9,15 @@
   </div>
 </template>
 
-<script>
-import TaskList from '@/components/tasks/TaskList';
-import { useStore } from 'vuex';
-import { computed, onBeforeMount } from 'vue';
+<script setup>
+import TaskList from '@/components/tasks/TaskList.vue';
 
-export default {
-  name: 'TasksArchive',
-  title: 'Archived tasks',
-  components: {
-    TaskList,
-  },
-  setup() {
-    const store = useStore();
+const store = useStore();
 
-    const isLoading = computed(() => store.getters.isLoading);
+const isLoading = computed(() => store.getters.isLoading);
 
-    const archivedTasks = computed(() => store.getters['tasks/archived']);
+onBeforeMount(function () {
+  store.dispatch('tasks/fetchTasks');
+});
 
-    onBeforeMount(function () {
-      store.dispatch('tasks/fetchTasks');
-    });
-
-    return { isLoading, archivedTasks };
-  },
-};
 </script>

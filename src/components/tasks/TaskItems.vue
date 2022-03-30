@@ -1,3 +1,70 @@
+<script setup>
+
+import TaskForm from '@/components/tasks/TaskForm.vue';
+import TagsList from '@/components/tags/TagsList.vue';
+
+// eslint-disable-next-line no-undef
+const props = defineProps({
+  task: {
+    type: Object,
+    required: true,
+    default: () => {},
+  },
+  archived: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+// eslint-disable-next-line no-undef
+const emit = defineEmits(['toggleState', 'deleteTask', 'archiveTask']);
+
+const store = useStore();
+
+const showDropdown = ref(false);
+
+function toggleDropdown() {
+  showDropdown.value = !showDropdown.value;
+}
+
+const showDeleteWindow = ref(false);
+
+const showEditForm = ref(false);
+
+function toggleEditForm() {
+  showEditForm.value = !showEditForm.value;
+}
+
+function toggleDeleteWindow() {
+  showDeleteWindow.value = !showDeleteWindow.value;
+}
+
+const showFullTask = ref(false);
+
+function toggleShowFullTask() {
+  showFullTask.value = !showFullTask.value;
+}
+
+function archiveTask() {
+  emit('archiveTask', props.task);
+}
+
+function toggleState() {
+  emit('toggleState', props.task);
+}
+
+function deleteTask() {
+  emit('deleteTask', props.task.id);
+}
+
+function editTask(task) {
+  store.dispatch('tasks/editTask', task).then(() => {
+    store.dispatch('tasks/fetchTasks');
+  }).then(() =>
+    toggleEditForm());
+}
+</script>
+
 <template>
   <div>
     <BaseDialog
@@ -103,78 +170,3 @@
     </div>
   </div>
 </template>
-
-<script>
-import { ref } from 'vue';
-import { useStore } from 'vuex';
-import TaskForm from '@/components/tasks/TaskForm';
-import TagsList from '@/components/tags/TagsList';
-
-export default {
-  name: 'TaskItems',
-  props: {
-    task: {
-      type: Object,
-      required: true,
-      default: () => {},
-    },
-    archived: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ['toggleState', 'deleteTask', 'archiveTask'],
-  components: {
-    TaskForm,
-    TagsList,
-  },
-  setup(props, context) {
-    const store = useStore();
-
-    const showDropdown = ref(false);
-
-    function toggleDropdown() {
-      showDropdown.value = !showDropdown.value;
-    }
-
-    const showDeleteWindow = ref(false);
-
-    const showEditForm = ref(false);
-
-    function toggleEditForm() {
-      showEditForm.value = !showEditForm.value;
-    }
-
-    function toggleDeleteWindow() {
-      showDeleteWindow.value = !showDeleteWindow.value;
-    }
-
-    const showFullTask = ref(false);
-
-    function toggleShowFullTask() {
-      showFullTask.value = !showFullTask.value;
-    }
-
-    function archiveTask() {
-      context.emit('archiveTask', props.task);
-    }
-
-    function toggleState() {
-      context.emit('toggleState', props.task);
-    }
-
-    function deleteTask() {
-      context.emit('deleteTask', props.task.id);
-    }
-
-    function editTask(task) {
-      store.dispatch('tasks/editTask', task).then(() => {
-        store.dispatch('tasks/fetchTasks');
-      }).then(() =>
-        toggleEditForm());
-    }
-
-    return { showFullTask, showDropdown, showEditForm, showDeleteWindow, editTask, toggleShowFullTask, toggleDeleteWindow, deleteTask, toggleState, archiveTask, toggleEditForm, toggleDropdown };
-  },
-};
-</script>

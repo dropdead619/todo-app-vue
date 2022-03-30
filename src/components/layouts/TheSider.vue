@@ -1,3 +1,41 @@
+<script setup>
+import IconMoon from '@/components/icons/IconMoon.vue';
+import IconSun from '@/components/icons/IconSun.vue';
+import LanguageSwitcherSelect from '@/components/form/LanguageSwitcherSelect.vue';
+
+const store = useStore();
+const router = useRouter();
+const showLogoutWindow = ref(false);
+const sideVisible = ref(false);
+const isMobile = useMediaQuery('(max-width: 850px)');
+
+const isDark = useDark({
+  selector: 'body',
+  attribute: 'class',
+  valueDark: 'dark',
+  valueLight: 'light',
+});
+const toggleDark = useToggle(isDark);
+
+watch(isDark, (val) => {
+  store.commit('TOGGLE_APP_THEME', val, { root: true });
+});
+
+function toggleLogoutWindow() {
+  showLogoutWindow.value = !showLogoutWindow.value;
+}
+
+function toggleSideVisibility() {
+  sideVisible.value = !sideVisible.value;
+}
+
+function logout() {
+  store.dispatch('auth/signout');
+  router.replace({ name: 'auth' });
+}
+
+</script>
+
 <template>
   <BaseDialog
     :show="showLogoutWindow"
@@ -69,55 +107,3 @@
     </nav>
   </aside>
 </template>
-
-<script>
-import { ref, watch } from 'vue';
-import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
-import { useDark, useToggle, useMediaQuery } from '@vueuse/core';
-import IconMoon from '@/components/icons/IconMoon';
-import IconSun from '@/components/icons/IconSun';
-import LanguageSwitcherSelect from '@/components/form/LanguageSwitcherSelect';
-
-export default {
-  components: {
-    LanguageSwitcherSelect,
-    IconMoon,
-    IconSun,
-  },
-  setup() {
-    const store = useStore();
-    const router = useRouter();
-    const showLogoutWindow = ref(false);
-    const sideVisible = ref(false);
-    const isMobile = useMediaQuery('(max-width: 850px)');
-
-    const isDark = useDark({
-      selector: 'body',
-      attribute: 'class',
-      valueDark: 'dark',
-      valueLight: 'light',
-    });
-    const toggleDark = useToggle(isDark);
-
-    watch(isDark, (val) => {
-      store.commit('TOGGLE_APP_THEME', val, { root: true });
-    });
-
-    function toggleLogoutWindow() {
-      showLogoutWindow.value = !showLogoutWindow.value;
-    }
-
-    function toggleSideVisibility() {
-      sideVisible.value = !sideVisible.value;
-    }
-
-    function logout() {
-      store.dispatch('auth/signout');
-      router.replace({ name: 'auth' });
-    }
-
-    return { isMobile, sideVisible, showLogoutWindow, toggleSideVisibility, toggleLogoutWindow, logout, toggleDark, isDark };
-  },
-};
-</script>
