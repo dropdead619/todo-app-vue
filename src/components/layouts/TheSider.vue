@@ -74,8 +74,7 @@
 import { ref, watch } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
-import { useIsMobile } from '@/composables/isMobile';
-import { useDark, useToggle } from '@vueuse/core';
+import { useDark, useToggle, useMediaQuery } from '@vueuse/core';
 import IconMoon from '@/components/icons/IconMoon';
 import IconSun from '@/components/icons/IconSun';
 import LanguageSwitcherSelect from '@/components/form/LanguageSwitcherSelect';
@@ -91,7 +90,7 @@ export default {
     const router = useRouter();
     const showLogoutWindow = ref(false);
     const sideVisible = ref(false);
-    const { isMobile } = useIsMobile();
+    const isMobile = useMediaQuery('(max-width: 850px)');
 
     const isDark = useDark({
       selector: 'body',
