@@ -110,7 +110,7 @@ onMounted(function () {
       </div>
     </form>
     <hr class="divider">
-    <div class="w-100 text-end mb-2">{{totalTasks}}</div>
+    <div class="text-end mb-2 px-2">{{totalTasks}}</div>
   </div>
   <div class="task-list-container">
     <TaskList v-if="!isLoading" />
