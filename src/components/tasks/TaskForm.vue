@@ -1,6 +1,4 @@
-
 <script setup>
-
 import { useTranslator } from '@/plugins/i18n';
 
 const emit = defineEmits(['submitForm']);

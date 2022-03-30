@@ -1,3 +1,16 @@
+<script setup>
+const store = useStore();
+
+const lang = computed({
+  get() {
+    return store.getters['lang/activeLang'];
+  },
+  set(val) {
+    store.dispatch('lang/setLanguage', val);
+  },
+});
+</script>
+
 <template>
   <BaseSelect
     v-model="lang"
@@ -5,23 +18,3 @@
     :data="[{ label: 'EN', value: 'en'}, { label: 'RU', value: 'ru'},]"
     optClass="lang-select__option" />
 </template>
-
-<script>
-
-export default {
-  setup() {
-    const store = useStore();
-
-    const lang = computed({
-      get() {
-        return store.getters['lang/activeLang'];
-      },
-      set(val) {
-        store.dispatch('lang/setLanguage', val);
-      },
-    });
-
-    return { lang };
-  },
-};
-</script>

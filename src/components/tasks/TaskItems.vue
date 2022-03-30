@@ -1,5 +1,4 @@
 <script setup>
-
 import TaskForm from '@/components/tasks/TaskForm.vue';
 import TagsList from '@/components/tags/TagsList.vue';
 import IconBack from '../icons/IconBack.vue';

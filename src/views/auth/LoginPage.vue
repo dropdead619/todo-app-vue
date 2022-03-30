@@ -1,3 +1,64 @@
+<script setup>
+import { useTranslator } from '@/plugins/i18n';
+import LanguageSwitcherSelect from '@/components/form/LanguageSwitcherSelect.vue';
+
+const loginMode = ref('signIn');
+const showErrors = ref(false);
+
+const { translateString } = useTranslator();
+const errors = ref('');
+
+const store = useStore();
+const router = useRouter();
+
+const user = reactive({
+  email: '',
+  password: '',
+});
+
+const loginModeName = computed(() => {
+  return loginMode.value === 'signIn' ? translateString('signIn') : translateString('signUp');
+});
+
+const switchModeButtonText = computed(() => {
+  return loginMode.value === 'signIn' ? translateString('noAccount') : translateString('haveAccount');
+});
+
+function toggleMode() {
+  loginMode.value = loginMode.value === 'signIn' ? 'signUp' : 'signIn';
+}
+
+function toggleErrorDialog() {
+  showErrors.value = !showErrors.value;
+}
+
+function validateForm() {
+  errors.value = '';
+  if (user.password.length < 6 || user.email === '' || user.password === '') {
+    errors.value = 'Incorrect login or password';
+    toggleErrorDialog();
+  }
+}
+
+async function onSubmit() {
+  validateForm();
+  if (errors.value) return;
+
+  try {
+    if (loginMode.value === 'signUp') {
+      await store.dispatch('auth/signup', user);
+    } else {
+      await store.dispatch('auth/signin', user);
+    }
+  } catch (error) {
+    errors.value = error;
+    toggleErrorDialog();
+    return;
+  }
+  router.push({ name: 'TasksMain' });
+}
+</script>
+
 <template>
   <div>
     <BaseDialog
@@ -45,75 +106,3 @@
     </form>
   </div>
 </template>
-
-<script>
-
-import { useTranslator } from '@/plugins/i18n';
-import LanguageSwitcherSelect from '@/components/form/LanguageSwitcherSelect.vue';
-
-export default {
-  name: 'LoginPage',
-  components: {
-    LanguageSwitcherSelect,
-  },
-  setup() {
-    const loginMode = ref('signIn');
-    const showErrors = ref(false);
-
-    const { translateString } = useTranslator();
-    const errors = ref('');
-
-    const store = useStore();
-    const router = useRouter();
-
-    const user = reactive({
-      email: '',
-      password: '',
-    });
-
-    const loginModeName = computed(() => {
-      return loginMode.value === 'signIn' ? translateString('signIn') : translateString('signUp');
-    });
-
-    const switchModeButtonText = computed(() => {
-      return loginMode.value === 'signIn' ? translateString('noAccount') : translateString('haveAccount');
-    });
-
-    function toggleMode() {
-      loginMode.value = loginMode.value === 'signIn' ? 'signUp' : 'signIn';
-    }
-
-    function toggleErrorDialog() {
-      showErrors.value = !showErrors.value;
-    }
-
-    function validateForm() {
-      errors.value = '';
-      if (user.password.length < 6 || user.email === '' || user.password === '') {
-        errors.value = 'Incorrect login or password';
-        toggleErrorDialog();
-      }
-    }
-
-    async function onSubmit() {
-      validateForm();
-      if (errors.value) return;
-
-      try {
-        if (loginMode.value === 'signUp') {
-          await store.dispatch('auth/signup', user);
-        } else {
-          await store.dispatch('auth/signin', user);
-        }
-      } catch (error) {
-        errors.value = error;
-        toggleErrorDialog();
-        return;
-      }
-      router.push({ name: 'TasksMain' });
-    }
-
-    return { user, errors, showErrors, loginModeName, switchModeButtonText, translateString, toggleErrorDialog, onSubmit, toggleMode };
-  },
-};
-</script>

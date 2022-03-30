@@ -1,4 +1,3 @@
-
 <script setup>
 import { useTranslator } from '@/plugins/i18n';
 

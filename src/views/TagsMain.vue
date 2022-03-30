@@ -1,3 +1,44 @@
+<script setup>
+import TagsList from '@/components/tags/TagsList.vue';
+import TagsForm from '@/components/tags/TagsForm.vue';
+import IconTag from '../components/icons/IconTag.vue';
+
+const store = useStore();
+const router = useRouter();
+const route = useRoute();
+
+const selectedTags = ref([]);
+const tags = computed(() => store.getters['tags/tags']);
+const isLoading = computed(() => store.getters.isLoading);
+
+function addTag(tag) {
+  store.dispatch('tags/addTag', tag).then(() => {
+    toggleTagAddForm();
+    store.dispatch('tags/fetchTags');
+  });
+}
+
+function updateTask() {
+  store.dispatch('tasks/editTask', {
+    id: route.query.taskId,
+    tags: selectedTags.value,
+  }).then(() => {
+    router.push({ name: 'TasksMain' });
+  });
+}
+
+const showTagAddForm = ref(false);
+
+function toggleTagAddForm() {
+  showTagAddForm.value = !showTagAddForm.value;
+}
+
+onMounted(function () {
+  store.dispatch('tags/fetchTags');
+});
+
+</script>
+
 <template>
   <BaseModal
     :show="showTagAddForm && !isLoading"
@@ -46,44 +87,3 @@
     </template>
   </div>
 </template>
-
-<script setup>
-import TagsList from '@/components/tags/TagsList.vue';
-import TagsForm from '@/components/tags/TagsForm.vue';
-import IconTag from '../components/icons/IconTag.vue';
-
-const store = useStore();
-const router = useRouter();
-const route = useRoute();
-
-const selectedTags = ref([]);
-const tags = computed(() => store.getters['tags/tags']);
-const isLoading = computed(() => store.getters.isLoading);
-
-function addTag(tag) {
-  store.dispatch('tags/addTag', tag).then(() => {
-    toggleTagAddForm();
-    store.dispatch('tags/fetchTags');
-  });
-}
-
-function updateTask() {
-  store.dispatch('tasks/editTask', {
-    id: route.query.taskId,
-    tags: selectedTags.value,
-  }).then(() => {
-    router.push({ name: 'TasksMain' });
-  });
-}
-
-const showTagAddForm = ref(false);
-
-function toggleTagAddForm() {
-  showTagAddForm.value = !showTagAddForm.value;
-}
-
-onMounted(function () {
-  store.dispatch('tags/fetchTags');
-});
-
-</script>
