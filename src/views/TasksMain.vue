@@ -21,12 +21,12 @@
       <BaseButton
         class="m-2"
         @click="toggleInput">
-        <fa icon="edit" />
+        <IconEdit />
       </BaseButton>
       <BaseButton
         class="m-2"
         @click="toggleAddForm">
-        <fa icon="plus" />
+        <IconAdd />
       </BaseButton>
     </div>
     <form class="mx-3 d-flex align-items-center">
@@ -60,6 +60,8 @@ import TaskForm from '@/components/tasks/TaskForm.vue';
 import { DEFAULT_TITLE } from '@/config/constants';
 
 import { useTranslator } from '@/plugins/i18n';
+import IconEdit from '../components/icons/IconEdit.vue';
+import IconAdd from '../components/icons/IconAdd.vue';
 
 const store = useStore();
 const route = useRoute();

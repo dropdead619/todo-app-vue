@@ -1,5 +1,5 @@
 <script setup>
-// eslint-disable-next-line no-undef
+
 const props = defineProps({
   show: {
     type: Boolean,

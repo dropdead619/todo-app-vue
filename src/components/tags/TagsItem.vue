@@ -1,7 +1,6 @@
 <script setup>
 import TagsForm from '@/components/tags/TagsForm.vue';
 
-// eslint-disable-next-line no-undef
 const props = defineProps({
   tag: {
     type: [Array, Object],
@@ -9,7 +8,6 @@ const props = defineProps({
   },
 });
 
-// eslint-disable-next-line no-undef
 const emit = defineEmits(['editTag', 'deleteTag']);
 const showTagEditForm = ref(false);
 const store = useStore();

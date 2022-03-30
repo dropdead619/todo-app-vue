@@ -3,10 +3,8 @@
 
 import { useTranslator } from '@/plugins/i18n';
 
-// eslint-disable-next-line no-undef
 const emit = defineEmits(['submitForm']);
 
-// eslint-disable-next-line no-undef
 const props = defineProps({
   isEditing: {
     type: Boolean,

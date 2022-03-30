@@ -9,7 +9,7 @@
   <div class="tags">
     <div class="title d-flex align-items-center justify-content-center">
       <h1 class="m-4">{{ $translateString('tagsPage', 2) }} </h1>
-      <BaseButton @click="toggleTagAddForm"> <fa icon="tags" /> {{ $translateString('add') }}</BaseButton>
+      <BaseButton @click="toggleTagAddForm"> <IconTag /> {{ $translateString('add') }}</BaseButton>
     </div>
     <div>
       <TagsList v-if="tags" :tags="tags" />
@@ -50,6 +50,7 @@
 <script setup>
 import TagsList from '@/components/tags/TagsList.vue';
 import TagsForm from '@/components/tags/TagsForm.vue';
+import IconTag from '../components/icons/IconTag.vue';
 
 const store = useStore();
 const router = useRouter();

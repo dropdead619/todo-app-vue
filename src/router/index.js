@@ -53,8 +53,8 @@ const routes = [
   },
   {
     path: '/:pathMatch(.*)*',
-    name: 'Error404',
-    component: () => import('@/views/errors/Error404.vue'),
+    name: 'ErrorPage404',
+    component: () => import('@/views/errors/ErrorPage404.vue'),
   },
 ];
 

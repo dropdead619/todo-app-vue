@@ -1,7 +1,6 @@
 <script setup>
 import TagsItem from '@/components/tags/TagsItem.vue';
 
-// eslint-disable-next-line no-undef
 const props = defineProps({
   tags: {
     type: [Array, Object],

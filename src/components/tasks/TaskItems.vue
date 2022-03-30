@@ -2,8 +2,13 @@
 
 import TaskForm from '@/components/tasks/TaskForm.vue';
 import TagsList from '@/components/tags/TagsList.vue';
+import IconBack from '../icons/IconBack.vue';
+import IconEdit from '../icons/IconEdit.vue';
+import IconDelete from '../icons/IconDelete.vue';
+import IconCheck from '../icons/IconCheck.vue';
+import IconMinus from '../icons/IconMinus.vue';
+import IconArchive from '../icons/IconArchive.vue';
 
-// eslint-disable-next-line no-undef
 const props = defineProps({
   task: {
     type: Object,
@@ -16,7 +21,6 @@ const props = defineProps({
   },
 });
 
-// eslint-disable-next-line no-undef
 const emit = defineEmits(['toggleState', 'deleteTask', 'archiveTask']);
 
 const store = useStore();
@@ -113,10 +117,9 @@ function editTask(task) {
               class="dropdown-item bg-gradient"
               variant="dark"
               @click="archiveTask">
-              <fa
-                v-if="!archived"
-                icon="archive" />
-              <fa v-else-if="archived" icon="arrow-left" />
+              <IconArchive
+                v-if="!archived" />
+              <IconBack v-else-if="archived" />
             </BaseButton>
           </li>
           <li><hr class="dropdown-divider"></li>
@@ -126,7 +129,7 @@ function editTask(task) {
               class="dropdown-item  bg-gradient"
               variant="dark"
               @click="toggleEditForm">
-              <fa icon="pen" />
+              <IconEdit />
             </BaseButton>
           </li>
           <li><hr class="dropdown-divider"></li>
@@ -135,7 +138,7 @@ function editTask(task) {
               class="dropdown-item bg-gradient"
               variant="dark"
               @click="toggleDeleteWindow">
-              <fa icon="minus" />
+              <IconDelete />
             </BaseButton>
           </li>
         </ul>
@@ -147,8 +150,8 @@ function editTask(task) {
         :checked="task.isDone"
         :disabled="archived"
         @toggle="toggleState">
-        <fa v-if="task.isDone" icon="check" />
-        <fa v-else icon="minus" />
+        <IconCheck v-if="task.isDone" />
+        <IconMinus v-else icon="minus" />
       </BaseCheckbox>
       <div class="card-body w-75">
         <h5 class="card-title">{{ task.title }}</h5>

@@ -1,4 +1,3 @@
-import FontAwesomeIcon from '@/plugins/fontAwesome';
 import BaseCheckbox from '@/components/UI/BaseCheckbox.vue';
 import BaseInput from '@/components/UI/BaseInput.vue';
 import BaseBackdrop from '@/components/UI/BaseBackdrop.vue';
@@ -13,7 +12,6 @@ import BaseTag from '@/components/UI/BaseTag.vue';
 import TheSider from '@/components/layouts/TheSider.vue';
 
 export function registerGlobalComponents(app) {
-  app.component('fa', FontAwesomeIcon);
   app.component('BaseCheckbox', BaseCheckbox);
   app.component('BaseInput', BaseInput);
   app.component('BaseBackdrop', BaseBackdrop);

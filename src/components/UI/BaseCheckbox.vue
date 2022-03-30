@@ -1,7 +1,7 @@
 <template>
   <label
     class="custom-checkbox"
-    :class="props.checked ? 'btn-success' : 'btn-outline-danger'"
+    :class="props.checked ? 'text-success' : 'text-danger'"
     tabindex="0"
     @keyup.enter="toggleCheckbox">
     <input
@@ -21,9 +21,9 @@ export default {
 </script>
 
 <script setup>
-// eslint-disable-next-line no-undef
+
 const emit = defineEmits(['toggle']);
-// eslint-disable-next-line no-undef
+
 const props = defineProps({
   checked: {
     type: Boolean,

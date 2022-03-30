@@ -1,5 +1,5 @@
 <script setup>
-// eslint-disable-next-line no-undef
+
 const props = defineProps({
   modelValue: {
     type: String,
@@ -14,7 +14,7 @@ const props = defineProps({
     default: '',
   },
 });
-// eslint-disable-next-line no-undef
+
 const emit = defineEmits(['update:modelValue']);
 </script>
 

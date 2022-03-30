@@ -11,10 +11,8 @@ const colorVariants = [
   'danger',
 ];
 
-// eslint-disable-next-line no-undef
 const emit = defineEmits(['submitForm', 'toggleForm', 'deleteTag']);
 
-// eslint-disable-next-line no-undef
 const props = defineProps({
   isEditing: {
     type: Boolean,

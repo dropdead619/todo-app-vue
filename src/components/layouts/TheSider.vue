@@ -2,6 +2,11 @@
 import IconMoon from '@/components/icons/IconMoon.vue';
 import IconSun from '@/components/icons/IconSun.vue';
 import LanguageSwitcherSelect from '@/components/form/LanguageSwitcherSelect.vue';
+import IconHome from '../icons/IconHome.vue';
+import IconArchive from '../icons/IconArchive.vue';
+import IconUser from '../icons/IconUser.vue';
+import IconHamburger from '../icons/IconHamburger.vue';
+import IconClose from '../icons/IconClose.vue';
 
 const store = useStore();
 const router = useRouter();
@@ -57,19 +62,17 @@ function logout() {
       </BaseButton>
     </template>
   </BaseDialog>
-  <fa
+  <IconHamburger
     v-if="!sideVisible && isMobile"
     class="m-2 position-fixed h3 pointer"
-    icon="hamburger"
     style="z-index: 1000"
     tabindex="1"
     @click="toggleSideVisibility"
     @keyup.enter.exact="toggleSideVisibility" />
 
-  <fa
+  <IconClose
     v-else-if="sideVisible && isMobile"
     class="m-2 position-fixed h5 pointer"
-    icon="times"
     style="z-index: 1000"
     tabindex="1"
     @click="toggleSideVisibility"
@@ -89,12 +92,12 @@ function logout() {
         <RouterLink
           class="sidebar__nav_link mb-2"
           :to="{ name: 'TasksMain' }">
-          <fa class="mb-1" icon="home" /> {{ $translateString('mainPage')}}
+          <IconHome class="mb-1" /> {{ $translateString('mainPage')}}
         </RouterLink>
         <RouterLink
           class="sidebar__nav_link  mb-2"
           :to="{ name: 'TasksArchive' }">
-          <fa class="mb-1" icon="archive" /> {{ $translateString('archivedPage')}}
+          <IconArchive class="mb-1" /> {{ $translateString('archivedPage')}}
         </RouterLink>
       </div>
       <span
@@ -102,7 +105,7 @@ function logout() {
         role="button"
         tabindex="0"
         @click="toggleLogoutWindow">
-        <fa class="mb-1" icon="user" /> {{ $translateString('logout')}}
+        <IconUser class="mb-1" /> {{ $translateString('logout')}}
       </span>
     </nav>
   </aside>

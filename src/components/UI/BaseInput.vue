@@ -6,10 +6,9 @@ export default {
 </script>
 
 <script setup>
-// eslint-disable-next-line no-undef
+
 const emit = defineEmits(['update:modelValue']);
 
-// eslint-disable-next-line no-undef
 const props = defineProps({
   label: {
     type: String,

@@ -1,7 +1,6 @@
 <script setup>
 import TaskItems from '@/components/tasks/TaskItems.vue';
 
-// eslint-disable-next-line no-undef
 const props = defineProps({
   archived: {
     type: Boolean,

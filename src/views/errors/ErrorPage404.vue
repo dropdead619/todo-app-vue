@@ -4,10 +4,3 @@
     <RouterLink :to="{ name: 'default' }"> To main page </RouterLink>
   </BaseCard>
 </template>
-
-<script>
-export default {
-  name: 'Error404',
-  setup() {},
-};
-</script>
